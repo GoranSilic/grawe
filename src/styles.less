@@ -1,0 +1,273 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Gotham-Book';
+  src: url('assets/fonts/Gotham-Book.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-Book.woff') format('woff'), url('assets/fonts/Gotham-Book.ttf')  format('truetype'), url('assets/fonts/Gotham-Book.svg#Gotham-Book') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Light';
+  src: url('assets/fonts/Gotham-Light.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-Light.woff') format('woff'), url('assets/fonts/Gotham-Light.ttf')  format('truetype'), url('assets/fonts/Gotham-Light.svg#Gotham-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Bold';
+  src: url('assets/fonts/Gotham-Bold.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-Bold.woff') format('woff'), url('assets/fonts/Gotham-Bold.ttf')  format('truetype'), url('assets/fonts/Gotham-Bold.svg#Gotham-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Black';
+  src: url('assets/fonts/Gotham-Black.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-Black.otf')  format('opentype'),
+  url('assets/fonts/Gotham-Black.woff') format('woff'), url('assets/fonts/Gotham-Black.ttf')  format('truetype'), url('assets/fonts/Gotham-Black.svg#Gotham-Black') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-LightItalic';
+  src: url('assets/fonts/Gotham-LightItalic.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-LightItalic.woff') format('woff'), url('assets/fonts/Gotham-LightItalic.ttf')  format('truetype'), url('assets/fonts/Gotham-LightItalic.svg#Gotham-LightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Thin';
+  src: url('assets/fonts/Gotham-Thin.eot?#iefix') format('embedded-opentype'),  url('assets/fonts/Gotham-Thin.otf')  format('opentype'),
+  url('assets/fonts/Gotham-Thin.woff') format('woff'), url('assets/fonts/Gotham-Thin.ttf')  format('truetype'), url('assets/fonts/Gotham-Thin.svg#Gotham-Thin') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-size: 18px;
+  font-family: 'Gotham-Book', sans-serif;
+  color: #fff;
+  background: url("assets/images/main-bck.jpg") 0 0 no-repeat;
+  background-size: cover;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 65px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: 'Gotham-Bold', sans-serif;
+  box-shadow: 0 2px 20px 5px rgba(0, 0, 0, 0.15);
+  color: #000;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    box-shadow: none;
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+.form-item {
+  margin-bottom: 20px;
+
+  .label {
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+  }
+
+  .item-value {
+    font-size: 14px;
+    font-family: 'Gotham-Bold', sans-serif;
+  }
+
+  .custom-select {
+    position: relative;
+
+    .selected-value {
+      display: flex;
+      align-items: center;
+      height: 60px;
+      padding: 0 40px 0 30px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      cursor: pointer;
+      box-shadow: 0 2px 50px rgba(0, 0, 0, 0.15);
+      font-size: 14px;
+      font-family: 'Gotham-Bold', sans-serif;
+      background-color: rgba(255, 255, 255, .15);
+    }
+
+    .fas {
+      position: absolute;
+      top: 24px;
+      right: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .custom-dropdown {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      padding: 0 30px;
+      border-radius: 5px;
+      background-color: #fff;
+      z-index: 1;
+
+      .drop-item {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        border-bottom: 1px solid #ebebeb;
+        font-size: 14px;
+        font-family: 'Gotham-Bold', sans-serif;
+        color: #00854a;
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .custom-checkbox {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, .3);
+    cursor: pointer;
+    box-shadow: 0 2px 50px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, .15);
+
+    i {
+      display: none;
+      line-height: 25px;
+      text-align: center;
+      font-size: 14px;
+      color: #000;
+    }
+
+    &.selected {
+      background-color: #fff;
+
+      i {
+        display: block;
+      }
+    }
+  }
+
+  .label {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+
+    &.strong {
+      text-transform: none;
+      letter-spacing: normal;
+      font-size: 14px;
+      font-family: 'Gotham-Bold', sans-serif;
+    }
+  }
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .custom-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .3);
+    cursor: pointer;
+    box-shadow: 0 2px 50px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, .15);
+
+    .circle {
+      display: none;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+
+    &.selected {
+      border-color: #000;
+      background-color: #000;
+
+      .circle {
+        display: block;
+      }
+    }
+  }
+
+  .label {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'Gotham-Bold', sans-serif;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 91, 51, .95);
+  z-index: 2;
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 410px;
+    padding: 45px;
+    font-size: 14px;
+    color: #000;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+
+    h2 {
+      margin-bottom: 50px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+      color: #00854a;
+    }
+
+    ul {
+      padding-left: 15px;
+
+      li {
+        margin-bottom: 30px;
+        line-height: 22px;
+      }
+    }
+  }
+}

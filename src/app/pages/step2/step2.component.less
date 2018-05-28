@@ -1,0 +1,121 @@
+.step2-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  height: ~"calc(80vh - 200px)";
+  margin: 20vh auto 0;
+  background: url("../../../assets/images/suitcase.png") 0 70% no-repeat;
+  background-size: 20%;
+
+  &::before {
+    content: '';
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .info {
+    width: 33%;
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      font-family: 'Gotham-Black', sans-serif;
+      color: #fff;
+
+      &.light {
+        font-family: 'Gotham-Light', sans-serif;
+        opacity: .2;
+      }
+    }
+
+    h2 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-family: 'Gotham-Light', sans-serif;
+      color: #fff;
+    }
+  }
+
+  .step-num {
+    font-size: 327px;
+    font-family: 'Gotham-Thin', sans-serif;
+    color: #2c9946;
+  }
+
+  .steps {
+    order: 2;
+    align-self: flex-end;
+  }
+
+  button {
+    order: 2;
+    align-self: flex-end;
+    border-top-left-radius: 0;
+  }
+
+  .coverage-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: space-between;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    .coverage-box {
+      position: relative;
+      width: 240px;
+      margin: 0 7px;
+      padding: 40px;
+      background-color: #35994f;
+
+      &.active {
+        background-color: #008248;
+      }
+
+      &.wider {
+        width: 300px;
+      }
+
+      &:first-of-type {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-of-type {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      .info {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 25px;
+        height: 25px;
+        line-height: 23px;
+        border-radius: 50%;
+        text-align: center;
+        background-color: #5ff987;
+        cursor: pointer;
+
+        i {
+          font-size: 14px;
+          color: #35994f;
+        }
+
+        &:hover {
+          background-color: #000;
+
+          i {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+<div class="step2-wrapper">
+  <div class="info">
+    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <br>
+    <h2>drugi korak</h2>
+    <h1>Pregled i odabir pokrića</h1>
+    <p>
+      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
+      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+    </p>
+  </div>
+
+  <div class="step-num">.02</div>
+
+  <div class="steps">steps</div>
+
+  <button routerLink="/step3">sledeći korak</button>
+
+  <div class="coverage-wrapper">
+    <div class="coverage-box" [ngClass]="{'active': travel}">
+      <div class="info" (click)="travelModal = true">
+        <i class="fas fa-question"></i>
+      </div>
+      <div class="radio-item">
+        <div class="custom-radio" [ngClass]="{'selected': travel}" (click)="toggleTravel()">
+          <div class="circle"></div>
+        </div>
+        <div class="label">travel</div>
+      </div>
+      <div class="form-item">
+        <div class="label">osigurana suma</div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': insuredSum}" (click)="toggleInsuredSum()">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label strong">12.000 eur</div>
+      </div>
+      <div class="form-item">
+        <div class="label">premija</div>
+        <div class="item-value">1.200 EUR</div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': bonus}" (click)="toggleBonus()">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label strong">36.000 eur</div>
+      </div>
+      <div class="form-item">
+        <div class="label">premija</div>
+        <div class="item-value">3.000 EUR</div>
+      </div>
+    </div>
+    <div class="coverage-box" [ngClass]="{'active': travelStar, 'wider': cancellation}">
+      <div class="info">
+        <i class="fas fa-question"></i>
+      </div>
+      <div class="radio-item">
+        <div class="custom-radio" [ngClass]="{'selected': travelStar}" (click)="toggleTravelStar()">
+          <div class="circle"></div>
+        </div>
+        <div class="label">travel star</div>
+      </div>
+      <div class="form-item">
+        <div class="label">osigurana suma</div>
+        <div class="item-value">120.000 EUR</div>
+      </div>
+      <div class="form-item">
+        <div class="label">premija</div>
+        <div class="item-value">1.200 EUR</div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': cancellation}" (click)="toggleCancellation()">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label strong">Otkaz Putovanja</div>
+      </div>
+      <div class="form-item" *ngIf="cancellation">
+        <div class="label">datum kupovine aranžmana</div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showDayDrop">
+            <div class="drop-item" (click)="selectInsuranceDay($event)">01</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="travelModal">
+  <div class="modal">
+    <h2>travel pokriće</h2>
+
+    <ul>
+      <li>
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom
+      </li>
+      <li>
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne
+      </li>
+      <li>
+        Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koja su
+        neočekivano postala akutna
+      </li>
+      <li>
+        Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
+        održavanja sahrane
+      </li>
+    </ul>
+  </div>
+</div>

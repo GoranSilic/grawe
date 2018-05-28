@@ -1,0 +1,74 @@
+<div class="step1-wrapper">
+  <div class="info">
+    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <br>
+    <h2>prvi korak</h2>
+    <h1>Osnovni podaci</h1>
+    <p>
+      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
+      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+    </p>
+  </div>
+
+  <div class="step-num">.01</div>
+
+  <div class="steps">steps</div>
+
+  <button routerLink="/step2">sledeći korak</button>
+
+  <form action="">
+    <div class="form-item">
+      <div class="label">početak osiguranja</div>
+      <div class="custom-select">
+        <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
+        <i class="fas fa-chevron-down"></i>
+        <div class="custom-dropdown" *ngIf="showDayDrop">
+          <div class="drop-item" (click)="selectInsuranceDay($event)">01</div>
+          <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
+          <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
+          <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+        </div>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <div class="custom-checkbox" [ngClass]="{'selected': annualCoverage}" (click)="annualCoverage = !annualCoverage">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">godišnje pokriće</div>
+    </div>
+    <div class="form-item">
+      <div class="label">trajanje osiguranja</div>
+      <div class="custom-select">
+        <div class="selected-value" (click)="toggleInsuranceDuration()">{{insuranceDuration}}</div>
+        <i class="fas fa-chevron-down"></i>
+        <div class="custom-dropdown" *ngIf="showDurationDrop">
+          <div class="drop-item" (click)="selectInsuranceDuration($event)">do 4 dana</div>
+          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 5 do 8 dana</div>
+          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 9 do 17 dana</div>
+          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 18 do 31 dana</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="label">svrha putovanja</div>
+      <div class="custom-select">
+        <div class="selected-value" (click)="toggleInsurancePurpose()">{{insurancePurpose}}</div>
+        <i class="fas fa-chevron-down"></i>
+        <div class="custom-dropdown" *ngIf="showPurposeDrop">
+          <div class="drop-item" (click)="selectInsurancePurpose($event)">Turističko</div>
+          <div class="drop-item" (click)="selectInsurancePurpose($event)">Poslovno</div>
+          <div class="drop-item" (click)="selectInsurancePurpose($event)">Studijsko</div>
+          <div class="drop-item" (click)="selectInsurancePurpose($event)">Privremeni rad u inostranstvu</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="label">istek osiguranja</div>
+      <div class="item-value">Vaše osiguranje ističe 01.07.2018</div>
+    </div>
+    <div class="form-item">
+      <div class="label">teritorijalno pokriće</div>
+      <div class="item-value">Ceo Svet</div>
+    </div>
+  </form>
+</div>

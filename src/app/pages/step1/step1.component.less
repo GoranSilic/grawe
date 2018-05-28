@@ -1,0 +1,68 @@
+.step1-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  height: ~"calc(80vh - 200px)";
+  margin: 20vh auto 0;
+  background: url("../../../assets/images/suitcase.png") 0 70% no-repeat;
+  background-size: 20%;
+
+  &::before {
+    content: '';
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .info {
+    width: 33%;
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      font-family: 'Gotham-Black', sans-serif;
+      color: #fff;
+
+      &.light {
+        font-family: 'Gotham-Light', sans-serif;
+        opacity: .2;
+      }
+    }
+
+    h2 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-family: 'Gotham-Light', sans-serif;
+      color: #fff;
+    }
+  }
+
+  .step-num {
+    font-size: 327px;
+    font-family: 'Gotham-Thin', sans-serif;
+    color: #2c9946;
+  }
+
+  .steps {
+    order: 2;
+    align-self: flex-end;
+  }
+
+  button {
+    order: 2;
+    align-self: flex-end;
+    border-top-left-radius: 0;
+  }
+
+  form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+}
