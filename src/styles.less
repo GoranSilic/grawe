@@ -253,6 +253,15 @@ button {
     transform: translate(-50%, -50%);
     background-color: #fff;
 
+    i {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      font-size: 22px;
+      color: #00854a;
+      cursor: pointer;
+    }
+
     h2 {
       margin-bottom: 50px;
       text-transform: uppercase;
@@ -262,12 +271,36 @@ button {
     }
 
     ul {
+      list-style: none;
       padding-left: 15px;
 
       li {
         margin-bottom: 30px;
         line-height: 22px;
+
+        &:before {
+          content: "";
+          background-color: #46dc6d;
+          border-radius: 50%;
+          display: inline-block;
+          margin-left: -15px;
+          margin-bottom: 2px;
+          height: 6px;
+          width: 6px;
+        }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  body {
+    font-size: 16px;
+  }
+
+  button {
+    width: 154px;
+    height: 45px;
+    font-size: 12px;
   }
 }

@@ -12,6 +12,7 @@ export class Step2Component implements OnInit {
   bonus = false;
   cancellation = false;
   travelModal = false;
+  travelStarModal = false;
 
   constructor() { }
 

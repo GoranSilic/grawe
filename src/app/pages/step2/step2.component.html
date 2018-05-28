@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="coverage-box" [ngClass]="{'active': travelStar, 'wider': cancellation}">
-      <div class="info">
+      <div class="info" (click)="travelStarModal = true">
         <i class="fas fa-question"></i>
       </div>
       <div class="radio-item">
@@ -94,6 +94,7 @@
 
 <div class="modal-overlay" *ngIf="travelModal">
   <div class="modal">
+    <i class="fas fa-times" (click)="travelModal = false"></i>
     <h2>travel pokriće</h2>
 
     <ul>
@@ -110,6 +111,48 @@
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
         održavanja sahrane
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="travelStarModal">
+  <div class="modal">
+    <i class="fas fa-times" (click)="travelStarModal = false"></i>
+    <h2>travel star pokriće</h2>
+
+    <ul>
+      <li>
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom
+      </li>
+      <li>
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne
+      </li>
+      <li>
+        Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koje su
+        neočekivano postale akutne
+      </li>
+      <li>
+        Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
+        održavanja sahrane
+      </li>
+      <li>
+        Troškovi spašavanja i medicinski nužnog prevoza
+      </li>
+      <li>
+        Troškovi gubitka, oštećenja ili uništenja prtljaga
+      </li>
+      <li>
+        Naknada za slučaj smrt usled nezgode po osiguraniku
+      </li>
+      <li>
+        Naknada za trajnu invalidnost usled nezgode po osiguraniku
+      </li>
+      <li>
+        Troškovi zakasnelog dolaska na domaći aerodrom ili železničku stanicu pri povratki sa putovanja
+      </li>
+      <li>
+        Ostalo u skladu sa Uslovima
       </li>
     </ul>
   </div>
