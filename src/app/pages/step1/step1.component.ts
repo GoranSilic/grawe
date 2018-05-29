@@ -8,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class Step1Component implements OnInit {
   annualCoverage = false;
   showDayDrop = false;
+  showMonthDrop = false;
+  showYearDrop = false;
   showDurationDrop = false;
   showPurposeDrop = false;
   insuranceDay = 'DD';
+  insuranceMonth = 'MM';
+  insuranceYear = 'YYYY';
   insuranceDuration = '';
   insurancePurpose = '';
 
@@ -28,6 +32,28 @@ export class Step1Component implements OnInit {
   selectInsuranceDay(e) {
     this.insuranceDay = e.target.innerText;
     this.showDayDrop = false;
+  }
+
+  toggleInsuranceMonth() {
+    this.showMonthDrop = !this.showMonthDrop;
+    this.showDurationDrop = false;
+    this.showPurposeDrop = false;
+  }
+
+  selectInsuranceMonth(e) {
+    this.insuranceMonth = e.target.innerText;
+    this.showMonthDrop = false;
+  }
+
+  toggleInsuranceYear() {
+    this.showYearDrop = !this.showYearDrop;
+    this.showDurationDrop = false;
+    this.showPurposeDrop = false;
+  }
+
+  selectInsuranceYear(e) {
+    this.insuranceYear = e.target.innerText;
+    this.showYearDrop = false;
   }
 
   toggleInsuranceDuration() {
