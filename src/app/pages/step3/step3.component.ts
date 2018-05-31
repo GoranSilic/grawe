@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./step3.component.less']
 })
 export class Step3Component implements OnInit {
-
+  insured = false;
+  
   constructor() { }
 
   ngOnInit() {
