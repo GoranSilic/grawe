@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./step4.component.less']
 })
 export class Step4Component implements OnInit {
+  terms = false;
+  newsletter = false;
+  info = false;
 
   constructor() { }
 
