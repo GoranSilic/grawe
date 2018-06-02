@@ -10,7 +10,6 @@ import 'rxjs/add/operator/filter';
 })
 export class Step1Component implements OnInit {
   // day combo
-  type: string;
   showDayDrop = false;
   insuranceDay: number;
   daysArray: number[] = [];
@@ -41,6 +40,7 @@ export class Step1Component implements OnInit {
   purposeSource: EnumModel[] = [];
   purposeErrorMessage = '';
 
+  type: string;
   insuranceBeginDate: string;
   insuranceEndDate: string;
 
@@ -245,11 +245,17 @@ export class Step1Component implements OnInit {
       return;
     }
 
-    if (!this.insurancePurpose.id) {
+    if (this.type === 'individual' && !this.insurancePurpose.id) {
       this.purposeErrorMessage = 'Morate izabrati svrhu putovanja.';
       return;
     }
 
-    this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate, this.annualCoverage, this.insurancePurpose.id]);
+    if (this.type === 'individual') {
+      this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
+        this.annualCoverage, this.insurancePurpose.id], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
+    } else if (this.type === 'family') {
+      this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
+        this.annualCoverage], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
+    }
   }
 }
