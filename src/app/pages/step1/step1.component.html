@@ -14,77 +14,70 @@
 
   <div class="steps">steps</div>
 
-  <button routerLink="/step2">sledeći korak</button>
+  <button type="button" (click)="submitFirstStep()">sledeći korak</button>
 
   <form action="">
     <div class="form-item date">
       <div class="label">početak osiguranja</div>
-      <div class="custom-select">
-        <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
-        <i class="fas fa-chevron-down"></i>
+      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideDayCombo($event)">
+        <div class="selected-value" (click)="showDayDrop = !showDayDrop">{{insuranceDay}}</div>
+        <i class="fas fa-chevron-down" (click)="showDayDrop = !showDayDrop"></i>
         <div class="custom-dropdown" *ngIf="showDayDrop">
-          <div class="drop-item" (click)="selectInsuranceDay($event)">01</div>
-          <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
-          <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
-          <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+          <div class="drop-item" *ngFor="let day of daysArray" (click)="selectInsuranceDay(day)">{{ day }}</div>
         </div>
       </div>
-      <div class="custom-select">
-        <div class="selected-value" (click)="toggleInsuranceMonth()">{{insuranceMonth}}</div>
-        <i class="fas fa-chevron-down"></i>
+      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideMonthCombo($event)">
+        <div class="selected-value" (click)="showMonthDrop = !showMonthDrop">{{insuranceMonth}}</div>
+        <i class="fas fa-chevron-down" (click)="showMonthDrop = !showMonthDrop"></i>
         <div class="custom-dropdown" *ngIf="showMonthDrop">
-          <div class="drop-item" (click)="selectInsuranceMonth($event)">01</div>
-          <div class="drop-item" (click)="selectInsuranceMonth($event)">02</div>
-          <div class="drop-item" (click)="selectInsuranceMonth($event)">03</div>
-          <div class="drop-item" (click)="selectInsuranceMonth($event)">04</div>
+          <div class="drop-item" *ngFor="let month of monthsArray" (click)="selectInsuranceMonth(month); refreshDatePicker()">{{ month }}
+          </div>
         </div>
       </div>
-      <div class="custom-select">
-        <div class="selected-value" (click)="toggleInsuranceYear()">{{insuranceYear}}</div>
-        <i class="fas fa-chevron-down"></i>
+      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideYearCombo($event)">
+        <div class="selected-value" (click)="showYearDrop = !showYearDrop">{{insuranceYear}}</div>
+        <i class="fas fa-chevron-down" (click)="showYearDrop = !showYearDrop"></i>
         <div class="custom-dropdown" *ngIf="showYearDrop">
-          <div class="drop-item" (click)="selectInsuranceYear($event)">2018</div>
-          <div class="drop-item" (click)="selectInsuranceYear($event)">2019</div>
-          <div class="drop-item" (click)="selectInsuranceYear($event)">2020</div>
-          <div class="drop-item" (click)="selectInsuranceYear($event)">2021</div>
+          <div class="drop-item" *ngFor="let year of yearsArray" (click)="selectInsuranceYear(year); refreshDatePicker()">{{ year }}</div>
         </div>
       </div>
     </div>
     <div class="checkbox-item">
-      <div class="custom-checkbox" [ngClass]="{'selected': annualCoverage}" (click)="annualCoverage = !annualCoverage">
+      <div class="custom-checkbox" [ngClass]="{'selected': annualCoverage}" (click)="annualCoverageEvent()">
         <i class="fas fa-check"></i>
       </div>
       <div class="label">godišnje pokriće</div>
     </div>
     <div class="form-item">
       <div class="label">trajanje osiguranja</div>
-      <div class="custom-select">
-        <div class="selected-value" (click)="toggleInsuranceDuration()">{{insuranceDuration}}</div>
-        <i class="fas fa-chevron-down"></i>
+      <div class="custom-select" [ngClass]="{'disabled': annualCoverage}" appClickOutside
+           (clickOutside)="onClickOutsideDurationCombo($event)">
+        <div class="selected-value" (click)="durationComboEvent()">{{insuranceDuration}}</div>
+        <i class="fas fa-chevron-down" (click)="durationComboEvent()"></i>
         <div class="custom-dropdown" *ngIf="showDurationDrop">
-          <div class="drop-item" (click)="selectInsuranceDuration($event)">do 4 dana</div>
-          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 5 do 8 dana</div>
-          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 9 do 17 dana</div>
-          <div class="drop-item" (click)="selectInsuranceDuration($event)">od 18 do 31 dana</div>
+          <div class="drop-item" *ngFor="let duration of durationSource" (click)="selectInsuranceDuration(duration)">{{
+            duration }}
+          </div>
         </div>
       </div>
+      <span class="text-danger">{{ durationErrorMessage }}</span>
     </div>
     <div class="form-item">
       <div class="label">svrha putovanja</div>
-      <div class="custom-select">
-        <div class="selected-value" (click)="toggleInsurancePurpose()">{{insurancePurpose}}</div>
-        <i class="fas fa-chevron-down"></i>
+      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
+        <div class="selected-value" (click)="showPurposeDrop = !showPurposeDrop">{{insurancePurpose}}</div>
+        <i class="fas fa-chevron-down" (click)="showPurposeDrop = !showPurposeDrop"></i>
         <div class="custom-dropdown" *ngIf="showPurposeDrop">
-          <div class="drop-item" (click)="selectInsurancePurpose($event)">Turističko</div>
-          <div class="drop-item" (click)="selectInsurancePurpose($event)">Poslovno</div>
-          <div class="drop-item" (click)="selectInsurancePurpose($event)">Studijsko</div>
-          <div class="drop-item" (click)="selectInsurancePurpose($event)">Privremeni rad u inostranstvu</div>
+          <div class="drop-item" *ngFor="let purpose of purposeSource" (click)="selectInsurancePurpose(purpose)">{{
+            purpose }}
+          </div>
         </div>
       </div>
+      <span class="text-danger">{{ purposeErrorMessage }}</span>
     </div>
     <div class="form-item">
       <div class="label">istek osiguranja</div>
-      <div class="item-value">Vaše osiguranje ističe 01.07.2018</div>
+      <div class="item-value">{{ calculateExpiryDate() }}</div>
     </div>
     <div class="form-item">
       <div class="label">teritorijalno pokriće</div>
