@@ -14,11 +14,17 @@ import {HttpRequestService} from './services/http-request.service';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {WebShopApiService} from './services/web-shop-api.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { Step3Component } from './pages/step3/step3.component';
+import { Step4Component } from './pages/step4/step4.component';
+import { Step5Component } from './pages/step5/step5.component';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'step1', component: Step1Component},
   {path: 'step2', component: Step2Component},
+  {path: 'step3', component: Step3Component},
+  {path: 'step4', component: Step4Component},
+  {path: 'step5', component: Step5Component},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -31,7 +37,10 @@ const appRoutes: Routes = [
     HomeComponent,
     Step1Component,
     Step2Component,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    Step3Component,
+    Step4Component,
+    Step5Component
   ],
   imports: [
     BrowserModule,

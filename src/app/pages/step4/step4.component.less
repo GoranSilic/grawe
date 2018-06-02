@@ -1,0 +1,165 @@
+.step4-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  height: 70vh;
+  margin: 15vh auto 0;
+  background: url("../../../assets/images/suitcase.png") 0 70% no-repeat;
+  background-size: 20%;
+
+  &::before {
+    content: '';
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .info {
+    width: 36%;
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      font-family: 'Gotham-Black', sans-serif;
+      color: #fff;
+
+      &.light {
+        font-family: 'Gotham-Light', sans-serif;
+        opacity: .2;
+      }
+    }
+
+    h2 {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 18px;
+      font-family: 'Gotham-Light', sans-serif;
+      color: #fff;
+    }
+
+    p {
+      width: 70%;
+      line-height: 24px;
+    }
+  }
+
+  .step-num {
+    font-size: 327px;
+    font-family: 'Gotham-Thin', sans-serif;
+    color: #2c9946;
+  }
+
+  .steps {
+    order: 2;
+    align-self: flex-end;
+  }
+
+  button {
+    order: 2;
+    align-self: flex-end;
+    border-top-left-radius: 0;
+  }
+
+  .details-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 504px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    .details-box {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 45px;
+      color: #000;
+      background: #fff url(../../../assets/images/grawe-logo-bck.png) top right no-repeat;
+      box-shadow: 0 2px 20px 5px rgba(0, 0, 0, 0.15);
+
+      button {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 120px;
+        height: 35px;
+        box-shadow: none;
+        letter-spacing: 3px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #fff;
+        background-color: #00854a;
+
+        i {
+          margin-left: 8px;
+        }
+
+        &:hover {
+          background-color: #000;
+        }
+      }
+
+      h3 {
+        line-height: 18px;
+        letter-spacing: 3px;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #00854a;
+      }
+
+      .info-item {
+        margin-bottom: 5px;
+        font-size: 14px;
+
+        &.email {
+          color: #00854a;
+        }
+
+        span {
+          font-family: 'Gotham-Bold', sans-serif;
+        }
+      }
+    }
+
+    .form-item {
+      .custom-input {
+        width: 238px;
+      }
+
+      &.long {
+        flex: 0 1 100%;
+
+        .custom-input {
+          width: 555px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .step4-wrapper {
+    height: ~"calc(100vh - 120px)";
+
+    .info {
+      width: 33%;
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    .step-num {
+      font-size: 260px;
+    }
+  }
+}

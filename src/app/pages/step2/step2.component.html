@@ -12,7 +12,13 @@
 
   <div class="step-num">.02</div>
 
-  <div class="steps">steps</div>
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
 
   <button routerLink="/step3">sledeći korak</button>
 
@@ -74,8 +80,11 @@
           <i class="fas fa-check"></i>
         </div>
         <div class="label strong">Otkaz Putovanja</div>
+        <div class="info-mark">
+          <i class="fas fa-info"></i>
+        </div>
       </div>
-      <div class="form-item" *ngIf="cancellation">
+      <div class="form-item date" *ngIf="cancellation">
         <div class="label">datum kupovine aranžmana</div>
         <div class="custom-select">
           <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
@@ -85,6 +94,26 @@
             <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
             <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
             <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+          </div>
+        </div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceMonth()">{{insuranceMonth}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showMonthDrop">
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">01</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">02</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">03</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">04</div>
+          </div>
+        </div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceYear()">{{insuranceYear}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showYearDrop">
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2018</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2019</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2020</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2021</div>
           </div>
         </div>
       </div>

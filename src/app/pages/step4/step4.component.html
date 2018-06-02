@@ -1,0 +1,89 @@
+<div class="step4-wrapper">
+  <div class="info">
+    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <br>
+    <h2>četvrti korak</h2>
+    <h1>Detalji polise</h1>
+    <p>
+      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
+      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+    </p>
+  </div>
+
+  <div class="step-num">.04</div>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+  </div>
+
+  <button routerLink="/step5">plaćanje</button>
+
+  <div class="details-wrapper">
+    <div class="details-box">
+      <button routerLink="/edit">
+        izmeni
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+
+      <h3>individualno<br> putno osiguranje</h3>
+      <div class="info-item">
+        Početak osiguranja: <span>22.03.2018.</span>
+      </div>
+      <div class="info-item">
+        Trajanje: <span>8 dana</span>
+      </div>
+      <div class="info-item">
+        Svrha putovanja: <span>Poslovno</span>
+      </div>
+      <div class="info-item">
+        Istek osiguranja: <span>31.03.2018.</span>
+      </div>
+      <br>
+      <div class="info-item">
+        Pokriće: <span>Travel Star</span>
+      </div>
+      <div class="info-item">
+        Osigurana suma: <span>1.500 EUR</span>
+      </div>
+      <div class="info-item">
+        Premija: <span>500 EUR</span>
+      </div>
+      <br>
+
+      <h3>Ugovarač osiguranja</h3>
+      <div class="info-item"><span>Mirko Petrović</span></div>
+      <div class="info-item">123123123123</div>
+      <div class="info-item">Gandijeva 43,</div>
+      <div class="info-item">11000 Beograd,</div>
+      <div class="info-item">+38164132123</div>
+      <div class="info-item email">mirko@gmail.com</div>
+    </div>
+
+    <div class="form-item" style="margin-right: 10px;">
+      <div class="label">šifra zastupnika preporuke</div>
+      <input class="custom-input">
+    </div>
+    <div class="checkbox-item link">
+      <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">uslovi korišćenja</div>
+    </div>
+    <div class="checkbox-item">
+      <div class="custom-checkbox" [ngClass]="{'selected': newsletter}" (click)="newsletter = !newsletter">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">prijava na newsletter</div>
+    </div>
+    <div class="checkbox-item link">
+      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">informacije za ugovarača osiguranja</div>
+    </div>
+  </div>
+</div>

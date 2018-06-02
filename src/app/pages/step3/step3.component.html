@@ -1,0 +1,73 @@
+<div class="step3-wrapper">
+  <div class="info">
+    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <br>
+    <h2>treći korak</h2>
+    <h1>Podaci o ugovaraču osiguranja</h1>
+    <p>
+      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
+      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+    </p>
+  </div>
+
+  <div class="step-num">.03</div>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+
+  <button routerLink="/step4">sledeći korak</button>
+
+  <form action="">
+    <div class="form-item">
+      <div class="label">ime</div>
+      <input class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">prezime</div>
+      <input class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">jmbg / pib</div>
+      <input type="number" class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">adresa stanovanja</div>
+      <input class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">poštanski broj</div>
+      <input type="number" class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">mesto stanovanja</div>
+      <input class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">broj telefona</div>
+      <input class="custom-input">
+    </div>
+    <div class="form-item">
+      <div class="label">email adresa</div>
+      <input type="email" class="custom-input">
+    </div>
+    <div class="form-item long">
+      <div class="label">potvrdi email adresu</div>
+      <input type="email" class="custom-input">
+    </div>
+    <div class="checkbox-item">
+      <div class="custom-checkbox" [ngClass]="{'selected': insured}" (click)="insured = !insured">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">ugovarač je osigurano lice</div>
+    </div>
+    <div class="form-item long" *ngIf="insured">
+      <div class="label">unesite broj pasoša</div>
+      <input type="number" class="custom-input">
+    </div>
+  </form>
+</div>
