@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {EnumModel} from '../../models/enum.model';
 
 @Component({
   selector: 'app-step1',
@@ -24,20 +25,32 @@ export class Step1Component implements OnInit {
 
   // annual coverage checkbox
   annualCoverage = false;
+
   // duration combo
   showDurationDrop = false;
   disableDurationCombo = false;
-  insuranceDuration = '';
-  durationSource = ['do 4 dana', 'od 5 do 8 dana', 'od 9 do 17 dana', 'od 18 do 31 dana'];
+  insuranceDuration: EnumModel = new EnumModel(null, '');
+  durationSource: EnumModel[] = [];
   durationErrorMessage = '';
 
   // purpose combo
   showPurposeDrop = false;
-  insurancePurpose = '';
-  purposeSource = ['Turističko', 'Poslovno', 'Studijsko', 'Privremeni rad u inostranstvu'];
+  insurancePurpose: EnumModel = new EnumModel(null, '');
+  purposeSource: EnumModel[] = [];
   purposeErrorMessage = '';
 
+  insuranceBeginDate: string;
+  insuranceEndDate: string;
+
   constructor(private router: Router) {
+    this.durationSource.push(new EnumModel(1, 'do 4 dana'));
+    this.durationSource.push(new EnumModel(2, 'od 5 do 8 dana'));
+    this.durationSource.push(new EnumModel(3, 'od 9 do 17 dana'));
+    this.durationSource.push(new EnumModel(4, 'od 18 do 31 dana'));
+    this.purposeSource.push(new EnumModel(1, 'Turističko'));
+    this.purposeSource.push(new EnumModel(2, 'Poslovno'));
+    this.purposeSource.push(new EnumModel(3, 'Studijsko'));
+    this.purposeSource.push(new EnumModel(4, 'Privremeni rad u inostranstvu'));
   }
 
   ngOnInit() {
@@ -147,7 +160,7 @@ export class Step1Component implements OnInit {
     this.showDayDrop = false;
   }
 
-  selectInsuranceDuration(duration: string) {
+  selectInsuranceDuration(duration: EnumModel) {
     this.durationErrorMessage = '';
     this.insuranceDuration = duration;
     this.showDurationDrop = false;
@@ -165,7 +178,7 @@ export class Step1Component implements OnInit {
     }
   }
 
-  selectInsurancePurpose(purpose: string) {
+  selectInsurancePurpose(purpose: EnumModel) {
     this.insurancePurpose = purpose;
     this.showPurposeDrop = false;
     this.purposeErrorMessage = '';
@@ -182,34 +195,37 @@ export class Step1Component implements OnInit {
     this.disableDurationCombo = this.annualCoverage;
     this.durationErrorMessage = '';
     if (this.disableDurationCombo) {
-      this.insuranceDuration = null;
+      this.insuranceDuration = new EnumModel(null, '');
     }
   }
 
   calculateExpiryDate() {
     const notification = 'Vaše osiguranje ističe ';
     const beginDate: Date = new Date(this.insuranceYear, this.insuranceMonth - 1, this.insuranceDay);
+    this.insuranceBeginDate = beginDate.toDateString();
     let endDate: Date = new Date();
     if (this.annualCoverage) {
       endDate =  new Date(beginDate.getTime() + 365 * 24 * 60 * 60 * 1000);
+      this.insuranceEndDate = endDate.toDateString();
       return notification + '' + endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + '.';
     }
 
-    if (this.insuranceDuration) {
-      switch (this.insuranceDuration) {
-        case 'do 4 dana':
+    if (this.insuranceDuration.id) {
+      switch (this.insuranceDuration.id) {
+        case 1:
           endDate =  new Date(beginDate.getTime() + 4 * 24 * 60 * 60 * 1000);
           break;
-        case 'od 5 do 8 dana':
+        case 2:
           endDate =  new Date(beginDate.getTime() + 8 * 24 * 60 * 60 * 1000);
           break;
-        case 'od 9 do 17 dana':
+        case 3:
           endDate =  new Date(beginDate.getTime() + 17 * 24 * 60 * 60 * 1000);
           break;
-        case 'od 18 do 31 dana':
+        case 4:
           endDate =  new Date(beginDate.getTime() + 31 * 24 * 60 * 60 * 1000);
           break;
       }
+      this.insuranceEndDate = endDate.toDateString();
       return notification + '' + endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + '.';
     }
 
@@ -217,16 +233,16 @@ export class Step1Component implements OnInit {
   }
 
   submitFirstStep() {
-    if (!this.annualCoverage && !this.insuranceDuration) {
+    if (!this.annualCoverage && !this.insuranceDuration.id) {
       this.durationErrorMessage = 'Morate izabrati trajanje osiguranja.';
       return;
     }
 
-    if (!this.insurancePurpose) {
+    if (!this.insurancePurpose.id) {
       this.purposeErrorMessage = 'Morate izabrati svrhu putovanja.';
       return;
     }
 
-    this.router.navigate(['step2']);
+    this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate, this.annualCoverage, this.insurancePurpose.id]);
   }
 }

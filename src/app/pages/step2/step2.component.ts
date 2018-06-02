@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CalculationResponseModel} from '../../models/calculation-response.model';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-step2',
@@ -20,9 +22,12 @@ export class Step2Component implements OnInit {
   insuranceMonth = 'MM';
   insuranceYear = 'YYYY';
 
-  constructor() { }
+  calculateResponseModel: CalculationResponseModel = new CalculationResponseModel();
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.calculateResponseModel = this.route.snapshot.data.calculationResponseModel;
   }
 
   toggleInsuranceDay() {

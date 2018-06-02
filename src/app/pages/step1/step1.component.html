@@ -58,11 +58,11 @@
       <div class="label">trajanje osiguranja</div>
       <div class="custom-select" [ngClass]="{'disabled': annualCoverage}" appClickOutside
            (clickOutside)="onClickOutsideDurationCombo($event)">
-        <div class="selected-value" (click)="durationComboEvent()">{{insuranceDuration}}</div>
+        <div class="selected-value" (click)="durationComboEvent()">{{insuranceDuration.name}}</div>
         <i class="fas fa-chevron-down" (click)="durationComboEvent()"></i>
         <div class="custom-dropdown" *ngIf="showDurationDrop">
           <div class="drop-item" *ngFor="let duration of durationSource" (click)="selectInsuranceDuration(duration)">{{
-            duration }}
+            duration?.name }}
           </div>
         </div>
       </div>
@@ -71,11 +71,11 @@
     <div class="form-item">
       <div class="label">svrha putovanja</div>
       <div class="custom-select" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
-        <div class="selected-value" (click)="showPurposeDrop = !showPurposeDrop">{{insurancePurpose}}</div>
+        <div class="selected-value" (click)="showPurposeDrop = !showPurposeDrop">{{insurancePurpose?.name}}</div>
         <i class="fas fa-chevron-down" (click)="showPurposeDrop = !showPurposeDrop"></i>
         <div class="custom-dropdown" *ngIf="showPurposeDrop">
           <div class="drop-item" *ngFor="let purpose of purposeSource" (click)="selectInsurancePurpose(purpose)">{{
-            purpose }}
+            purpose.name }}
           </div>
         </div>
       </div>
