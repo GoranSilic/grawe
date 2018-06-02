@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-step5',
@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./step5.component.less']
 })
 export class Step5Component implements OnInit {
+  success = true; //change this to false to display declined policy message
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

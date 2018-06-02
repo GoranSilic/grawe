@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Step3Component } from './pages/step3/step3.component';
 import { Step4Component } from './pages/step4/step4.component';
 import { Step5Component } from './pages/step5/step5.component';
+import { EditComponent } from './pages/edit/edit.component';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   {path: 'step3', component: Step3Component},
   {path: 'step4', component: Step4Component},
   {path: 'step5', component: Step5Component},
+  {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     ClickOutsideDirective,
     Step3Component,
     Step4Component,
-    Step5Component
+    Step5Component,
+    EditComponent
   ],
   imports: [
     BrowserModule,

@@ -99,6 +99,36 @@
       border-top-left-radius: 0;
     }
   }
+
+  .declined-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 602px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    .img {
+      width: 193px;
+      height: 192px;
+      margin: 0 auto 40px;
+      background: url("../../../assets/images/declined.png") 0 0 no-repeat;
+    }
+
+    .info-item {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      line-height: 24px;
+      font-size: 14px;
+
+      span {
+        text-transform: none;
+        font-family: 'Gotham-Black', sans-serif;
+        color: #000;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1600px) {

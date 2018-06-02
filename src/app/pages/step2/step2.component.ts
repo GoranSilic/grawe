@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-step2',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./step2.component.less']
 })
 export class Step2Component implements OnInit {
+  type: string;
   travel = false;
   travelStar = false;
   insuredSum = false;
@@ -20,9 +23,14 @@ export class Step2Component implements OnInit {
   insuranceMonth = 'MM';
   insuranceYear = 'YYYY';
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.type)
+      .subscribe(params => {
+        this.type = params.type;
+      });
   }
 
   toggleInsuranceDay() {

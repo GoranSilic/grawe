@@ -1,6 +1,6 @@
 <div class="step1-wrapper">
   <div class="info">
-    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <h1 class="light"><span *ngIf="type == 'individual'">Individualno</span><span *ngIf="type == 'family'">Porodično</span> Putno Osiguranje</h1>
     <br>
     <h2>prvi korak</h2>
     <h1>Osnovni podaci</h1>
@@ -9,18 +9,6 @@
       Leo integer malesuada nunc vel risus commodo viverra maecenas.
     </p>
   </div>
-
-  <div class="step-num">.01</div>
-
-  <div class="steps">
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-  </div>
-
-  <button routerLink="/step2">sledeći korak</button>
 
   <form action="">
     <div class="form-item date">
@@ -75,7 +63,7 @@
         </div>
       </div>
     </div>
-    <div class="form-item">
+    <div class="form-item" *ngIf="type == 'individual'">
       <div class="label">svrha putovanja</div>
       <div class="custom-select">
         <div class="selected-value" (click)="toggleInsurancePurpose()">{{insurancePurpose}}</div>
@@ -97,4 +85,16 @@
       <div class="item-value">Ceo Svet</div>
     </div>
   </form>
+
+  <div class="step-num">.01</div>
+
+  <div class="steps">
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+
+  <button [routerLink]="['/step2']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
 </div>

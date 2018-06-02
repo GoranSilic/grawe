@@ -1,0 +1,162 @@
+<div class="edit-wrapper">
+  <div class="info">
+    <h1 class="light">Izmene podataka polise osiguranja</h1>
+  </div>
+
+  <div class="edit-icon"></div>
+
+  <button>snimi izmene</button>
+
+  <div class="edit-wrapper">
+    <div class="basic-information">
+      <h3>Osnovni Podaci</h3>
+
+      <div class="form-item date">
+        <div class="label">početak osiguranja</div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showDayDrop">
+            <div class="drop-item" (click)="selectInsuranceDay($event)">01</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
+            <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+          </div>
+        </div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceMonth()">{{insuranceMonth}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showMonthDrop">
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">01</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">02</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">03</div>
+            <div class="drop-item" (click)="selectInsuranceMonth($event)">04</div>
+          </div>
+        </div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceYear()">{{insuranceYear}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showYearDrop">
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2018</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2019</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2020</div>
+            <div class="drop-item" (click)="selectInsuranceYear($event)">2021</div>
+          </div>
+        </div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': annualCoverage}" (click)="annualCoverage = !annualCoverage">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label">godišnje pokriće</div>
+      </div>
+      <div class="form-item">
+        <div class="label">trajanje osiguranja</div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsuranceDuration()">{{insuranceDuration}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showDurationDrop">
+            <div class="drop-item" (click)="selectInsuranceDuration($event)">do 4 dana</div>
+            <div class="drop-item" (click)="selectInsuranceDuration($event)">od 5 do 8 dana</div>
+            <div class="drop-item" (click)="selectInsuranceDuration($event)">od 9 do 17 dana</div>
+            <div class="drop-item" (click)="selectInsuranceDuration($event)">od 18 do 31 dana</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">svrha putovanja</div>
+        <div class="custom-select">
+          <div class="selected-value" (click)="toggleInsurancePurpose()">{{insurancePurpose}}</div>
+          <i class="fas fa-chevron-down"></i>
+          <div class="custom-dropdown" *ngIf="showPurposeDrop">
+            <div class="drop-item" (click)="selectInsurancePurpose($event)">Turističko</div>
+            <div class="drop-item" (click)="selectInsurancePurpose($event)">Poslovno</div>
+            <div class="drop-item" (click)="selectInsurancePurpose($event)">Studijsko</div>
+            <div class="drop-item" (click)="selectInsurancePurpose($event)">Privremeni rad u inostranstvu</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">istek osiguranja</div>
+        <div class="item-value">Vaše osiguranje ističe 01.07.2018</div>
+      </div>
+    </div>
+    <div class="coverage">
+      <h3>Pokriće</h3>
+      <div class="radio-item">
+        <div class="custom-radio" [ngClass]="{'selected': travel}" (click)="toggleTravel()">
+          <div class="circle"></div>
+        </div>
+        <div class="label">travel</div>
+      </div>
+      <div class="form-item">
+        <div class="label">osigurana suma</div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': insuredSum}" (click)="toggleInsuredSum()">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label strong">12.000 EUR</div>
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': bonus}" (click)="toggleBonus()">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label strong">36.000 EUR</div>
+      </div>
+      <div class="form-item">
+        <div class="label">premija</div>
+        <div class="item-value">1.200 EUR</div>
+      </div>
+    </div>
+    <div class="contractor">
+      <h3>Podaci o ugovaraču osiguranja</h3>
+      <div class="form-item">
+        <div class="label">ime</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">prezime</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">jmbg / pib</div>
+        <input type="number" class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">adresa stanovanja</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">poštanski broj</div>
+        <input type="number" class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">mesto stanovanja</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">broj telefona</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">email adresa</div>
+        <input type="email" class="custom-input">
+      </div>
+      <div class="form-item long">
+        <div class="label">potvrdi email adresu</div>
+        <input type="email" class="custom-input">
+      </div>
+      <div class="checkbox-item">
+        <div class="custom-checkbox" [ngClass]="{'selected': insured}" (click)="insured = !insured">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="label">ugovarač je osigurano lice</div>
+      </div>
+      <div class="form-item long" *ngIf="insured">
+        <div class="label">unesite broj pasoša</div>
+        <input type="number" class="custom-input">
+      </div>
+    </div>
+  </div>
+</div>
