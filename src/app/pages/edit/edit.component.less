@@ -1,4 +1,4 @@
-.step1-wrapper {
+.edit-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -7,7 +7,6 @@
   width: 80%;
   height: 70vh;
   margin: 15vh auto 0;
-  background: url("../../../assets/images/suitcase.png") 0 70% no-repeat;
   background-size: 20%;
 
   &::before {
@@ -17,8 +16,6 @@
   }
 
   .info {
-    width: 36%;
-
     h1 {
       margin: 0;
       font-size: 36px;
@@ -30,52 +27,66 @@
         opacity: .2;
       }
     }
-
-    h2 {
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 18px;
-      font-family: 'Gotham-Light', sans-serif;
-      color: #fff;
-    }
-
-    p {
-      width: 70%;
-      line-height: 24px;
-    }
   }
 
-  .step-num {
-    font-size: 327px;
-    font-family: 'Gotham-Thin', sans-serif;
-    color: #2c9946;
-  }
-
-  .steps {
-    order: 2;
-    align-self: flex-end;
+  .edit-icon {
+    width: 236px;
+    height: 235px;
+    background: url("../../../assets/images/edit-bck-img.png") 0 0 no-repeat;
   }
 
   button {
     order: 2;
     align-self: flex-end;
+    margin-left: auto;
     border-top-left-radius: 0;
   }
 
-  form {
+  .edit-wrapper {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    width: 1200px;
     transform: translate(-50%, -50%);
     z-index: 1;
+
+    h3 {
+      font-size: 24px;
+      font-family: 'Gotham-Black', sans-serif;
+    }
+
+    .basic-information {
+      width: 300px;
+    }
+
+    .coverage {
+
+    }
+
+    .contractor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 617px;
+
+      h3 {
+        flex: 0 1 100%;
+      }
+
+      .form-item {
+        .custom-input {
+          width: 238px;
+        }
+      }
+    }
   }
 }
 
 @media screen and (max-width: 1600px) {
-  .step1-wrapper {
-    background-position: 0 80%;
+  .edit-wrapper {
+    height: ~"calc(100vh - 120px)";
 
     .info {
       width: 33%;
@@ -92,12 +103,5 @@
     .step-num {
       font-size: 260px;
     }
-  }
-}
-
-@media screen and (max-width: 1300px) {
-  .step1-wrapper {
-    width: ~"calc(100% - 100px)";
-    background: none;
   }
 }

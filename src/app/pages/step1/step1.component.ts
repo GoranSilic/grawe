@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {EnumModel} from '../../models/enum.model';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-step1',
@@ -9,6 +10,7 @@ import {EnumModel} from '../../models/enum.model';
 })
 export class Step1Component implements OnInit {
   // day combo
+  type: string;
   showDayDrop = false;
   insuranceDay: number;
   daysArray: number[] = [];
@@ -42,7 +44,7 @@ export class Step1Component implements OnInit {
   insuranceBeginDate: string;
   insuranceEndDate: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.durationSource.push(new EnumModel(1, 'do 4 dana'));
     this.durationSource.push(new EnumModel(2, 'od 5 do 8 dana'));
     this.durationSource.push(new EnumModel(3, 'od 9 do 17 dana'));
@@ -54,6 +56,11 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.type)
+      .subscribe(params => {
+        this.type = params.type;
+      });
     this.initializeYears();
     this.initializeMonths();
     this.initializeDays();

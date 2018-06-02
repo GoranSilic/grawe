@@ -1,6 +1,6 @@
 <div class="step3-wrapper">
   <div class="info">
-    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <h1 class="light"><span *ngIf="type == 'individual'">Individualno</span><span *ngIf="type == 'family'">Porodično</span> Putno Osiguranje</h1>
     <br>
     <h2>treći korak</h2>
     <h1>Podaci o ugovaraču osiguranja</h1>
@@ -20,7 +20,7 @@
     <div class="line"></div>
   </div>
 
-  <button routerLink="/step4">sledeći korak</button>
+  <button [routerLink]="['/step4']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
 
   <form action="">
     <div class="form-item">

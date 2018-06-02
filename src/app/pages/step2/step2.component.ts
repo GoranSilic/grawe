@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 import {CalculationResponseModel} from '../../models/calculation-response.model';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-step2',
@@ -8,6 +9,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./step2.component.less']
 })
 export class Step2Component implements OnInit {
+  type: string;
   travel = false;
   travelStar = false;
   insuredSum = false;
@@ -27,6 +29,11 @@ export class Step2Component implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.type)
+      .subscribe(params => {
+        this.type = params.type;
+      });
     this.calculateResponseModel = this.route.snapshot.data.calculationResponseModel;
   }
 
