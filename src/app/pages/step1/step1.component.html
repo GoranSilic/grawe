@@ -71,7 +71,7 @@
     </div>
     <div class="form-item">
       <div class="label">istek osiguranja</div>
-      <div class="item-value">{{ calculateExpiryDate() }}</div>
+      <div class="item-value">{{ calculateExpiryDate() ? calculateExpiryDate() : "-" }}</div>
     </div>
     <div class="form-item">
       <div class="label">teritorijalno pokriće</div>

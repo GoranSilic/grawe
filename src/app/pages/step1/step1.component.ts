@@ -190,6 +190,13 @@ export class Step1Component implements OnInit {
     }
   }
 
+  purposeComboEvent() {
+    if (this.type === 'individual') {
+      this.showPurposeDrop = !this.showPurposeDrop;
+    }
+  }
+
+
   selectInsurancePurpose(purpose: EnumModel) {
     this.insurancePurpose = purpose;
     this.showPurposeDrop = false;

@@ -136,10 +136,12 @@ button {
       top: 58px;
       left: 0;
       right: 0;
+      max-height: 204px;
       padding: 0 30px;
       border-radius: 5px;
       background-color: #fff;
       z-index: 1;
+      overflow-y: auto;
 
       .drop-item {
         display: flex;
@@ -154,6 +156,14 @@ button {
         &:hover {
           color: #000;
         }
+      }
+    }
+
+    &.disabled {
+      opacity: .5;
+
+      .selected-value {
+        cursor: not-allowed;
       }
     }
   }
@@ -185,6 +195,11 @@ button {
         padding: 0 20px;
       }
     }
+  }
+
+  .text-danger {
+    color: yellow;
+    font-size: 13px;
   }
 }
 
