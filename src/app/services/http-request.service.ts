@@ -96,7 +96,7 @@ export class HttpRequestService {
 
   handleError(error: any) {
     let errMsg: any;
-    errMsg = error.error.message ? error.error.message : error.toString();
+    errMsg = error.error.error ? error.error.error : error.toString();
 
     console.log(errMsg);
 

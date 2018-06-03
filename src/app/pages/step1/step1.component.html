@@ -56,11 +56,11 @@
       </div>
       <span class="text-danger">{{ durationErrorMessage }}</span>
     </div>
-    <div class="form-item" *ngIf="type == 'individual'">
+    <div class="form-item">
       <div class="label">svrha putovanja</div>
       <div class="custom-select" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
-        <div class="selected-value" (click)="showPurposeDrop = !showPurposeDrop">{{insurancePurpose?.name}}</div>
-        <i class="fas fa-chevron-down" (click)="showPurposeDrop = !showPurposeDrop"></i>
+        <div class="selected-value" (click)="purposeComboEvent()">{{insurancePurpose?.name}}</div>
+        <i class="fas fa-chevron-down" (click)="purposeComboEvent()"></i>
         <div class="custom-dropdown" *ngIf="showPurposeDrop">
           <div class="drop-item" *ngFor="let purpose of purposeSource" (click)="selectInsurancePurpose(purpose)">{{
             purpose.name }}

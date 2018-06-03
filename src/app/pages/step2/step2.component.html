@@ -1,6 +1,7 @@
 <div class="step2-wrapper">
   <div class="info">
-    <h1 class="light"><span *ngIf="type == 'individual'">Individualno</span><span *ngIf="type == 'family'">Porodično</span> Putno Osiguranje</h1>
+    <h1 class="light"><span *ngIf="type == 'individual'">Individualno</span><span
+      *ngIf="type == 'family'">Porodično</span> Putno Osiguranje</h1>
     <br>
     <h2>drugi korak</h2>
     <h1>Pregled i odabir pokrića</h1>
@@ -37,24 +38,26 @@
         <div class="label">osigurana suma</div>
       </div>
       <div class="checkbox-item">
-        <div class="custom-checkbox" [ngClass]="{'selected': insuredSum}" (click)="toggleInsuredSum()">
+        <div class="custom-checkbox" [ngClass]="{'selected': insuredFirstSum}" (click)="toggleFirstInsuredSum()">
           <i class="fas fa-check"></i>
         </div>
-        <div class="label strong">12.000 EUR</div>
+        <div class="label strong" *ngIf="type == 'individual'">12.000 RSD</div>
+        <div class="label strong" *ngIf="type == 'family'">24.000 RSD</div>
       </div>
       <div class="form-item">
         <div class="label">premija</div>
-        <div class="item-value">1.200 EUR</div>
+        <div class="item-value">{{ firstTravelOption?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</div>
       </div>
       <div class="checkbox-item">
-        <div class="custom-checkbox" [ngClass]="{'selected': bonus}" (click)="toggleBonus()">
+        <div class="custom-checkbox" [ngClass]="{'selected': insuredSecondSum}" (click)="toggleSecondInsuredSum()">
           <i class="fas fa-check"></i>
         </div>
-        <div class="label strong">36.000 EUR</div>
+        <div class="label strong" *ngIf="type == 'individual'">32.000 RSD</div>
+        <div class="label strong" *ngIf="type == 'family'">62.000 RSD</div>
       </div>
       <div class="form-item">
         <div class="label">premija</div>
-        <div class="item-value">3.000 EUR</div>
+        <div class="item-value">{{ secondTravelOption?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</div>
       </div>
     </div>
     <div class="coverage-box" [ngClass]="{'active': travelStar, 'wider': cancellation}">
@@ -69,13 +72,13 @@
       </div>
       <div class="form-item">
         <div class="label">osigurana suma</div>
-        <div class="item-value">120.000 EUR</div>
+        <div class="item-value">120.000 RSD</div>
       </div>
       <div class="form-item">
         <div class="label">premija</div>
-        <div class="item-value">1.200 EUR</div>
+        <div class="item-value">{{ travelStarOption?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</div>
       </div>
-      <div class="checkbox-item">
+      <div class="checkbox-item" *ngIf="showCancellation">
         <div class="custom-checkbox" [ngClass]="{'selected': cancellation}" (click)="toggleCancellation()">
           <i class="fas fa-check"></i>
         </div>
@@ -86,34 +89,26 @@
       </div>
       <div class="form-item date" *ngIf="cancellation">
         <div class="label">datum kupovine aranžmana</div>
-        <div class="custom-select">
-          <div class="selected-value" (click)="toggleInsuranceDay()">{{insuranceDay}}</div>
-          <i class="fas fa-chevron-down"></i>
+        <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideDayCombo($event)">
+          <div class="selected-value" (click)="showDayDrop = !showDayDrop">{{insuranceDay}}</div>
+          <i class="fas fa-chevron-down" (click)="showDayDrop = !showDayDrop"></i>
           <div class="custom-dropdown" *ngIf="showDayDrop">
-            <div class="drop-item" (click)="selectInsuranceDay($event)">01</div>
-            <div class="drop-item" (click)="selectInsuranceDay($event)">02</div>
-            <div class="drop-item" (click)="selectInsuranceDay($event)">03</div>
-            <div class="drop-item" (click)="selectInsuranceDay($event)">04</div>
+            <div class="drop-item" *ngFor="let day of daysArray" (click)="selectInsuranceDay(day)">{{ day }}</div>
           </div>
         </div>
-        <div class="custom-select">
-          <div class="selected-value" (click)="toggleInsuranceMonth()">{{insuranceMonth}}</div>
-          <i class="fas fa-chevron-down"></i>
+        <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideMonthCombo($event)">
+          <div class="selected-value" (click)="showMonthDrop = !showMonthDrop">{{insuranceMonth}}</div>
+          <i class="fas fa-chevron-down" (click)="showMonthDrop = !showMonthDrop"></i>
           <div class="custom-dropdown" *ngIf="showMonthDrop">
-            <div class="drop-item" (click)="selectInsuranceMonth($event)">01</div>
-            <div class="drop-item" (click)="selectInsuranceMonth($event)">02</div>
-            <div class="drop-item" (click)="selectInsuranceMonth($event)">03</div>
-            <div class="drop-item" (click)="selectInsuranceMonth($event)">04</div>
+            <div class="drop-item" *ngFor="let month of monthsArray" (click)="selectInsuranceMonth(month)">{{ month }}
+            </div>
           </div>
         </div>
-        <div class="custom-select">
-          <div class="selected-value" (click)="toggleInsuranceYear()">{{insuranceYear}}</div>
-          <i class="fas fa-chevron-down"></i>
+        <div class="custom-select" appClickOutside (clickOutside)="onClickOutsideYearCombo($event)">
+          <div class="selected-value" (click)="showYearDrop = !showYearDrop">{{insuranceYear}}</div>
+          <i class="fas fa-chevron-down" (click)="showYearDrop = !showYearDrop"></i>
           <div class="custom-dropdown" *ngIf="showYearDrop">
-            <div class="drop-item" (click)="selectInsuranceYear($event)">2018</div>
-            <div class="drop-item" (click)="selectInsuranceYear($event)">2019</div>
-            <div class="drop-item" (click)="selectInsuranceYear($event)">2020</div>
-            <div class="drop-item" (click)="selectInsuranceYear($event)">2021</div>
+            <div class="drop-item" *ngFor="let year of yearsArray" (click)="selectInsuranceYear(year)">{{ year }}</div>
           </div>
         </div>
       </div>
