@@ -209,12 +209,6 @@ export class Step1Component implements OnInit {
     }
   }
 
-  purposeComboEvent() {
-    if (!this.disablePurposeCombo) {
-      this.showPurposeDrop = !this.showPurposeDrop;
-    }
-  }
-
   annualCoverageEvent() {
     this.annualCoverage = !this.annualCoverage;
     this.disableDurationCombo = this.annualCoverage;
