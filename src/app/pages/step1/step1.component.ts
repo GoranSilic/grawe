@@ -179,7 +179,7 @@ export class Step1Component implements OnInit {
     }
   }
 
-  durationComboEvent() {
+}  durationComboEvent() {
     if (!this.disableDurationCombo) {
       this.showDurationDrop = !this.showDurationDrop;
     }
