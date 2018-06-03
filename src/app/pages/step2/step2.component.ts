@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import {CalculationResponseModel} from '../../models/calculation-response.model';
 
 @Component({
   selector: 'app-step2',
@@ -23,6 +24,8 @@ export class Step2Component implements OnInit {
   insuranceMonth = 'MM';
   insuranceYear = 'YYYY';
 
+  calculateResponseModel: CalculationResponseModel = new CalculationResponseModel();
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class Step2Component implements OnInit {
       .subscribe(params => {
         this.type = params.type;
       });
+    this.calculateResponseModel = this.route.snapshot.data.calculationResponseModel;
   }
 
   toggleInsuranceDay() {

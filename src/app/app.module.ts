@@ -17,14 +17,20 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Step3Component } from './pages/step3/step3.component';
 import { Step4Component } from './pages/step4/step4.component';
 import { Step5Component } from './pages/step5/step5.component';
+import {Step2FamilyResolver, Step2IndividualResolver} from './pages/step2/step2.resolver';
 import { EditComponent } from './pages/edit/edit.component';
+import { Step4FamilyComponent } from './pages/step4-family/step4-family.component';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'step1', component: Step1Component},
-  {path: 'step2', component: Step2Component},
+  {path: 'step2/:insuranceBeginDate/:insuranceEndDate/:fullYear/:travelReason', component: Step2Component,
+    resolve: {calculationResponseModel: Step2IndividualResolver}},
+  {path: 'step2/:insuranceBeginDate/:insuranceEndDate/:fullYear', component: Step2Component,
+    resolve: {calculationResponseModel: Step2FamilyResolver}},
   {path: 'step3', component: Step3Component},
   {path: 'step4', component: Step4Component},
+  {path: 'step4Family', component: Step4FamilyComponent},
   {path: 'step5', component: Step5Component},
   {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -43,7 +49,8 @@ const appRoutes: Routes = [
     Step3Component,
     Step4Component,
     Step5Component,
-    EditComponent
+    EditComponent,
+    Step4FamilyComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,7 @@ const appRoutes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,
     multi: true,
-  }, HttpRequestService, WebShopApiService],
+  }, HttpRequestService, WebShopApiService, Step2FamilyResolver, Step2IndividualResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {
