@@ -10,17 +10,19 @@
     </p>
   </div>
 
-  <div class="step-num">.04</div>
+  <div class="step-num"><span *ngIf="type === 'individual'">.04</span><span *ngIf="type === 'family'">.05</span></div>
 
   <div class="steps">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
+    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
+    <div class="line" [ngClass]="{'active': type == 'family'}"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button routerLink="/step5">plaćanje</button>
+  <button routerLink="/step5" [queryParams]="{ type: type}" queryParamsHandling="merge">plaćanje</button>
 
   <div class="details-wrapper">
     <div class="details-box">

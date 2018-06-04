@@ -6,14 +6,16 @@
     <h1>Vaša Polisa individualnog putnog osiguranja <span *ngIf="success">je uspešno kreirana</span><span *ngIf="!success">nije kreirana</span></h1>
   </div>
 
-  <div class="step-num">.05</div>
+  <div class="step-num"><span *ngIf="type === 'individual'">.05</span><span *ngIf="type === 'family'">.07</span></div>
 
   <div class="steps">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
-    <div class="line active"></div>
+    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line" [ngClass]="{'active': type == 'family'}"></div>
   </div>
 
   <div class="success-wrapper" *ngIf="success">

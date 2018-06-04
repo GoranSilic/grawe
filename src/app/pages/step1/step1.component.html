@@ -58,8 +58,8 @@
     </div>
     <div class="form-item">
       <div class="label">svrha putovanja</div>
-      <div class="custom-select" [ngClass]="{'disabled': type === 'family'}" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
-        <div class="selected-value" (click)="purposeComboEvent()">{{type === 'family' ? "Turističko" : insurancePurpose?.name}}</div>
+      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
+        <div class="selected-value" (click)="purposeComboEvent()">{{insurancePurpose?.name}}</div>
         <i class="fas fa-chevron-down" (click)="purposeComboEvent()"></i>
         <div class="custom-dropdown" *ngIf="showPurposeDrop">
           <div class="drop-item" *ngFor="let purpose of purposeSource" (click)="selectInsurancePurpose(purpose)">{{
@@ -87,6 +87,8 @@
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
   <button type="button" (click)="submitFirstStep()">sledeći korak</button>

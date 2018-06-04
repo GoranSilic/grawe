@@ -36,6 +36,7 @@ export class Step1Component implements OnInit {
 
   // purpose combo
   showPurposeDrop = false;
+  disablePurposeCombo = false;
   insurancePurpose: EnumModel = new EnumModel(null, '');
   purposeSource: EnumModel[] = [];
   purposeErrorMessage = '';
@@ -60,6 +61,10 @@ export class Step1Component implements OnInit {
       .filter(params => params.type)
       .subscribe(params => {
         this.type = params.type;
+        if (this.type === 'family') {
+          this.disablePurposeCombo = true;
+          this.insurancePurpose = new EnumModel(1, 'Turističko');
+        }
       });
     this.initializeYears();
     this.initializeMonths();
@@ -252,17 +257,12 @@ export class Step1Component implements OnInit {
       return;
     }
 
-    if (this.type === 'individual' && !this.insurancePurpose.id) {
+    if (!this.insurancePurpose.id) {
       this.purposeErrorMessage = 'Morate izabrati svrhu putovanja.';
       return;
     }
 
-    if (this.type === 'individual') {
       this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
         this.annualCoverage, this.insurancePurpose.id], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
-    } else if (this.type === 'family') {
-      this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
-        this.annualCoverage], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
-    }
   }
 }

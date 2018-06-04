@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-step5',
@@ -7,11 +9,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class Step5Component implements OnInit {
   success = true; // change this to false to display declined policy message
+  type: string;
 
-  constructor() {
-  }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.type)
+      .subscribe(params => {
+        this.type = params.type;
+      });
   }
-
 }

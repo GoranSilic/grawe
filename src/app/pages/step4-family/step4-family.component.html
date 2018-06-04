@@ -18,26 +18,75 @@
     <div class="line"></div>
     <div class="line active"></div>
     <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button [routerLink]="['/step5']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
+  <button [routerLink]="['/step4']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
 
-  <form action="">
-    <div class="form-item">
-      <div class="label">ime</div>
-      <input class="custom-input">
+  <div class="details-wrapper">
+    <form action="">
+      <button>+ dodaj osiguranika</button>
+      <div class="info-label">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
+
+      <div class="form-item">
+        <div class="label">ime</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">prezime</div>
+        <input class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">jmbg / pib</div>
+        <input type="number" class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">unesite broj pasoša</div>
+        <input type="number" class="custom-input">
+      </div>
+      <div class="form-item">
+        <div class="label">datum rođenja</div>
+        <div class="item-value">22.02.1980.</div>
+      </div>
+    </form>
+    <div class="insured-people">
+      <h3>lista osiguranika</h3>
+
+      <div class="list">
+        <div class="insured-person">
+          <div class="name">Mirko Petrović</div>
+          <i class="fas fa-pencil-alt"></i>
+          <i class="far fa-trash-alt"></i>
+          <div class="personal-id">13213665464654</div>
+          <div class="passport-num">126956632</div>
+          <div class="dob">22.05.1998</div>
+        </div>
+        <div class="insured-person">
+          <div class="name">Mirko Petrović</div>
+          <i class="fas fa-pencil-alt"></i>
+          <i class="far fa-trash-alt"></i>
+          <div class="personal-id">13213665464654</div>
+          <div class="passport-num">126956632</div>
+          <div class="dob">22.05.1998</div>
+        </div>
+        <div class="insured-person">
+          <div class="name">Mirko Petrović</div>
+          <i class="fas fa-pencil-alt"></i>
+          <i class="far fa-trash-alt"></i>
+          <div class="personal-id">13213665464654</div>
+          <div class="passport-num">126956632</div>
+          <div class="dob">22.05.1998</div>
+        </div>
+        <div class="insured-person">
+          <div class="name">Mirko Petrović</div>
+          <i class="fas fa-pencil-alt"></i>
+          <i class="far fa-trash-alt"></i>
+          <div class="personal-id">13213665464654</div>
+          <div class="passport-num">126956632</div>
+          <div class="dob">22.05.1998</div>
+        </div>
+      </div>
     </div>
-    <div class="form-item">
-      <div class="label">prezime</div>
-      <input class="custom-input">
-    </div>
-    <div class="form-item">
-      <div class="label">jmbg / pib</div>
-      <input type="number" class="custom-input">
-    </div>
-    <div class="form-item">
-      <div class="label">unesite broj pasoša</div>
-      <input type="number" class="custom-input">
-    </div>
-  </form>
+  </div>
 </div>

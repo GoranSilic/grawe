@@ -63,27 +63,100 @@
     border-top-left-radius: 0;
   }
 
-  form {
+  .details-wrapper {
     position: fixed;
     top: 50%;
     left: 50%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    width: 617px;
+    width: 632px;
     transform: translate(-50%, -50%);
     z-index: 1;
 
-    .form-item {
-      .custom-input {
-        width: 238px;
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      width: 300px;
+
+      button {
+        order: 0;
+        width: 300px;
+        height: 50px;
+        margin-bottom: 5px;
+        color: #fff;
+        background-color: #000;
+
+        &:hover {
+          color: #000;
+          background-color: #fff;
+        }
       }
 
-      &.long {
-        flex: 0 1 100%;
+      .info-label {
+        margin-bottom: 10px;
+        text-align: right;
+        font-size: 12px;
+        color: #000;
+      }
 
+      .form-item {
         .custom-input {
-          width: 555px;
+          width: 238px;
+        }
+      }
+    }
+
+    .insured-people {
+      width: 230px;
+      margin-top: 111px;
+      padding: 10px 35px;
+      border-radius: 5px;
+      background-color: #fff;
+
+      h3 {
+        margin-bottom: 40px;
+        line-height: 18px;
+        letter-spacing: 3px;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #00854a;
+      }
+
+      .list {
+        max-height: 326px;
+        overflow-y: auto;
+
+        .insured-person {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #f6f6f6;
+          font-size: 14px;
+          color: #000;
+
+          &:last-of-type {
+            border: none;
+          }
+
+          .name {
+            margin: 0 auto 10px 0;
+            font-family: 'Gotham-Bold', sans-serif;
+          }
+
+          .fa-pencil-alt,
+          .fa-trash-alt {
+            margin-left: 6px;
+            color: #00854a;
+            cursor: pointer;
+          }
+
+          .personal-id,
+          .passport-num,
+          .dob {
+            flex: 0 1 100%;
+            margin-bottom: 10px;
+          }
         }
       }
     }

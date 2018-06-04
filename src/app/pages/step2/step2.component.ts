@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {CalculationResponseModel} from '../../models/calculation-response.model';
+import {WebShopApiService} from '../../services/web-shop-api.service';
+import {CalculationRequestModel} from '../../models/calculation-request.model';
 
 @Component({
   selector: 'app-step2',
@@ -9,24 +11,40 @@ import {CalculationResponseModel} from '../../models/calculation-response.model'
   styleUrls: ['./step2.component.less']
 })
 export class Step2Component implements OnInit {
-  type: string;
+  // day combo
+  showDayDrop = false;
+  insuranceDay: number;
+  daysArray: number[] = [];
+
+  // month combo
+  showMonthDrop = false;
+  insuranceMonth: number;
+  monthsArray: number[] = [];
+
+  // year combo
+  showYearDrop = false;
+  insuranceYear: number;
+  yearsArray: number[] = [];
+
+  // product options
   travel = false;
   travelStar = false;
-  insuredSum = false;
-  bonus = false;
   cancellation = false;
   travelModal = false;
   travelStarModal = false;
-  showDayDrop = false;
-  showMonthDrop = false;
-  showYearDrop = false;
-  insuranceDay = 'DD';
-  insuranceMonth = 'MM';
-  insuranceYear = 'YYYY';
+  showCancellation = false;
 
-  calculateResponseModel: CalculationResponseModel = new CalculationResponseModel();
+  type: string;
+  insuredFirstSum = false;
+  insuredSecondSum = false;
 
-  constructor(private route: ActivatedRoute) { }
+  calculateResponseModel: CalculationResponseModel[] = [];
+  firstTravelOption: CalculationResponseModel = new CalculationResponseModel();
+  secondTravelOption: CalculationResponseModel = new CalculationResponseModel();
+  travelStarOption: CalculationResponseModel = new CalculationResponseModel();
+
+  constructor(private route: ActivatedRoute, private webShopApiService: WebShopApiService) {
+  }
 
   ngOnInit() {
     this.route.queryParams
@@ -34,34 +52,99 @@ export class Step2Component implements OnInit {
       .subscribe(params => {
         this.type = params.type;
       });
+
+    this.route.params.subscribe(
+      (params: Params) => {
+        const beginDate: string = params['insuranceBeginDate'];
+        if (beginDate) {
+          const dateOfTravel: Date = new Date(new Date(beginDate).toDateString());
+          const currentDate: Date = new Date(new Date().toDateString());
+          if (Math.ceil((dateOfTravel.getTime() - currentDate.getTime()) /  (1000 * 3600 * 24)) >= 30) {
+            this.showCancellation = true;
+          }
+        }
+      }
+    );
+
     this.calculateResponseModel = this.route.snapshot.data.calculationResponseModel;
+
+    if (this.type === 'individual') {
+      this.firstTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 12000);
+      this.secondTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 32000);
+    } else {
+      this.firstTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 24000);
+      this.secondTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 62000);
+    }
+    this.travelStarOption = this.calculateResponseModel.find(x => x.productVariant === 2);
+
+    this.initializeDates();
   }
 
-  toggleInsuranceDay() {
-    this.showDayDrop = !this.showDayDrop;
+  // <editor-fold desc="DATEPICKER">
+
+  initializeDates() {
+    const currentDate: Date = new Date(new Date().toDateString());
+    const maxValidDate: Date = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+    // TEMPORARY
+    for (let i = 1; i <= 31; i++) {
+      this.daysArray.push(i);
+    }
+    for (let i = 1; i <= 12; i++) {
+      this.monthsArray.push(i);
+    }
+
+    const currentYear: number = new Date().getFullYear();
+    this.yearsArray.push(currentYear);
+    this.yearsArray.push(currentYear + 1);
   }
 
-  selectInsuranceDay(e) {
-    this.insuranceDay = e.target.innerText;
+  selectInsuranceDay(day: number) {
+    this.insuranceDay = day;
     this.showDayDrop = false;
   }
 
-  toggleInsuranceMonth() {
-    this.showMonthDrop = !this.showMonthDrop;
+  onClickOutsideDayCombo(event: Object) {
+    if (event && event['value'] === true) {
+      this.showDayDrop = false;
+    }
   }
 
-  selectInsuranceMonth(e) {
-    this.insuranceMonth = e.target.innerText;
+  selectInsuranceMonth(month: number) {
+    this.insuranceMonth = month;
     this.showMonthDrop = false;
   }
 
-  toggleInsuranceYear() {
-    this.showYearDrop = !this.showYearDrop;
+  onClickOutsideMonthCombo(event: Object) {
+    if (event && event['value'] === true) {
+      this.showMonthDrop = false;
+    }
   }
 
-  selectInsuranceYear(e) {
-    this.insuranceYear = e.target.innerText;
+  selectInsuranceYear(year: number) {
+    this.insuranceYear = year;
     this.showYearDrop = false;
+  }
+
+  onClickOutsideYearCombo(event: Object) {
+    if (event && event['value'] === true) {
+      this.showYearDrop = false;
+    }
+  }
+
+    // </editor-fold>
+
+  getPremiumForTravelStar() {
+    const model: CalculationRequestModel = new CalculationRequestModel();
+    this.webShopApiService.calculateTravelStarPremium(model)
+      .subscribe(
+        (response) => {
+          this.travelStarOption = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   toggleTravel() {
@@ -69,8 +152,8 @@ export class Step2Component implements OnInit {
     this.travelStar = false;
 
     if (!this.travel) {
-      this.insuredSum = false;
-      this.bonus = false;
+      this.insuredFirstSum = false;
+      this.insuredSecondSum = false;
     } else {
       this.cancellation = false;
     }
@@ -81,34 +164,34 @@ export class Step2Component implements OnInit {
     this.travel = false;
 
     if (this.travelStar) {
-      this.insuredSum = false;
-      this.bonus = false;
+      this.insuredFirstSum = false;
+      this.insuredSecondSum = false;
     }
   }
 
-  toggleInsuredSum() {
-    this.insuredSum = !this.insuredSum;
+  toggleFirstInsuredSum() {
+    this.insuredFirstSum = !this.insuredFirstSum;
 
-    if (this.insuredSum) {
+    if (this.insuredFirstSum) {
       this.travel = true;
       this.travelStar = false;
       this.cancellation = false;
     } else {
-      if (!this.bonus) {
+      if (!this.insuredSecondSum) {
         this.travel = false;
       }
     }
   }
 
-  toggleBonus() {
-    this.bonus = !this.bonus;
+  toggleSecondInsuredSum() {
+    this.insuredSecondSum = !this.insuredSecondSum;
 
-    if (this.bonus) {
+    if (this.insuredSecondSum) {
       this.travel = true;
       this.travelStar = false;
       this.cancellation = false;
     } else {
-      if (!this.insuredSum) {
+      if (!this.insuredFirstSum) {
         this.travel = false;
       }
     }
@@ -119,8 +202,8 @@ export class Step2Component implements OnInit {
 
     if (this.cancellation) {
       this.travel = false;
-      this.insuredSum = false;
-      this.bonus = false;
+      this.insuredFirstSum = false;
+      this.insuredSecondSum = false;
       this.travelStar = true;
     } else {
       this.travelStar = false;

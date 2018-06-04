@@ -18,6 +18,8 @@
     <div class="line active"></div>
     <div class="line"></div>
     <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
   <button [routerLink]="[type === 'individual' ? '/step4' : '/step4Family']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
