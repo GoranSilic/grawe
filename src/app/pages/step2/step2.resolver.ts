@@ -24,8 +24,8 @@ export class Step2Resolver implements Resolve<CalculationResponseModel> {
       calculationRequest.tariff.travelReason = route.params['travelReason'];
       calculationRequest.tariff.insuranceCoverage = route.queryParams.type === 'individual' ? 1 : 2;
 
-      return [];
-      // return this.webShopApiService.calculatePremiums(calculationRequest);
+      // return [];
+      return this.webShopApiService.calculatePremiums(calculationRequest);
     } else {
       this.router.navigate(['home']);
     }
