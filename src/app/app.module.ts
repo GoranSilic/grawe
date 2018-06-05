@@ -22,6 +22,7 @@ import { EditComponent } from './pages/edit/edit.component';
 import { Step4FamilyComponent } from './pages/step4-family/step4-family.component';
 import { registerLocaleData } from '@angular/common';
 import localeSrb from '@angular/common/locales/sr-Latn';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
@@ -59,7 +60,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     ToasterModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ToasterService, {
     provide: HTTP_INTERCEPTORS,

@@ -23,7 +23,11 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button [routerLink]="['/step3']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
+  <div class="form-item">
+    <span class="text-danger">{{ errorMessage }}</span>
+  </div>
+
+  <button type="button" (click)="submitStep2()">sledeći korak</button>
 
   <div class="coverage-wrapper">
     <div class="coverage-box" [ngClass]="{'active': travel}">
