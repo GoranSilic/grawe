@@ -16,4 +16,8 @@ export class Tariff {
   public travelReason: number;
   public cancellationInsurance: boolean;
   public bookingDate: string;
+
+  // new property
+  public premiumRsd: number;
+  public premiumEur: number;
 }
