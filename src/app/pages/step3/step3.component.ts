@@ -45,7 +45,7 @@ export class Step3Component implements OnInit {
     }
 
     if (this.userForm.valid && this.userForm.controls['email'].value === this.userForm.controls['confirmedEmail'].value &&
-    this.userForm.controls['uid'].value.length === 13) {
+    this.userForm.controls['uid'].value.toString().length === 13) {
       const route: string = this.type === 'individual' ? 'step4' : 'step4Family';
       this.router.navigate([route], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
     }

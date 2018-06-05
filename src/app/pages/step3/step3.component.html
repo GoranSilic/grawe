@@ -41,6 +41,7 @@
       <div class="label">jmbg / pib</div>
       <input type="number" class="custom-input" formControlName="uid">
       <span class="text-danger" *ngIf="userForm.controls['uid'].hasError('required') && (userForm.controls['uid'].dirty || userForm.controls['uid'].touched)">JMBG je obavezan.</span>
+      <span class="text-danger" *ngIf="!userForm.controls['uid'].hasError('required') && userForm.controls['uid'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>
     </div>
     <div class="form-item">
       <div class="label">adresa stanovanja</div>
