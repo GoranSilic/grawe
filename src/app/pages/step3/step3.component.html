@@ -6,8 +6,7 @@
     <h2>treći korak</h2>
     <h1>Podaci o ugovaraču osiguranja</h1>
     <p>
-      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
-      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+      U naznačena polja upišite tražene podatke i potvrdite email adresu radi verifikacije tačnog unosa.
     </p>
   </div>
 
@@ -38,7 +37,7 @@
       <span class="text-danger" *ngIf="userForm.controls['lastName'].hasError('required') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Prezime je obavezno.</span>
       <span class="text-danger" *ngIf="userForm.controls['lastName'].hasError('maxlength') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span></div>
     <div class="form-item">
-      <div class="label">jmbg / pib</div>
+      <div class="label">jmbg</div>
       <input type="number" class="custom-input" formControlName="uid">
       <span class="text-danger" *ngIf="userForm.controls['uid'].hasError('required') && (userForm.controls['uid'].dirty || userForm.controls['uid'].touched)">JMBG je obavezan.</span>
       <span class="text-danger" *ngIf="!userForm.controls['uid'].hasError('required') && userForm.controls['uid'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>
