@@ -27,7 +27,7 @@ export class Customer {
 }
 
 export class InsuredPerson {
-  public salutatoryAddress: string;
+  public salutatoryAddress: number;
   public firstName: string;
   public lastName: string;
   public jmbg: string;

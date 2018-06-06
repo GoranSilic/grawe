@@ -24,7 +24,7 @@ import {registerLocaleData} from '@angular/common';
 import localeSrb from '@angular/common/locales/sr-Latn';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StorageHelperService} from './services/storage-helper.service';
-import {AuthGuardStep3} from './services/auth.guard';
+import {AuthGuardStep3, AuthGuardStep4} from './services/auth.guard';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
@@ -36,8 +36,8 @@ const appRoutes: Routes = [
     resolve: {calculationResponseModel: Step2Resolver}
   },
   {path: 'step3', component: Step3Component, canActivate: [AuthGuardStep3]},
-  {path: 'step4', component: Step4Component},
-  {path: 'step4Family', component: Step4FamilyComponent},
+  {path: 'step4', component: Step4Component, canActivate: [AuthGuardStep4]},
+  {path: 'step4Family', component: Step4FamilyComponent, canActivate: [AuthGuardStep4]},
   {path: 'step5', component: Step5Component},
   {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -75,7 +75,7 @@ const appRoutes: Routes = [
   }, HttpRequestService, WebShopApiService,
     Step2Resolver, {provide: LOCALE_ID, useValue: 'sr-Latn'},
     StorageHelperService,
-    AuthGuardStep3],
+    AuthGuardStep3, AuthGuardStep4],
   bootstrap: [AppComponent]
 })
 export class AppModule {
