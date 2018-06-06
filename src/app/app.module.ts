@@ -14,24 +14,28 @@ import {HttpRequestService} from './services/http-request.service';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {WebShopApiService} from './services/web-shop-api.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { Step3Component } from './pages/step3/step3.component';
-import { Step4Component } from './pages/step4/step4.component';
-import { Step5Component } from './pages/step5/step5.component';
+import {Step3Component} from './pages/step3/step3.component';
+import {Step4Component} from './pages/step4/step4.component';
+import {Step5Component} from './pages/step5/step5.component';
 import {Step2Resolver} from './pages/step2/step2.resolver';
-import { EditComponent } from './pages/edit/edit.component';
-import { Step4FamilyComponent } from './pages/step4-family/step4-family.component';
-import { registerLocaleData } from '@angular/common';
+import {EditComponent} from './pages/edit/edit.component';
+import {Step4FamilyComponent} from './pages/step4-family/step4-family.component';
+import {registerLocaleData} from '@angular/common';
 import localeSrb from '@angular/common/locales/sr-Latn';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {StorageHelperService} from './services/storage-helper.service';
+import {AuthGuardStep3} from './services/auth.guard';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'step1', component: Step1Component},
-  {path: 'step2/:insuranceBeginDate/:insuranceEndDate/:fullYear/:travelReason', component: Step2Component,
-    resolve: {calculationResponseModel: Step2Resolver}},
-  {path: 'step3', component: Step3Component},
+  {
+    path: 'step2/:insuranceBeginDate/:insuranceEndDate/:fullYear/:travelReason', component: Step2Component,
+    resolve: {calculationResponseModel: Step2Resolver}
+  },
+  {path: 'step3', component: Step3Component, canActivate: [AuthGuardStep3]},
   {path: 'step4', component: Step4Component},
   {path: 'step4Family', component: Step4FamilyComponent},
   {path: 'step5', component: Step5Component},
@@ -68,7 +72,10 @@ const appRoutes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,
     multi: true,
-  }, HttpRequestService, WebShopApiService, Step2Resolver, { provide: LOCALE_ID, useValue: 'sr-Latn'}],
+  }, HttpRequestService, WebShopApiService,
+    Step2Resolver, {provide: LOCALE_ID, useValue: 'sr-Latn'},
+    StorageHelperService,
+    AuthGuardStep3],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -4,6 +4,8 @@ import 'rxjs/add/operator/filter';
 import {CalculationResponseModel} from '../../models/calculation-response.model';
 import {WebShopApiService} from '../../services/web-shop-api.service';
 import {CalculationRequestModel} from '../../models/calculation-request.model';
+import {StorageHelperService} from '../../services/storage-helper.service';
+import {OfferModel} from '../../models/offer.model';
 
 @Component({
   selector: 'app-step2',
@@ -46,6 +48,7 @@ export class Step2Component implements OnInit {
   travelStarOption: CalculationResponseModel = new CalculationResponseModel();
 
   constructor(private route: ActivatedRoute, private webShopApiService: WebShopApiService, private router: Router) {
+    StorageHelperService.PullData('OfferModel');
   }
 
   ngOnInit() {
@@ -122,6 +125,21 @@ export class Step2Component implements OnInit {
     this.insuranceDay = currentDate.getDate();
     this.insuranceMonth = currentDate.getMonth() + 1;
     this.insuranceYear = currentDate.getFullYear();
+  }
+
+  refreshDatePicker() {
+    // empty days and months array
+    this.daysArray = [];
+    this.monthsArray = [];
+
+    const currentDate: number = new Date(new Date().toDateString()).getTime();
+    const maxValidDate: Date = new Date(currentDate + 14 * 24 * 60 * 60 * 1000);
+
+    // get minimum values of year, month and day
+    const minYear: number = new Date(currentDate).getFullYear();
+    const minMonth: number = new Date(currentDate).getMonth() + 1;
+    const minDay: number = new Date(currentDate).getDate();
+
   }
 
   selectInsuranceDay(day: number) {
@@ -217,6 +235,7 @@ export class Step2Component implements OnInit {
 
   toggleFirstInsuredSum() {
     this.errorMessage = '';
+    this.insuredSecondSum = false;
     this.insuredFirstSum = !this.insuredFirstSum;
 
     if (this.insuredFirstSum) {
@@ -227,14 +246,13 @@ export class Step2Component implements OnInit {
         this.getPremiumForTravelStar();
       }
     } else {
-      if (!this.insuredSecondSum) {
-        this.travel = false;
-      }
+      this.travel = false;
     }
   }
 
   toggleSecondInsuredSum() {
     this.errorMessage = '';
+    this.insuredFirstSum = false;
     this.insuredSecondSum = !this.insuredSecondSum;
 
     if (this.insuredSecondSum) {
@@ -245,9 +263,7 @@ export class Step2Component implements OnInit {
         this.getPremiumForTravelStar();
       }
     } else {
-      if (!this.insuredFirstSum) {
-        this.travel = false;
-      }
+      this.travel = false;
     }
   }
 
@@ -275,6 +291,36 @@ export class Step2Component implements OnInit {
       this.errorMessage = 'Morate izabrati jednu od osiguranih suma.';
       return;
     }
+
+    StorageHelperService.PullData('OfferModel');
+    const offerModel: OfferModel = new OfferModel();
+    offerModel.tariff.insuranceCoverage = this.calculationRequestModel.tariff.insuranceCoverage;
+    offerModel.tariff.insuranceBeginDate = this.calculationRequestModel.tariff.insuranceBeginDate;
+    offerModel.tariff.insuranceEndDate = this.calculationRequestModel.tariff.insuranceEndDate;
+    offerModel.tariff.fullYear = this.calculationRequestModel.tariff.fullYear;
+    offerModel.tariff.travelReason = this.calculationRequestModel.tariff.travelReason;
+    offerModel.tariff.productVariant = this.travel ? 1 : 2;
+    offerModel.tariff.cancellationInsurance = this.cancellation;
+    offerModel.tariff.bookingDate = this.cancellation ?
+      new Date(this.insuranceYear, this.insuranceMonth - 1, this.insuranceDay).toDateString() : null;
+
+    if (this.travel) {
+      if (this.insuredFirstSum) {
+        offerModel.tariff.amountInsured = this.firstTravelOption.amountInsured;
+        offerModel.tariff.premiumRsd = this.firstTravelOption.premiumRsd;
+        offerModel.tariff.premiumEur = this.firstTravelOption.premiumEur;
+      } else if (this.insuredSecondSum) {
+        offerModel.tariff.amountInsured = this.secondTravelOption.amountInsured;
+        offerModel.tariff.premiumRsd = this.secondTravelOption.premiumRsd;
+        offerModel.tariff.premiumEur = this.secondTravelOption.premiumEur;
+      }
+    } else if (this.travelStar) {
+      offerModel.tariff.amountInsured = this.travelStarOption.amountInsured;
+      offerModel.tariff.premiumRsd = this.travelStarOption.premiumRsd;
+      offerModel.tariff.premiumEur = this.travelStarOption.premiumEur;
+    }
+
+    StorageHelperService.PushData('OfferModel', offerModel);
 
     this.router.navigate(['step3'], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
   }
