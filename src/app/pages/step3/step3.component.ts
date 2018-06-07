@@ -4,7 +4,8 @@ import 'rxjs/add/operator/filter';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import {WebShopApiService} from '../../services/web-shop-api.service';
-import {Customer} from '../../models/offer.model';
+import {Customer, InsuredPerson, OfferModel} from '../../models/offer.model';
+import {StorageHelperService} from '../../services/storage-helper.service';
 
 @Component({
   selector: 'app-step3',
@@ -18,6 +19,7 @@ export class Step3Component implements OnInit {
 
   userForm: FormGroup;
   customer: Customer = new Customer();
+  offerModel: OfferModel = new OfferModel();
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
               private webShopApiService: WebShopApiService) {
@@ -33,6 +35,11 @@ export class Step3Component implements OnInit {
       'confirmedEmail': [null, Validators.compose([Validators.required, Validators.maxLength(50), CustomValidators.email])],
       'passportNumber': [null],
     });
+
+    this.offerModel = StorageHelperService.GetData('OfferModel');
+    if (!this.offerModel) {
+      this.router.navigate(['home']);
+    }
   }
 
   @HostListener('keyup', ['$event'])
@@ -55,10 +62,8 @@ export class Step3Component implements OnInit {
   togglePassportNumber() {
     this.insured = !this.insured;
     if (this.insured) {
-      // this.userForm.addControl('passportNumber', new FormControl(Validators.compose([Validators.required, Validators.maxLength(20)])));
       this.userForm.controls['passportNumber'].setValidators(Validators.required);
     } else {
-      // this.userForm.removeControl('passportNumber');
       this.userForm.controls['passportNumber'].clearValidators();
     }
     this.userForm.controls['passportNumber'].updateValueAndValidity();
@@ -99,6 +104,11 @@ export class Step3Component implements OnInit {
     return true;
   }
 
+  getSalutatoryAddress(): number {
+    const salutatoryAddress = this.customer.jmbg.toString().substring(9, 12);
+    return +salutatoryAddress < 500 ? 1 : 2;
+  }
+
   submitStep3(event) {
     event.stopPropagation();
     for (const c in this.userForm.controls) {
@@ -107,6 +117,24 @@ export class Step3Component implements OnInit {
 
     if (this.userForm.valid && this.userForm.controls['email'].value === this.userForm.controls['confirmedEmail'].value &&
     this.userForm.controls['uid'].value.toString().length === 13 && this.isJmbgValid()) {
+
+      this.customer.salutatoryAddress = this.getSalutatoryAddress();
+      if (this.insured) {
+        const insuredPerson: InsuredPerson = new InsuredPerson();
+        insuredPerson.firstName = this.customer.firstName;
+        insuredPerson.lastName = this.customer.lastName;
+        insuredPerson.jmbg = this.customer.jmbg;
+        insuredPerson.passportNumber = this.userForm.controls['passportNumber'].value;
+        insuredPerson.salutatoryAddress = this.customer.salutatoryAddress;
+
+        this.offerModel.insuredPersons = [];
+        this.offerModel.insuredPersons.push(insuredPerson);
+      }
+
+      this.offerModel.customer = this.customer;
+      StorageHelperService.PullData('OfferModel');
+      StorageHelperService.PushData('OfferModel', this.offerModel);
+
       const route: string = this.type === 'individual' ? 'step4' : 'step4Family';
       this.router.navigate([route], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
     }

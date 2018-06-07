@@ -70,7 +70,7 @@ export class Step2Component implements OnInit {
         if (beginDate) {
           const dateOfTravel: Date = new Date(new Date(beginDate).toDateString());
           const currentDate: Date = new Date(new Date().toDateString());
-          if (Math.ceil((dateOfTravel.getTime() - currentDate.getTime()) /  (1000 * 3600 * 24)) >= 30) {
+          if (Math.ceil((dateOfTravel.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)) >= 30) {
             this.showCancellation = true;
           }
         }
@@ -95,7 +95,7 @@ export class Step2Component implements OnInit {
 
   initializeDates() {
     const currentDate: Date = new Date(new Date().toDateString());
-    const maxValidDate: Date = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const maxValidDate: Date = new Date(currentDate.getTime() + 13 * 24 * 60 * 60 * 1000);
 
     // init days
     let daysOfMonth: number = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
@@ -109,7 +109,9 @@ export class Step2Component implements OnInit {
     // init months
     if (currentDate.getMonth() !== maxValidDate.getMonth()) {
       this.monthsArray.push(currentDate.getMonth() + 1);
-      this.monthsArray.push(maxValidDate.getMonth() + 1);
+      if (currentDate.getFullYear() === maxValidDate.getFullYear()) {
+        this.monthsArray.push(maxValidDate.getMonth() + 1);
+      }
     } else {
       this.monthsArray.push(currentDate.getMonth() + 1);
     }
@@ -128,23 +130,57 @@ export class Step2Component implements OnInit {
   }
 
   refreshDatePicker() {
-    // empty days and months array
-    this.daysArray = [];
-    this.monthsArray = [];
-
-    const currentDate: number = new Date(new Date().toDateString()).getTime();
-    const maxValidDate: Date = new Date(currentDate + 14 * 24 * 60 * 60 * 1000);
+    const minDate: number = new Date(new Date().toDateString()).getTime();
+    const maxDate: Date = new Date(minDate + 13 * 24 * 60 * 60 * 1000);
 
     // get minimum values of year, month and day
-    const minYear: number = new Date(currentDate).getFullYear();
-    const minMonth: number = new Date(currentDate).getMonth() + 1;
-    const minDay: number = new Date(currentDate).getDate();
+    const minYear: number = new Date(minDate).getFullYear();
+    const minMonth: number = new Date(minDate).getMonth() + 1;
+    const minDay: number = new Date(minDate).getDate();
 
+    // set months and days
+    if (minYear !== maxDate.getFullYear() && this.insuranceYear === maxDate.getFullYear()) {
+      this.monthsArray = [];
+      this.daysArray = [];
+      this.monthsArray.push(1);
+      this.insuranceMonth = 1;
+      for (let i = 1; i <= maxDate.getDate(); i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
+    } else if (minYear !== maxDate.getFullYear() && this.insuranceYear === minYear) {
+      this.monthsArray = [];
+      this.daysArray = [];
+      this.monthsArray.push(12);
+      this.insuranceMonth = 12;
+      for (let i = minDay; i <= 31; i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : minDay;
+    }
+
+    if (minMonth !== maxDate.getMonth() + 1 && this.insuranceMonth === maxDate.getMonth() + 1) {
+      this.daysArray = [];
+      for (let i = 1; i <= maxDate.getDate(); i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
+    } else if (minMonth !== maxDate.getMonth() + 1 && this.insuranceMonth === minMonth) {
+      this.daysArray = [];
+      for (let i = minDay; i <= new Date(this.insuranceYear, this.insuranceMonth, 0).getDate(); i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : minDay;
+    }
   }
 
   selectInsuranceDay(day: number) {
+    const oldValue: number = this.insuranceDay;
     this.insuranceDay = day;
     this.showDayDrop = false;
+    if (oldValue !== this.insuranceDay) {
+      this.getPremiumForTravelStar();
+    }
   }
 
   onClickOutsideDayCombo(event: Object) {
@@ -154,8 +190,13 @@ export class Step2Component implements OnInit {
   }
 
   selectInsuranceMonth(month: number) {
+    const oldValue: number = this.insuranceMonth;
     this.insuranceMonth = month;
     this.showMonthDrop = false;
+    this.refreshDatePicker();
+    if (oldValue !== this.insuranceMonth) {
+      this.getPremiumForTravelStar();
+    }
   }
 
   onClickOutsideMonthCombo(event: Object) {
@@ -165,8 +206,13 @@ export class Step2Component implements OnInit {
   }
 
   selectInsuranceYear(year: number) {
+    const oldValue: number = this.insuranceYear;
     this.insuranceYear = year;
     this.showYearDrop = false;
+    this.refreshDatePicker();
+    if (oldValue !== this.insuranceYear) {
+      this.getPremiumForTravelStar();
+    }
   }
 
   onClickOutsideYearCombo(event: Object) {
@@ -175,7 +221,7 @@ export class Step2Component implements OnInit {
     }
   }
 
-    // </editor-fold>
+  // </editor-fold>
 
   getPremiumForTravelStar() {
     const model: CalculationRequestModel = new CalculationRequestModel();
@@ -322,7 +368,7 @@ export class Step2Component implements OnInit {
 
     StorageHelperService.PushData('OfferModel', offerModel);
 
-    this.router.navigate(['step3'], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
+    this.router.navigate(['step3'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }
 
 }

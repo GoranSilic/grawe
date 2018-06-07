@@ -57,6 +57,7 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.clear();
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
