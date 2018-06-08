@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:2255/api/'
+  production: true,
+  apiUrl: 'http://webshoptest-api.azurewebsites.net/api/'
 };

@@ -34,7 +34,7 @@ export class Step4Component implements OnInit {
 
     const durationNumber: number = Math.ceil((new Date(this.offerRequestModel.tariff.insuranceEndDate).getTime() -
       new Date(this.offerRequestModel.tariff.insuranceBeginDate).getTime()) / (1000 * 3600 * 24));
-    this.duration = durationNumber === 1 ? durationNumber + ' dan' : durationNumber + ' dana';
+    this.duration = durationNumber + 1 === 1 ? (durationNumber + 1) + ' dan' : (durationNumber + 1) + ' dana';
   }
 
   ngOnInit() {
