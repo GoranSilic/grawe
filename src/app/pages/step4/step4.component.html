@@ -1,6 +1,8 @@
 <div class="step4-wrapper">
   <div class="info">
-    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <h1 class="light">
+      <ng-container *ngIf="type == 'family'">Porodično</ng-container>
+      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>  Putno Osiguranje</h1>
     <br>
     <h2>četvrti korak</h2>
     <h1>Detalji polise</h1>
@@ -21,7 +23,7 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button routerLink="/step5" [queryParams]="{ type: type}" queryParamsHandling="merge">plaćanje</button>
+  <button (click)="proceedToPayment()">plaćanje</button>
 
   <div class="details-wrapper">
     <div class="details-box">
@@ -30,38 +32,46 @@
         <i class="fas fa-pencil-alt"></i>
       </button>
 
-      <h3>individualno<br> putno osiguranje</h3>
+      <h3>
+        <ng-container *ngIf="type == 'individual'">individualno</ng-container>
+        <ng-container *ngIf="type == 'family'">porodično</ng-container>
+        <br> putno osiguranje
+      </h3>
       <div class="info-item">
-        Početak osiguranja: <span>22.03.2018.</span>
+        Početak osiguranja: <span>{{ offerRequestModel?.tariff?.insuranceBeginDate | date: 'dd.MM.yyyy' }}</span>
       </div>
       <div class="info-item">
-        Trajanje: <span>8 dana</span>
+        Trajanje: <span>{{ duration }}</span>
       </div>
       <div class="info-item">
-        Svrha putovanja: <span>Poslovno</span>
+        Svrha putovanja:
+        <span *ngIf="offerRequestModel?.tariff?.travelReason == '1'">Turističko</span>
+        <span *ngIf="offerRequestModel?.tariff?.travelReason == '2'">Poslovno</span>
+        <span *ngIf="offerRequestModel?.tariff?.travelReason == '3'">Studijsko</span>
+        <span *ngIf="offerRequestModel?.tariff?.travelReason == '4'">Privremeni rad u inostranstvu</span>
       </div>
       <div class="info-item">
-        Istek osiguranja: <span>31.03.2018.</span>
+        Istek osiguranja: <span>{{ offerRequestModel?.tariff?.insuranceEndDate | date: 'dd.MM.yyyy' }}</span>
       </div>
       <br>
       <div class="info-item">
-        Pokriće: <span>Travel Star</span>
+        Pokriće: <span>{{ offerRequestModel?.tariff?.productVariant == 1 ? 'Travel' : 'Travel Star' }}</span>
       </div>
       <div class="info-item">
-        Osigurana suma: <span>1.500 EUR</span>
+        Osigurana suma: <span>{{ offerRequestModel?.tariff?.amountInsured | number:'1.2-2':'sr-Latn' }} RSD</span>
       </div>
       <div class="info-item">
-        Premija: <span>500 EUR</span>
+        Premija: <span>{{ offerRequestModel?.tariff?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</span>
       </div>
       <br>
 
       <h3>Ugovarač osiguranja</h3>
-      <div class="info-item"><span>Mirko Petrović</span></div>
-      <div class="info-item">123123123123</div>
-      <div class="info-item">Gandijeva 43,</div>
-      <div class="info-item">11000 Beograd,</div>
-      <div class="info-item">+38164132123</div>
-      <div class="info-item email">mirko@gmail.com</div>
+      <div class="info-item"><span>{{ offerRequestModel.customer.firstName }} {{ offerRequestModel.customer.lastName }}</span></div>
+      <div class="info-item">{{ offerRequestModel.customer.jmbg }}</div>
+      <div class="info-item">{{ offerRequestModel.customer.address.street }}</div>
+      <div class="info-item">{{ offerRequestModel.customer.address.zipCode }} {{ offerRequestModel.customer.address.town }}</div>
+      <div class="info-item">{{ offerRequestModel.customer.phoneNumber }}</div>
+      <div class="info-item email">{{ offerRequestModel.customer.emailAddress }}</div>
     </div>
 
     <div class="form-item" style="margin-right: 10px;">
@@ -81,7 +91,7 @@
       <div class="label">prijava na newsletter</div>
     </div>
     <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info">
+      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; info ? getOfferId() : null">
         <i class="fas fa-check"></i>
       </div>
       <div class="label">informacije za ugovarača osiguranja</div>

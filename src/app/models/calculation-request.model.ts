@@ -13,7 +13,7 @@ export class Tariff {
   public productVariant: number;
   public insuranceCoverage: number;
   public amountInsured: number;
-  public travelReason: number;
+  public travelReason: string;
   public cancellationInsurance: boolean;
   public bookingDate: string;
 

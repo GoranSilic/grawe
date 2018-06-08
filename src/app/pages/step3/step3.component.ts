@@ -4,8 +4,9 @@ import 'rxjs/add/operator/filter';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import {WebShopApiService} from '../../services/web-shop-api.service';
-import {Customer, InsuredPerson, OfferModel} from '../../models/offer.model';
+import {Customer, InsuredPerson, OfferRequestModel} from '../../models/offer-request.model';
 import {StorageHelperService} from '../../services/storage-helper.service';
+import {JmbgHelper} from '../../helpers/jmbg.helper';
 
 @Component({
   selector: 'app-step3',
@@ -19,10 +20,9 @@ export class Step3Component implements OnInit {
 
   userForm: FormGroup;
   customer: Customer = new Customer();
-  offerModel: OfferModel = new OfferModel();
+  offerModel: OfferRequestModel = new OfferRequestModel();
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
-              private webShopApiService: WebShopApiService) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
     this.userForm = fb.group({
       'firstName': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
       'lastName': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -36,7 +36,7 @@ export class Step3Component implements OnInit {
       'passportNumber': [null],
     });
 
-    this.offerModel = StorageHelperService.GetData('OfferModel');
+    this.offerModel = StorageHelperService.GetData('OfferRequestModel');
     if (!this.offerModel) {
       this.router.navigate(['home']);
     }
@@ -70,43 +70,13 @@ export class Step3Component implements OnInit {
   }
 
   isJmbgValid() {
-    const day = this.customer.jmbg.toString().substring(0, 2);
-    const month = this.customer.jmbg.toString().substring(2, 4);
-    let year = this.customer.jmbg.toString().substring(4, 7);
-
-    if (isNaN(+this.customer.jmbg)) {
-      this.jmbgError = 'JMBG nije validan.';
-      return false;
-    }
-
-    if (year.charAt(0) === '9') {
-      year = '1' + year;
-    } else if (year.charAt(0) === '0') {
-      year = '2' + year;
+    if (JmbgHelper.isJmbgValid(this.customer.jmbg)) {
+      this.jmbgError = '';
+      return true;
     } else {
       this.jmbgError = 'JMBG nije validan.';
       return false;
     }
-
-    if (+month > 12 || +month < 1) {
-      this.jmbgError = 'JMBG nije validan.';
-      return false;
-    }
-
-    const daysOfMonth: number = new Date(+year, +month, 0).getDate();
-
-    if (+day < 1 || +day > daysOfMonth) {
-      this.jmbgError = 'JMBG nije validan.';
-      return false;
-    }
-
-    this.jmbgError = '';
-    return true;
-  }
-
-  getSalutatoryAddress(): number {
-    const salutatoryAddress = this.customer.jmbg.toString().substring(9, 12);
-    return +salutatoryAddress < 500 ? 1 : 2;
   }
 
   submitStep3(event) {
@@ -118,7 +88,7 @@ export class Step3Component implements OnInit {
     if (this.userForm.valid && this.userForm.controls['email'].value === this.userForm.controls['confirmedEmail'].value &&
     this.userForm.controls['uid'].value.toString().length === 13 && this.isJmbgValid()) {
 
-      this.customer.salutatoryAddress = this.getSalutatoryAddress();
+      this.customer.salutatoryAddress = JmbgHelper.getSalutatoryAddress(this.customer.jmbg);
       if (this.insured) {
         const insuredPerson: InsuredPerson = new InsuredPerson();
         insuredPerson.firstName = this.customer.firstName;
@@ -126,16 +96,17 @@ export class Step3Component implements OnInit {
         insuredPerson.jmbg = this.customer.jmbg;
         insuredPerson.passportNumber = this.userForm.controls['passportNumber'].value;
         insuredPerson.salutatoryAddress = this.customer.salutatoryAddress;
+        insuredPerson.dateOfBirth = JmbgHelper.formatDate(this.customer.jmbg);
 
         this.offerModel.insuredPersons = [];
         this.offerModel.insuredPersons.push(insuredPerson);
       }
 
       this.offerModel.customer = this.customer;
-      StorageHelperService.PullData('OfferModel');
-      StorageHelperService.PushData('OfferModel', this.offerModel);
+      StorageHelperService.PullData('OfferRequestModel');
+      StorageHelperService.PushData('OfferRequestModel', this.offerModel);
 
-      const route: string = this.type === 'individual' ? 'step4' : 'step4Family';
+      const route: string = this.type === 'individual' && this.insured ? 'step4-details' : 'step4-insured-persons';
       this.router.navigate([route], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
     }
   }
