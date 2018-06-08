@@ -5,7 +5,7 @@ import {CalculationResponseModel} from '../../models/calculation-response.model'
 import {WebShopApiService} from '../../services/web-shop-api.service';
 import {CalculationRequestModel} from '../../models/calculation-request.model';
 import {StorageHelperService} from '../../services/storage-helper.service';
-import {OfferModel} from '../../models/offer.model';
+import {OfferRequestModel} from '../../models/offer-request.model';
 
 @Component({
   selector: 'app-step2',
@@ -48,7 +48,7 @@ export class Step2Component implements OnInit {
   travelStarOption: CalculationResponseModel = new CalculationResponseModel();
 
   constructor(private route: ActivatedRoute, private webShopApiService: WebShopApiService, private router: Router) {
-    StorageHelperService.PullData('OfferModel');
+    StorageHelperService.PullData('OfferRequestModel');
   }
 
   ngOnInit() {
@@ -62,7 +62,7 @@ export class Step2Component implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.calculationRequestModel.tariff.insuranceBeginDate = params['insuranceBeginDate'];
-        this.calculationRequestModel.tariff.insuranceEndDate = params['fullYear'] === 'true' ? null : params['insuranceEndDate'];
+        this.calculationRequestModel.tariff.insuranceEndDate = params['insuranceEndDate'];
         this.calculationRequestModel.tariff.fullYear = params['fullYear'];
         this.calculationRequestModel.tariff.travelReason = params['travelReason'];
 
@@ -338,8 +338,8 @@ export class Step2Component implements OnInit {
       return;
     }
 
-    StorageHelperService.PullData('OfferModel');
-    const offerModel: OfferModel = new OfferModel();
+    StorageHelperService.PullData('OfferRequestModel');
+    const offerModel: OfferRequestModel = new OfferRequestModel();
     offerModel.tariff.insuranceCoverage = this.calculationRequestModel.tariff.insuranceCoverage;
     offerModel.tariff.insuranceBeginDate = this.calculationRequestModel.tariff.insuranceBeginDate;
     offerModel.tariff.insuranceEndDate = this.calculationRequestModel.tariff.insuranceEndDate;
@@ -366,7 +366,7 @@ export class Step2Component implements OnInit {
       offerModel.tariff.premiumEur = this.travelStarOption.premiumEur;
     }
 
-    StorageHelperService.PushData('OfferModel', offerModel);
+    StorageHelperService.PushData('OfferRequestModel', offerModel);
 
     this.router.navigate(['step3'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }

@@ -36,8 +36,8 @@ const appRoutes: Routes = [
     resolve: {calculationResponseModel: Step2Resolver}
   },
   {path: 'step3', component: Step3Component, canActivate: [AuthGuardStep3]},
-  {path: 'step4', component: Step4Component, canActivate: [AuthGuardStep4]},
-  {path: 'step4Family', component: Step4FamilyComponent, canActivate: [AuthGuardStep4]},
+  {path: 'step4-details', component: Step4Component},
+  {path: 'step4-insured-persons', component: Step4FamilyComponent},
   {path: 'step5', component: Step5Component},
   {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},

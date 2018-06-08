@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
+import {OfferRequestModel} from '../../models/offer-request.model';
+import {StorageHelperService} from '../../services/storage-helper.service';
+import {WebShopApiService} from '../../services/web-shop-api.service';
+import {OfferResponseModel} from '../../models/offer-response.model';
 
 @Component({
   selector: 'app-step4',
@@ -12,14 +16,44 @@ export class Step4Component implements OnInit {
   newsletter = false;
   info = false;
   type: string;
+  duration: string;
 
-  constructor(private route: ActivatedRoute) { }
+  offerRequestModel: OfferRequestModel;
+  offerResponseModel: OfferResponseModel = new OfferResponseModel();
 
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private router: Router, private webShopApiService: WebShopApiService) {
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
         this.type = params.type;
       });
+    this.offerRequestModel = StorageHelperService.GetData('OfferRequestModel');
+    if (!this.offerRequestModel) {
+      this.router.navigate(['home']);
+    }
+
+    const durationNumber: number = Math.ceil((new Date(this.offerRequestModel.tariff.insuranceEndDate).getTime() -
+      new Date(this.offerRequestModel.tariff.insuranceBeginDate).getTime()) / (1000 * 3600 * 24));
+    this.duration = durationNumber === 1 ? durationNumber + ' dan' : durationNumber + ' dana';
+  }
+
+  ngOnInit() {
+
+  }
+
+  getOfferId() {
+    this.webShopApiService.offerRequest(this.offerRequestModel)
+      .subscribe(
+        (response) => {
+          this.offerResponseModel = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  proceedToPayment() {
+    this.router.navigate(['step5'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }
 }

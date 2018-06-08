@@ -1,6 +1,9 @@
 <div class="step4Family-wrapper">
   <div class="info">
-    <h1 class="light">Porodično Putno Osiguranje</h1>
+    <h1 class="light">
+      <ng-container *ngIf="type == 'family'">Porodično</ng-container>
+      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>  Putno Osiguranje
+    </h1>
     <br>
     <h2>četvrti korak</h2>
     <h1>Detalji Polise</h1>
@@ -22,69 +25,56 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button [routerLink]="['/step4']" [queryParams]="{ type: type}" queryParamsHandling="merge">sledeći korak</button>
+  <button type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 
   <div class="details-wrapper">
-    <form action="">
-      <button>+ dodaj osiguranika</button>
-      <div class="info-label">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
+    <form [formGroup]="insuredForm">
+      <button *ngIf="showAddButton()"   (click)="addInsuredPerson()">+ dodaj osiguranika</button>
+      <div class="info-label" *ngIf="type == 'family'">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
+      <div class="info-label" *ngIf="type == 'individual'">Podaci za maksimalno 1 punoletno lice</div>
 
       <div class="form-item">
         <div class="label">ime</div>
-        <input class="custom-input">
+        <input class="custom-input" formControlName="firstName" [(ngModel)]="insuredPerson.firstName">
+        <span class="text-danger" *ngIf="insuredForm.controls['firstName'].hasError('required') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Ime je obavezno.</span>
+        <span class="text-danger" *ngIf="insuredForm.controls['firstName'].hasError('maxlength') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Maksimalno 50 karaktera.</span>
       </div>
       <div class="form-item">
         <div class="label">prezime</div>
-        <input class="custom-input">
+        <input class="custom-input" formControlName="lastName" [(ngModel)]="insuredPerson.lastName">
+        <span class="text-danger" *ngIf="insuredForm.controls['lastName'].hasError('required') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Prezime je obavezno.</span>
+        <span class="text-danger" *ngIf="insuredForm.controls['lastName'].hasError('maxlength') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span>
       </div>
       <div class="form-item">
         <div class="label">jmbg / pib</div>
-        <input type="number" class="custom-input">
+        <input type="number" class="custom-input" formControlName="jmbg" (click)="jmbgError = ''" (keyup)="showDateOfBirth()" [(ngModel)]="insuredPerson.jmbg">
+        <span class="text-danger" *ngIf="insuredForm.controls['jmbg'].hasError('required') && (insuredForm.controls['jmbg'].dirty || insuredForm.controls['jmbg'].touched)">JMBG je obavezan.</span>
+        <span class="text-danger" *ngIf="!insuredForm.controls['jmbg'].hasError('required') && insuredForm.controls['jmbg'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>
+        <span class="text-danger">{{ jmbgError }}</span>
       </div>
       <div class="form-item">
         <div class="label">unesite broj pasoša</div>
-        <input type="number" class="custom-input">
+        <input type="number" class="custom-input" formControlName="passportNumber" [(ngModel)]="insuredPerson.passportNumber">
+        <span class="text-danger" *ngIf="insuredForm.controls['passportNumber'].hasError('required') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>
+        <span class="text-danger" *ngIf="insuredForm.controls['passportNumber'].hasError('maxlength') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Maksimalno 20 karaktera.</span>
       </div>
       <div class="form-item">
         <div class="label">datum rođenja</div>
-        <div class="item-value">22.02.1980.</div>
+        <div class="item-value">{{ insuredPerson.dateOfBirth }}</div>
       </div>
     </form>
+
     <div class="insured-people">
       <h3>lista osiguranika</h3>
 
       <div class="list">
-        <div class="insured-person">
-          <div class="name">Mirko Petrović</div>
-          <i class="fas fa-pencil-alt"></i>
-          <i class="far fa-trash-alt"></i>
-          <div class="personal-id">13213665464654</div>
-          <div class="passport-num">126956632</div>
-          <div class="dob">22.05.1998</div>
-        </div>
-        <div class="insured-person">
-          <div class="name">Mirko Petrović</div>
-          <i class="fas fa-pencil-alt"></i>
-          <i class="far fa-trash-alt"></i>
-          <div class="personal-id">13213665464654</div>
-          <div class="passport-num">126956632</div>
-          <div class="dob">22.05.1998</div>
-        </div>
-        <div class="insured-person">
-          <div class="name">Mirko Petrović</div>
-          <i class="fas fa-pencil-alt"></i>
-          <i class="far fa-trash-alt"></i>
-          <div class="personal-id">13213665464654</div>
-          <div class="passport-num">126956632</div>
-          <div class="dob">22.05.1998</div>
-        </div>
-        <div class="insured-person">
-          <div class="name">Mirko Petrović</div>
-          <i class="fas fa-pencil-alt"></i>
-          <i class="far fa-trash-alt"></i>
-          <div class="personal-id">13213665464654</div>
-          <div class="passport-num">126956632</div>
-          <div class="dob">22.05.1998</div>
+        <div class="insured-person" *ngFor="let person of offerRequestModel.insuredPersons">
+          <div class="name">{{ person.firstName }} {{ person.lastName }}</div>
+          <i class="fas fa-pencil-alt" (click)="editPerson(person)"></i>
+          <i class="far fa-trash-alt" (click)="deletePerson(person)"></i>
+          <div class="personal-id">{{ person.jmbg }}</div>
+          <div class="passport-num">{{ person.passportNumber }}</div>
+          <div class="dob">{{ person.dateOfBirth }}</div>
         </div>
       </div>
     </div>

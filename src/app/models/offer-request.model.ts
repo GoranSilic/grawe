@@ -1,6 +1,6 @@
 import {Tariff} from './calculation-request.model';
 
-export class OfferModel {
+export class OfferRequestModel {
   public tariff: Tariff;
   public customer: Customer;
   public insuredPersons: InsuredPerson[];
@@ -32,6 +32,13 @@ export class InsuredPerson {
   public lastName: string;
   public jmbg: string;
   public passportNumber: string;
+
+  // new properties
+  public dateOfBirth: string;
+
+  constructor() {
+    this.dateOfBirth = '-';
+  }
 }
 
 export class Address {

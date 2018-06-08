@@ -20,7 +20,7 @@ export class Step2Resolver implements Resolve<CalculationResponseModel> {
       const calculationRequest: CalculationRequestModel = new CalculationRequestModel();
       calculationRequest.tariff.fullYear = route.params['fullYear'];
       calculationRequest.tariff.insuranceBeginDate = route.params['insuranceBeginDate'];
-      calculationRequest.tariff.insuranceEndDate = route.params['fullYear'] === 'true' ? null : route.params['insuranceEndDate'];
+      calculationRequest.tariff.insuranceEndDate = route.params['insuranceEndDate'];
       calculationRequest.tariff.travelReason = route.params['travelReason'];
       calculationRequest.tariff.insuranceCoverage = route.queryParams.type === 'individual' ? 1 : 2;
 

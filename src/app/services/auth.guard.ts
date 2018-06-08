@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import {OfferModel} from '../models/offer.model';
+import {OfferRequestModel} from '../models/offer-request.model';
 import {StorageHelperService} from './storage-helper.service';
 
 @Injectable()
@@ -36,7 +36,7 @@ export class AuthGuardStep3 implements CanActivate {
   }
 
   getDataForStep3() {
-    const offerModel: OfferModel = StorageHelperService.GetData('OfferModel');
+    const offerModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
     return offerModel && offerModel.tariff && offerModel.tariff.insuranceBeginDate ? offerModel.tariff : null;
   }
 }
@@ -73,7 +73,7 @@ export class AuthGuardStep4 implements CanActivate {
   }
 
   getDataForStep4() {
-    const offerModel: OfferModel = StorageHelperService.GetData('OfferModel');
+    const offerModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
     return offerModel && offerModel.tariff && offerModel.customer.emailAddress ? offerModel.customer : null;
   }
 }
