@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 
 @Component({
@@ -8,16 +8,18 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['./step5.component.less']
 })
 export class Step5Component implements OnInit {
-  success = true; // change this to false to display declined policy message
+  success: boolean; // change this to false to display declined policy message
   type: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.success = this.router.url.indexOf('success-page') > -1;
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
         this.type = params.type;
       });
+
   }
 }

@@ -1,9 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
-import {WebShopApiService} from '../../services/web-shop-api.service';
 import {Customer, InsuredPerson, OfferRequestModel} from '../../models/offer-request.model';
 import {StorageHelperService} from '../../services/storage-helper.service';
 import {JmbgHelper} from '../../helpers/jmbg.helper';
@@ -36,9 +35,19 @@ export class Step3Component implements OnInit {
       'passportNumber': [null],
     });
 
+    this.route.queryParams
+      .filter(params => params.type)
+      .subscribe(params => {
+        this.type = params.type;
+      });
+
     this.offerModel = StorageHelperService.GetData('OfferRequestModel');
     if (!this.offerModel) {
       this.router.navigate(['home']);
+    }
+
+    if (this.offerModel.customer) {
+      this.customer = JSON.parse(JSON.stringify(this.offerModel.customer));
     }
   }
 
@@ -52,11 +61,7 @@ export class Step3Component implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams
-      .filter(params => params.type)
-      .subscribe(params => {
-        this.type = params.type;
-      });
+
   }
 
   togglePassportNumber() {
@@ -76,6 +81,22 @@ export class Step3Component implements OnInit {
     } else {
       this.jmbgError = 'JMBG nije validan.';
       return false;
+    }
+  }
+
+  showErrorsJmbg() {
+    if (!JmbgHelper.validateNumbers(this.customer.jmbg) && !this.userForm.controls['uid'].hasError('required')) {
+      this.jmbgError = 'JMBG mora da sadrži samo brojeve.';
+      return;
+    } else {
+      this.jmbgError = '';
+    }
+
+    if (this.customer.jmbg && this.customer.jmbg.length !== 13 && !this.userForm.controls['uid'].hasError('required')) {
+      this.jmbgError = 'JMBG mora da sadrži 13 karaktera.';
+      return;
+    } else {
+      this.jmbgError = '';
     }
   }
 
@@ -106,7 +127,7 @@ export class Step3Component implements OnInit {
       StorageHelperService.PullData('OfferRequestModel');
       StorageHelperService.PushData('OfferRequestModel', this.offerModel);
 
-      const route: string = this.type === 'individual' && this.insured ? 'step4-details' : 'step4-insured-persons';
+      const route: string = this.type === 'individual' && this.insured ? 'step-details' : 'step-insured-persons';
       this.router.navigate([route], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
     }
   }

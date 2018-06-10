@@ -25,11 +25,16 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
+  <div class="form-item">
+    <span class="text-danger">{{ insuredPersonsError }}</span>
+  </div>
+
   <button type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 
   <div class="details-wrapper">
     <form [formGroup]="insuredForm">
-      <button *ngIf="showAddButton()"   (click)="addInsuredPerson()">+ dodaj osiguranika</button>
+      <button *ngIf="showAddButton() && !editMode"   (click)="addInsuredPerson()">+ dodaj osiguranika</button>
+      <button *ngIf="editMode"   (click)="editInsuredPerson()">izmeni osiguranika</button>
       <div class="info-label" *ngIf="type == 'family'">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
       <div class="info-label" *ngIf="type == 'individual'">Podaci za maksimalno 1 punoletno lice</div>
 
@@ -46,10 +51,11 @@
         <span class="text-danger" *ngIf="insuredForm.controls['lastName'].hasError('maxlength') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span>
       </div>
       <div class="form-item">
-        <div class="label">jmbg / pib</div>
-        <input type="number" class="custom-input" formControlName="jmbg" (click)="jmbgError = ''" (keyup)="showDateOfBirth()" [(ngModel)]="insuredPerson.jmbg">
+        <!--<div class="label">jmbg / pib</div>-->
+        <div class="label">jmbg</div>
+        <input type="text" maxlength="13" class="custom-input" formControlName="jmbg" (keyup)="showDateOfBirth()" [(ngModel)]="insuredPerson.jmbg">
         <span class="text-danger" *ngIf="insuredForm.controls['jmbg'].hasError('required') && (insuredForm.controls['jmbg'].dirty || insuredForm.controls['jmbg'].touched)">JMBG je obavezan.</span>
-        <span class="text-danger" *ngIf="!insuredForm.controls['jmbg'].hasError('required') && insuredForm.controls['jmbg'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>
+        <!--<span class="text-danger" *ngIf="!insuredForm.controls['jmbg'].hasError('required') && insuredForm.controls['jmbg'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>-->
         <span class="text-danger">{{ jmbgError }}</span>
       </div>
       <div class="form-item">
@@ -68,9 +74,9 @@
       <h3>lista osiguranika</h3>
 
       <div class="list">
-        <div class="insured-person" *ngFor="let person of offerRequestModel.insuredPersons">
+        <div class="insured-person" *ngFor="let person of offerRequestModel.insuredPersons; let i = index">
           <div class="name">{{ person.firstName }} {{ person.lastName }}</div>
-          <i class="fas fa-pencil-alt" (click)="editPerson(person)"></i>
+          <i class="fas fa-pencil-alt" (click)="editPerson(person, i)"></i>
           <i class="far fa-trash-alt" (click)="deletePerson(person)"></i>
           <div class="personal-id">{{ person.jmbg }}</div>
           <div class="passport-num">{{ person.passportNumber }}</div>

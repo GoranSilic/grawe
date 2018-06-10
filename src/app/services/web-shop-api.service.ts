@@ -10,6 +10,7 @@ export class WebShopApiService {
   private calculatePremiumsUrl = environment.apiUrl + 'WebShop/CalculatePremiums';
   private calculateTravelStarPremiumUrl = environment.apiUrl + 'WebShop/CalculateTravelStarPremium';
   private offerRequestUrl = environment.apiUrl + 'WebShop/OfferRequest';
+  private proceedToPaymentUrl = environment.apiUrl + 'WebShop/ProceedToPayment';
 
   constructor(private http: HttpRequestService) {
   }
@@ -23,7 +24,11 @@ export class WebShopApiService {
   }
 
   offerRequest(model: OfferRequestModel) {
-    return this.http.post(this.offerRequestUrl, model, true);
+    return this.http.post(this.offerRequestUrl, model, false);
+  }
+
+  proceedToPayment(model: any) {
+    return this.http.post(this.proceedToPaymentUrl, model, false);
   }
 
 }
