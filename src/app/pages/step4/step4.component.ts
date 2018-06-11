@@ -6,6 +6,8 @@ import {StorageHelperService} from '../../services/storage-helper.service';
 import {WebShopApiService} from '../../services/web-shop-api.service';
 import {OfferResponseModel} from '../../models/offer-response.model';
 import {PolicyRequestModel} from '../../models/policy-request.model';
+import {PaymentRequestModel} from '../../models/payment-request.model';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-step4',
@@ -21,11 +23,14 @@ export class Step4Component implements OnInit {
   duration: string;
   formError = '';
 
+  paymentForm: SafeHtml;
+
   offerRequestModel: OfferRequestModel;
   offerResponseModel: OfferResponseModel = new OfferResponseModel();
   policyRequestModel: PolicyRequestModel = new PolicyRequestModel();
 
-  constructor(private route: ActivatedRoute, private router: Router, private webShopApiService: WebShopApiService) {
+  constructor(private route: ActivatedRoute, private router: Router, private webShopApiService: WebShopApiService,
+              public sanitizer: DomSanitizer) {
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
@@ -93,19 +98,28 @@ export class Step4Component implements OnInit {
       this.policyRequestModel.conditionsAccepted = this.terms;
       this.policyRequestModel.newsletter = this.newsletter;
       this.policyRequestModel.preContractInfoAccepted = this.info;
+      this.policyRequestModel.offerId = this.offerResponseModel.offerId;
 
-      // const paymentRequestModel: any = {};
-      //
-      // this.webShopApiService.proceedToPayment(paymentRequestModel)
-      //   .subscribe(
-      //     (response) => {
-      //
-      //     },
-      //     (error) => {
-      //
-      //     }
-      //   );
+      const paymentRequestModel: PaymentRequestModel = new PaymentRequestModel();
+      paymentRequestModel.offerResponse = this.offerResponseModel;
+      paymentRequestModel.policyRequest = this.policyRequestModel;
 
+      if (paymentRequestModel.policyRequest.offerId) {
+        this.webShopApiService.proceedToPayment(paymentRequestModel)
+          .subscribe(
+            (response) => {
+              if (response) {
+                this.paymentForm = this.sanitizer.bypassSecurityTrustHtml(response);
+                setTimeout(() => {
+                  document.getElementsByTagName('form')[0].submit();
+                }, 100);
+              }
+            },
+            (error) => {
+
+            }
+          );
+      }
     }
   }
 }

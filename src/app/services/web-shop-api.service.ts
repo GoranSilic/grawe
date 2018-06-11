@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpRequestService} from './http-request.service';
 import {CalculationRequestModel} from '../models/calculation-request.model';
 import {OfferRequestModel} from '../models/offer-request.model';
+import {PaymentRequestModel} from '../models/payment-request.model';
 
 @Injectable()
 export class WebShopApiService {
@@ -27,7 +28,7 @@ export class WebShopApiService {
     return this.http.post(this.offerRequestUrl, model, false);
   }
 
-  proceedToPayment(model: any) {
+  proceedToPayment(model: PaymentRequestModel) {
     return this.http.post(this.proceedToPaymentUrl, model, false);
   }
 
