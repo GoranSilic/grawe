@@ -42,6 +42,7 @@ export class Step1Component implements OnInit {
   purposeErrorMessage = '';
 
   type: string;
+  loader = false;
   insuranceBeginDate: string;
   insuranceEndDate: string;
 
@@ -225,7 +226,7 @@ export class Step1Component implements OnInit {
     this.insuranceBeginDate = beginDate.toDateString();
     let endDate: Date = new Date();
     if (this.annualCoverage) {
-      endDate =  new Date(beginDate.getTime() + 364 * 24 * 60 * 60 * 1000);
+      endDate = new Date(beginDate.getTime() + 364 * 24 * 60 * 60 * 1000);
       this.insuranceEndDate = endDate.toDateString();
       return notification + '' + endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + '.';
     }
@@ -233,16 +234,16 @@ export class Step1Component implements OnInit {
     if (this.insuranceDuration.id) {
       switch (this.insuranceDuration.id) {
         case 1:
-          endDate =  new Date(beginDate.getTime() + 3 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 3 * 24 * 60 * 60 * 1000);
           break;
         case 2:
-          endDate =  new Date(beginDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 7 * 24 * 60 * 60 * 1000);
           break;
         case 3:
-          endDate =  new Date(beginDate.getTime() + 16 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 16 * 24 * 60 * 60 * 1000);
           break;
         case 4:
-          endDate =  new Date(beginDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 30 * 24 * 60 * 60 * 1000);
           break;
       }
       this.insuranceEndDate = endDate.toDateString();
@@ -263,7 +264,9 @@ export class Step1Component implements OnInit {
       return;
     }
 
-      this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
-        this.annualCoverage, this.insurancePurpose.id], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
+    this.loader = true;
+
+    this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
+      this.annualCoverage, this.insurancePurpose.id], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }
 }
