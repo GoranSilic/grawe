@@ -22,6 +22,7 @@ export class Step4Component implements OnInit {
   type: string;
   duration: string;
   formError = '';
+  loader = false;
 
   paymentForm: SafeHtml;
 
@@ -105,6 +106,7 @@ export class Step4Component implements OnInit {
       paymentRequestModel.policyRequest = this.policyRequestModel;
 
       if (paymentRequestModel.policyRequest.offerId) {
+        this.loader = true;
         this.webShopApiService.proceedToPayment(paymentRequestModel)
           .subscribe(
             (response) => {
@@ -113,10 +115,12 @@ export class Step4Component implements OnInit {
                 setTimeout(() => {
                   document.getElementsByTagName('form')[0].submit();
                 }, 100);
+              } else {
+                this.loader = false;
               }
             },
             (error) => {
-
+              this.loader = false;
             }
           );
       }
