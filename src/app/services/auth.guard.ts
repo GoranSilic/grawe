@@ -3,6 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import { Observable } from 'rxjs/Observable';
 import {OfferRequestModel} from '../models/offer-request.model';
 import {StorageHelperService} from './storage-helper.service';
+import {SharedService} from './shared.service';
 
 @Injectable()
 export class AuthGuardStep3 implements CanActivate {
@@ -75,5 +76,24 @@ export class AuthGuardStep4 implements CanActivate {
   getDataForStep4() {
     const offerModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
     return offerModel && offerModel.tariff && offerModel.customer.emailAddress ? offerModel.customer : null;
+  }
+}
+
+
+@Injectable()
+export class AuthGuardSuccess implements CanActivate {
+
+  constructor(private router: Router, private sharedService: SharedService) {
+  }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+
+      if (this.sharedService.isAuthenticated()) {
+        return true;
+      } else {
+        this.router.navigate(['home']);
+      }
   }
 }

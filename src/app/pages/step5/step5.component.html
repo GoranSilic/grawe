@@ -34,7 +34,7 @@
     <div class="info-item second">
       polisu možete preuzeti u okviru .pdf dokumenta <br> klikom na <span>dugme preuzimanje,</span> <br> a polisa će biti poslata u naredna 2 dana na vašu kućnu adresu
     </div>
-    <button>preuzimanje</button>
+    <button type="button" (click)="downloadPolicy()">preuzimanje</button>
   </div>
 
   <div class="declined-wrapper" *ngIf="!success">

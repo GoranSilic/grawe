@@ -24,7 +24,9 @@ import {registerLocaleData} from '@angular/common';
 import localeSrb from '@angular/common/locales/sr-Latn';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StorageHelperService} from './services/storage-helper.service';
-import {AuthGuardStep3, AuthGuardStep4} from './services/auth.guard';
+import {AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess} from './services/auth.guard';
+import { RedirectPageComponent } from './pages/redirect-page/redirect-page.component';
+import {SharedService} from './services/shared.service';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
   {path: 'step3', component: Step3Component, canActivate: [AuthGuardStep3]},
   {path: 'step-details', component: Step4Component},
   {path: 'step-insured-persons', component: Step4FamilyComponent},
-  {path: 'success-page', component: Step5Component},
+  {path: 'redirect-page/:orderId/:offerId', component: RedirectPageComponent},
+  {path: 'success-page', component: Step5Component, canActivate: [AuthGuardSuccess]},
   {path: 'declined-page', component: Step5Component},
   // {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -58,7 +61,8 @@ const appRoutes: Routes = [
     Step4Component,
     Step5Component,
     EditComponent,
-    Step4FamilyComponent
+    Step4FamilyComponent,
+    RedirectPageComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,7 @@ const appRoutes: Routes = [
   }, HttpRequestService, WebShopApiService,
     Step2Resolver, {provide: LOCALE_ID, useValue: 'sr-Latn'},
     StorageHelperService,
-    AuthGuardStep3, AuthGuardStep4],
+    AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
