@@ -25,10 +25,6 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <div class="form-item">
-    <span class="text-danger">{{ formError }}</span>
-  </div>
-
   <button (click)="proceedToPayment()">plaćanje</button>
 
   <div class="details-wrapper">
@@ -101,6 +97,9 @@
         <i class="fas fa-check"></i>
       </div>
       <div class="label" (click)="getOfferId()">informacije za ugovarača osiguranja</div>
+    </div>
+    <div class="form-item">
+      <span class="text-danger">{{ formError }}</span>
     </div>
   </div>
 </div>

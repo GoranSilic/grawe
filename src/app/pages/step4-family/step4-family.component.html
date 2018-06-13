@@ -25,14 +25,13 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <div class="form-item">
-    <span class="text-danger">{{ insuredPersonsError }}</span>
-  </div>
-
   <button type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 
   <div class="details-wrapper">
     <form [formGroup]="insuredForm">
+      <div class="form-item">
+        <span class="text-danger">{{ insuredPersonsError }}</span>
+      </div>
       <button *ngIf="showAddButton() && !editMode"   (click)="addInsuredPerson()">+ dodaj osiguranika</button>
       <button *ngIf="editMode"   (click)="editInsuredPerson()">izmeni osiguranika</button>
       <div class="info-label" *ngIf="type == 'family'">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
