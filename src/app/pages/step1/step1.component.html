@@ -58,7 +58,7 @@
     </div>
     <div class="form-item">
       <div class="label">svrha putovanja</div>
-      <div class="custom-select" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
+      <div class="custom-select" [ngClass]="{'disabled': type == 'family'}" appClickOutside (clickOutside)="onClickOutsidePurposeCombo($event)">
         <div class="selected-value" (click)="purposeComboEvent()">{{insurancePurpose?.name}}</div>
         <i class="fas fa-chevron-down" (click)="purposeComboEvent()"></i>
         <div class="custom-dropdown" *ngIf="showPurposeDrop">
