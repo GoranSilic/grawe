@@ -74,54 +74,124 @@ export class Step1Component implements OnInit {
   }
 
   refreshDatePicker() {
-    // empty days and months array
-    this.daysArray = [];
-    this.monthsArray = [];
-
     // get minimum values of year, month and day
-    const minYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
-    const minMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
-    const minDay: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getDate();
+    const minYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
+    const minMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    const minDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
 
-    let startDayOfMonth = 1;
-    let startMonthOfYear = 1;
+    // get maximum values of year, month and day
+    const maxYear: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getFullYear();
+    const maxMonth: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    const maxDay: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getDate();
 
-    // initialize started month
-    if (this.insuranceYear === minYear) {
-      startMonthOfYear = minMonth;
+    // if year is changed
+    if (minYear !== maxYear && this.insuranceYear === maxYear) {
+      this.daysArray = [];
+      this.monthsArray = [];
+
+      for (let i = 1; i <= maxMonth; i++) {
+        this.monthsArray.push(i);
+      }
+      this.insuranceMonth = this.monthsArray.indexOf(this.insuranceMonth) > -1 ? this.insuranceMonth : this.monthsArray[0];
+
+      let numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      if (this.insuranceMonth === maxMonth) {
+        numberOfDays = maxDay;
+      }
+      for (let i = 1; i <= numberOfDays; i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+
+    } else if (minYear !== maxYear && this.insuranceYear === minYear) {
+      this.daysArray = [];
+      this.monthsArray = [];
+
+      for (let i = minMonth; i <= 12; i++) {
+        this.monthsArray.push(i);
+      }
+      this.insuranceMonth = this.monthsArray.indexOf(this.insuranceMonth) > -1 ? this.insuranceMonth : this.monthsArray[0];
+
+      const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      let startDay = 1;
+      if (this.insuranceMonth === minMonth) {
+        startDay = minDay;
+      }
+
+      for (let i = startDay; i <= numberOfDays; i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+
     }
 
-    for (let i = startMonthOfYear; i <= 12; i++) {
-      this.monthsArray.push(i);
-    }
+    // if month is changed
+    if (minYear === maxYear) {
+      this.daysArray = [];
+      const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      if (this.insuranceMonth === minMonth) {
+        for (let i = minDay; i <= numberOfDays; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      } else if (this.insuranceMonth === maxMonth) {
+        for (let i = 1; i <= maxDay; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      } else {
+        for (let i = 1; i <= numberOfDays; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      }
+    } else {
+      if (this.insuranceYear === maxYear) {
+        if (this.insuranceMonth === maxMonth) {
+          this.daysArray = [];
+          for (let i = 1; i <= maxDay; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        } else {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    if (this.monthsArray.indexOf(this.insuranceMonth) === -1) {
-      this.insuranceMonth = this.monthsArray[0];
-    }
+          for (let i = 1; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        }
+      } else {
+        if (this.insuranceMonth === minMonth) {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    // get number of days of month
-    const daysOfMonth: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+          for (let i = minDay; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        } else {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    // initialize started day
-    if (this.insuranceYear === minYear && this.insuranceMonth === minMonth) {
-      startDayOfMonth = minDay;
-    }
-
-    for (let i = startDayOfMonth; i <= daysOfMonth; i++) {
-      this.daysArray.push(i);
-    }
-
-    if (this.daysArray.indexOf(this.insuranceDay) === -1) {
-      this.insuranceDay = this.daysArray[0];
+          for (let i = 1; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        }
+      }
     }
   }
 
   initializeYears() {
-    const currentYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
-    const nextYear: number = currentYear + 1;
+    const currentYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
+    const maxYear: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getFullYear();
     this.yearsArray.push(currentYear);
-    this.yearsArray.push(nextYear);
-    this.insuranceYear = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
+    if (currentYear !== maxYear) {
+      this.yearsArray.push(maxYear);
+    }
+    this.insuranceYear = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
   }
 
   onClickOutsideYearCombo(event: Object) {
@@ -136,8 +206,15 @@ export class Step1Component implements OnInit {
   }
 
   initializeMonths() {
-    const startedMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
-    for (let i = startedMonth; i <= 12; i++) {
+    const startedMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    let lastMonth = 12;
+    const startDate: Date = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000);
+    const maxDate: Date = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000);
+
+    if (startDate.getFullYear() === maxDate.getFullYear()) {
+      lastMonth = maxDate.getMonth() + 1;
+    }
+    for (let i = startedMonth; i <= lastMonth; i++) {
       this.monthsArray.push(i);
     }
     this.insuranceMonth = startedMonth;
@@ -156,7 +233,7 @@ export class Step1Component implements OnInit {
 
   initializeDays() {
     const daysOfMonth: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
-    const startedDay: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getDate();
+    const startedDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
     for (let i = startedDay; i <= daysOfMonth; i++) {
       this.daysArray.push(i);
     }

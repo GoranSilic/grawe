@@ -95,7 +95,7 @@ export class Step2Component implements OnInit {
 
   initializeDates() {
     const currentDate: Date = new Date(new Date().getTime() - 13 * 24 * 60 * 60 * 1000);
-    const maxValidDate: Date = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const maxValidDate: Date = new Date(currentDate.getTime() + 13 * 24 * 60 * 60 * 1000);
 
     // init days
     let daysOfMonth: number = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
@@ -131,7 +131,7 @@ export class Step2Component implements OnInit {
 
   refreshDatePicker() {
     const minDate: number = new Date(new Date().getTime() - 13 * 24 * 60 * 60 * 1000).getTime();
-    const maxDate: Date = new Date(minDate + 14 * 24 * 60 * 60 * 1000);
+    const maxDate: Date = new Date(minDate + 13 * 24 * 60 * 60 * 1000);
 
     // get minimum values of year, month and day
     const minYear: number = new Date(minDate).getFullYear();

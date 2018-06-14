@@ -5,6 +5,7 @@ import {PaymentResponseModel} from '../../models/payment-response.model';
 import {SharedService} from '../../services/shared.service';
 import {HttpRequestService} from '../../services/http-request.service';
 import {environment} from '../../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-step5',
@@ -17,7 +18,8 @@ export class Step5Component implements OnInit {
 
   paymentResponse: PaymentResponseModel = new PaymentResponseModel();
 
-  constructor(private route: ActivatedRoute, private router: Router, private sharedService: SharedService) {
+  constructor(private route: ActivatedRoute, private router: Router, private sharedService: SharedService,
+              private http: HttpRequestService) {
     this.success = this.router.url.indexOf('success-page') > -1;
 
     if (this.success) {
@@ -34,14 +36,23 @@ export class Step5Component implements OnInit {
   }
 
   downloadPolicy() {
-    const url = environment.graweApiUrl + this.paymentResponse.offerId + '/files/3';
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.setAttribute('style', 'display: none');
-    a.href = url;
-    a.download = 'Policy_' + this.paymentResponse.offerId;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
+
+    this.http.downloadPdf(this.paymentResponse.offerId, '3');
+      // .subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     // const a = document.createElement('a');
+      //     // document.body.appendChild(a);
+      //     // a.setAttribute('style', 'display: none');
+      //     // a.href = url;
+      //     // a.download = 'Policy_' + this.paymentResponse.offerId;
+      //     // a.click();
+      //     // window.URL.revokeObjectURL(url);
+      //     // a.remove();
+      //   },
+      //   (error) => {
+      //
+      //   }
+      // );
   }
 }

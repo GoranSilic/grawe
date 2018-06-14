@@ -8,6 +8,7 @@ import {OfferResponseModel} from '../../models/offer-response.model';
 import {PolicyRequestModel} from '../../models/policy-request.model';
 import {PaymentRequestModel} from '../../models/payment-request.model';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {HttpRequestService} from '../../services/http-request.service';
 
 @Component({
   selector: 'app-step4',
@@ -31,7 +32,7 @@ export class Step4Component implements OnInit {
   policyRequestModel: PolicyRequestModel = new PolicyRequestModel();
 
   constructor(private route: ActivatedRoute, private router: Router, private webShopApiService: WebShopApiService,
-              public sanitizer: DomSanitizer) {
+              public sanitizer: DomSanitizer, private http: HttpRequestService) {
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
@@ -92,6 +93,23 @@ export class Step4Component implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  downloadInfoPdf() {
+    if (this.offerResponseModel.offerId) {
+      this.http.downloadPdf(this.offerResponseModel.offerId, '2');
+    } else {
+      this.webShopApiService.offerRequest(this.offerRequestModel)
+        .subscribe(
+          (response) => {
+            this.offerResponseModel = response;
+            this.http.downloadPdf(this.offerResponseModel.offerId, '2');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
   }
 
   proceedToPayment() {

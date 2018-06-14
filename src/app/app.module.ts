@@ -27,6 +27,7 @@ import {StorageHelperService} from './services/storage-helper.service';
 import {AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess} from './services/auth.guard';
 import { RedirectPageComponent } from './pages/redirect-page/redirect-page.component';
 import {SharedService} from './services/shared.service';
+import {HttpModule} from '@angular/http';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
@@ -71,7 +72,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [ToasterService, {
     provide: HTTP_INTERCEPTORS,

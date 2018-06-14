@@ -96,7 +96,7 @@
       <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''; info ? getOfferId() : null">
         <i class="fas fa-check"></i>
       </div>
-      <div class="label" (click)="getOfferId()">informacije za ugovarača osiguranja</div>
+      <div class="label" (click)="downloadInfoPdf()">informacije za ugovarača osiguranja</div>
     </div>
     <div class="form-item">
       <span class="text-danger">{{ formError }}</span>
