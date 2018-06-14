@@ -75,14 +75,14 @@ export class Step1Component implements OnInit {
 
   refreshDatePicker() {
     // get minimum values of year, month and day
-    const minYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
-    const minMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
-    const minDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
+    const minYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
+    const minMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
+    const minDay: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getDate();
 
     // get maximum values of year, month and day
-    const maxYear: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getFullYear();
-    const maxMonth: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getMonth() + 1;
-    const maxDay: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getDate();
+    const maxYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
+    const maxMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    const maxDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
 
     // if year is changed
     if (minYear !== maxYear && this.insuranceYear === maxYear) {
@@ -185,13 +185,13 @@ export class Step1Component implements OnInit {
   }
 
   initializeYears() {
-    const currentYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
-    const maxYear: number = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000).getFullYear();
+    const currentYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
+    const maxYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
     this.yearsArray.push(currentYear);
     if (currentYear !== maxYear) {
       this.yearsArray.push(maxYear);
     }
-    this.insuranceYear = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
+    this.insuranceYear = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
   }
 
   onClickOutsideYearCombo(event: Object) {
@@ -206,10 +206,10 @@ export class Step1Component implements OnInit {
   }
 
   initializeMonths() {
-    const startedMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    const startedMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
     let lastMonth = 12;
-    const startDate: Date = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000);
-    const maxDate: Date = new Date(new Date().getTime() + 360 * 24 * 60 * 60 * 1000);
+    const startDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    const maxDate: Date = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000);
 
     if (startDate.getFullYear() === maxDate.getFullYear()) {
       lastMonth = maxDate.getMonth() + 1;
@@ -233,7 +233,7 @@ export class Step1Component implements OnInit {
 
   initializeDays() {
     const daysOfMonth: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
-    const startedDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
+    const startedDay: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getDate();
     for (let i = startedDay; i <= daysOfMonth; i++) {
       this.daysArray.push(i);
     }

@@ -110,6 +110,8 @@ export class Step3Component implements OnInit {
     this.userForm.controls['uid'].value.toString().length === 13 && this.isJmbgValid()) {
 
       this.customer.salutatoryAddress = JmbgHelper.getSalutatoryAddress(this.customer.jmbg);
+      this.customer.address.nation = 'SRB';
+
       if (this.insured) {
         const insuredPerson: InsuredPerson = new InsuredPerson();
         insuredPerson.firstName = this.customer.firstName;
