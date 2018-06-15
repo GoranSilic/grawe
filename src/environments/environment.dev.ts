@@ -1,4 +1,6 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:2255/api/'
+  production: true,
+  apiUrl: 'http://webshoptest-api.azurewebsites.net/api/',
+  // apiUrl: 'http://localhost:2255/api/',
+  graweApiUrl: 'https://secure.grawe.at/r3servicersfntest/api/v1/'
 };

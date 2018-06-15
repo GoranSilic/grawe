@@ -1,9 +1,16 @@
 <div class="step5-wrapper">
   <div class="info">
-    <h1 class="light">Individualno Putno Osiguranje</h1>
+    <h1 class="light">
+      <ng-container *ngIf="type == 'individual'">Individualno </ng-container>
+      <ng-container *ngIf="type == 'family'">Porodično </ng-container>
+      Putno Osiguranje</h1>
     <br>
-    <h2>peti korak</h2>
-    <h1>Vaša Polisa individualnog putnog osiguranja <span *ngIf="success">je uspešno kreirana</span><span *ngIf="!success">nije kreirana</span></h1>
+    <h2 *ngIf="type == 'individual'">peti korak</h2>
+    <h2 *ngIf="type == 'family'">sedmi korak</h2>
+    <h1>Vaša Polisa
+      <ng-container *ngIf="type == 'individual'">individualnog</ng-container>
+      <ng-container *ngIf="type == 'family'">porodičnog</ng-container>
+      putnog osiguranja <span *ngIf="success">je uspešno kreirana</span><span *ngIf="!success">nije kreirana</span></h1>
   </div>
 
   <div class="step-num"><span *ngIf="type === 'individual'">.05</span><span *ngIf="type === 'family'">.07</span></div>
@@ -22,21 +29,19 @@
     <div class="img"></div>
     <div class="info-item first">
       za sve ostale informacije možete nas kontaktirati na <span>+381 11 2092 600</span> ili putem emaila
-      <span>service@grawe.rs</span>
+      <span>osiguranje@grawe.com</span>
     </div>
     <div class="info-item second">
-      polisu možete preuzeti u okviru .pdf dokumenta <br> klikom na <span>dugme preuzimanje,</span> <br> a polisa će biti poslata na vašu email adresu.
-      <br> Želimo Vam lepa i prijatna iskustva, srećan put!
+      polisu možete preuzeti u okviru .pdf dokumenta <br> klikom na <span>dugme preuzimanje,</span> <br> a polisa će biti poslata u naredna 2 dana na vašu kućnu adresu
     </div>
-
-    <button>preuzimanje</button>
+    <button type="button" (click)="downloadPolicy()">preuzimanje</button>
   </div>
 
   <div class="declined-wrapper" *ngIf="!success">
     <div class="img"></div>
     <div class="info-item first">
       za sve ostale informacije možete nas kontaktirati na <span>+381 11 2092 600</span> ili putem emaila
-      <span> service@grawe.rs</span>
+      <span>osiguranje@grawe.com</span>
     </div>
   </div>
 </div>

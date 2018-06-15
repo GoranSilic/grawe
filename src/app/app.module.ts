@@ -24,7 +24,10 @@ import {registerLocaleData} from '@angular/common';
 import localeSrb from '@angular/common/locales/sr-Latn';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StorageHelperService} from './services/storage-helper.service';
-import {AuthGuardStep3, AuthGuardStep4} from './services/auth.guard';
+import {AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess} from './services/auth.guard';
+import { RedirectPageComponent } from './pages/redirect-page/redirect-page.component';
+import {SharedService} from './services/shared.service';
+import {HttpModule} from '@angular/http';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
@@ -36,10 +39,12 @@ const appRoutes: Routes = [
     resolve: {calculationResponseModel: Step2Resolver}
   },
   {path: 'step3', component: Step3Component, canActivate: [AuthGuardStep3]},
-  {path: 'step4-details', component: Step4Component},
-  {path: 'step4-insured-persons', component: Step4FamilyComponent},
-  {path: 'step5', component: Step5Component},
-  {path: 'edit', component: EditComponent},
+  {path: 'step-details', component: Step4Component},
+  {path: 'step-insured-persons', component: Step4FamilyComponent},
+  {path: 'redirect-page/:orderId/:offerId', component: RedirectPageComponent},
+  {path: 'success-page', component: Step5Component, canActivate: [AuthGuardSuccess]},
+  {path: 'declined-page', component: Step5Component},
+  // {path: 'edit', component: EditComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -57,7 +62,8 @@ const appRoutes: Routes = [
     Step4Component,
     Step5Component,
     EditComponent,
-    Step4FamilyComponent
+    Step4FamilyComponent,
+    RedirectPageComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +72,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [ToasterService, {
     provide: HTTP_INTERCEPTORS,
@@ -75,7 +82,7 @@ const appRoutes: Routes = [
   }, HttpRequestService, WebShopApiService,
     Step2Resolver, {provide: LOCALE_ID, useValue: 'sr-Latn'},
     StorageHelperService,
-    AuthGuardStep3, AuthGuardStep4],
+    AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

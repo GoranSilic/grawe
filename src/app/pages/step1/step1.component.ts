@@ -42,6 +42,7 @@ export class Step1Component implements OnInit {
   purposeErrorMessage = '';
 
   type: string;
+  loader = false;
   insuranceBeginDate: string;
   insuranceEndDate: string;
 
@@ -73,53 +74,123 @@ export class Step1Component implements OnInit {
   }
 
   refreshDatePicker() {
-    // empty days and months array
-    this.daysArray = [];
-    this.monthsArray = [];
-
     // get minimum values of year, month and day
     const minYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
     const minMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
     const minDay: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getDate();
 
-    let startDayOfMonth = 1;
-    let startMonthOfYear = 1;
+    // get maximum values of year, month and day
+    const maxYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
+    const maxMonth: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getMonth() + 1;
+    const maxDay: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getDate();
 
-    // initialize started month
-    if (this.insuranceYear === minYear) {
-      startMonthOfYear = minMonth;
+    // if year is changed
+    if (minYear !== maxYear && this.insuranceYear === maxYear) {
+      this.daysArray = [];
+      this.monthsArray = [];
+
+      for (let i = 1; i <= maxMonth; i++) {
+        this.monthsArray.push(i);
+      }
+      this.insuranceMonth = this.monthsArray.indexOf(this.insuranceMonth) > -1 ? this.insuranceMonth : this.monthsArray[0];
+
+      let numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      if (this.insuranceMonth === maxMonth) {
+        numberOfDays = maxDay;
+      }
+      for (let i = 1; i <= numberOfDays; i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+
+    } else if (minYear !== maxYear && this.insuranceYear === minYear) {
+      this.daysArray = [];
+      this.monthsArray = [];
+
+      for (let i = minMonth; i <= 12; i++) {
+        this.monthsArray.push(i);
+      }
+      this.insuranceMonth = this.monthsArray.indexOf(this.insuranceMonth) > -1 ? this.insuranceMonth : this.monthsArray[0];
+
+      const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      let startDay = 1;
+      if (this.insuranceMonth === minMonth) {
+        startDay = minDay;
+      }
+
+      for (let i = startDay; i <= numberOfDays; i++) {
+        this.daysArray.push(i);
+      }
+      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+
     }
 
-    for (let i = startMonthOfYear; i <= 12; i++) {
-      this.monthsArray.push(i);
-    }
+    // if month is changed
+    if (minYear === maxYear) {
+      this.daysArray = [];
+      const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+      if (this.insuranceMonth === minMonth) {
+        for (let i = minDay; i <= numberOfDays; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      } else if (this.insuranceMonth === maxMonth) {
+        for (let i = 1; i <= maxDay; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      } else {
+        for (let i = 1; i <= numberOfDays; i++) {
+          this.daysArray.push(i);
+        }
+        this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+      }
+    } else {
+      if (this.insuranceYear === maxYear) {
+        if (this.insuranceMonth === maxMonth) {
+          this.daysArray = [];
+          for (let i = 1; i <= maxDay; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        } else {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    if (this.monthsArray.indexOf(this.insuranceMonth) === -1) {
-      this.insuranceMonth = this.monthsArray[0];
-    }
+          for (let i = 1; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        }
+      } else {
+        if (this.insuranceMonth === minMonth) {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    // get number of days of month
-    const daysOfMonth: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+          for (let i = minDay; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        } else {
+          this.daysArray = [];
+          const numberOfDays: number = new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
 
-    // initialize started day
-    if (this.insuranceYear === minYear && this.insuranceMonth === minMonth) {
-      startDayOfMonth = minDay;
-    }
-
-    for (let i = startDayOfMonth; i <= daysOfMonth; i++) {
-      this.daysArray.push(i);
-    }
-
-    if (this.daysArray.indexOf(this.insuranceDay) === -1) {
-      this.insuranceDay = this.daysArray[0];
+          for (let i = 1; i <= numberOfDays; i++) {
+            this.daysArray.push(i);
+          }
+          this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : this.daysArray[0];
+        }
+      }
     }
   }
 
   initializeYears() {
     const currentYear: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
-    const nextYear: number = currentYear + 1;
+    const maxYear: number = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000).getFullYear();
     this.yearsArray.push(currentYear);
-    this.yearsArray.push(nextYear);
+    if (currentYear !== maxYear) {
+      this.yearsArray.push(maxYear);
+    }
     this.insuranceYear = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getFullYear();
   }
 
@@ -136,7 +207,14 @@ export class Step1Component implements OnInit {
 
   initializeMonths() {
     const startedMonth: number = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getMonth() + 1;
-    for (let i = startedMonth; i <= 12; i++) {
+    let lastMonth = 12;
+    const startDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    const maxDate: Date = new Date(new Date().getTime() + 180 * 24 * 60 * 60 * 1000);
+
+    if (startDate.getFullYear() === maxDate.getFullYear()) {
+      lastMonth = maxDate.getMonth() + 1;
+    }
+    for (let i = startedMonth; i <= lastMonth; i++) {
       this.monthsArray.push(i);
     }
     this.insuranceMonth = startedMonth;
@@ -225,7 +303,7 @@ export class Step1Component implements OnInit {
     this.insuranceBeginDate = beginDate.toDateString();
     let endDate: Date = new Date();
     if (this.annualCoverage) {
-      endDate =  new Date(beginDate.getTime() + 365 * 24 * 60 * 60 * 1000);
+      endDate = new Date(beginDate.getTime() + 364 * 24 * 60 * 60 * 1000);
       this.insuranceEndDate = endDate.toDateString();
       return notification + '' + endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + '.';
     }
@@ -233,16 +311,16 @@ export class Step1Component implements OnInit {
     if (this.insuranceDuration.id) {
       switch (this.insuranceDuration.id) {
         case 1:
-          endDate =  new Date(beginDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 3 * 24 * 60 * 60 * 1000);
           break;
         case 2:
-          endDate =  new Date(beginDate.getTime() + 8 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 7 * 24 * 60 * 60 * 1000);
           break;
         case 3:
-          endDate =  new Date(beginDate.getTime() + 17 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 16 * 24 * 60 * 60 * 1000);
           break;
         case 4:
-          endDate =  new Date(beginDate.getTime() + 31 * 24 * 60 * 60 * 1000);
+          endDate = new Date(beginDate.getTime() + 30 * 24 * 60 * 60 * 1000);
           break;
       }
       this.insuranceEndDate = endDate.toDateString();
@@ -263,7 +341,9 @@ export class Step1Component implements OnInit {
       return;
     }
 
-      this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
-        this.annualCoverage, this.insurancePurpose.id], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
+    this.loader = true;
+
+    this.router.navigate(['step2', this.insuranceBeginDate, this.insuranceEndDate,
+      this.annualCoverage, this.insurancePurpose.id], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }
 }

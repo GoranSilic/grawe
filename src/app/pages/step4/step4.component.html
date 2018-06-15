@@ -4,14 +4,15 @@
       <ng-container *ngIf="type == 'family'">Porodično</ng-container>
       <ng-container *ngIf="type == 'individual'">Individualno</ng-container>  Putno Osiguranje</h1>
     <br>
-    <h2>četvrti korak</h2>
+    <h2 *ngIf="step == 4">četvrti korak</h2>
+    <h2 *ngIf="step == 5">peti korak</h2>
     <h1>Detalji polise</h1>
     <p>
       Molimo Vas za proveru unetih podataka i potvrdu da ste upoznati sa uslovima osiguranja i informacijama za ugovarača osiguranja. Ako Vas je na stranice web shop-a uputio zastupnik našeg osiguravajućeg društa, u naznačeno polje unesite broj šifre.
     </p>
   </div>
 
-  <div class="step-num"><span *ngIf="type === 'individual'">.04</span><span *ngIf="type === 'family'">.05</span></div>
+  <div class="step-num"><span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span></div>
 
   <div class="steps">
     <div class="line"></div>
@@ -27,10 +28,10 @@
 
   <div class="details-wrapper">
     <div class="details-box">
-      <button routerLink="/edit">
-        izmeni
-        <i class="fas fa-pencil-alt"></i>
-      </button>
+      <!--<button routerLink="/edit">-->
+        <!--izmeni-->
+        <!--<i class="fas fa-pencil-alt"></i>-->
+      <!--</button>-->
 
       <h3>
         <ng-container *ngIf="type == 'individual'">individualno</ng-container>
@@ -58,7 +59,7 @@
         Pokriće: <span>{{ offerRequestModel?.tariff?.productVariant == 1 ? 'Travel' : 'Travel Star' }}</span>
       </div>
       <div class="info-item">
-        Osigurana suma: <span>{{ offerRequestModel?.tariff?.amountInsured | number:'1.2-2':'sr-Latn' }} RSD</span>
+        Osigurana suma: <span>{{ offerRequestModel?.tariff?.amountInsured | number:'1.2-2':'sr-Latn' }} EUR</span>
       </div>
       <div class="info-item">
         Premija: <span>{{ offerRequestModel?.tariff?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</span>
@@ -76,10 +77,10 @@
 
     <div class="form-item" style="margin-right: 10px;">
       <div class="label">šifra zastupnika preporuke</div>
-      <input class="custom-input">
+      <input class="custom-input" type="number" [(ngModel)]="policyRequestModel.vkto" (click)="formError = ''">
     </div>
     <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms">
+      <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms; formError = ''">
         <i class="fas fa-check"></i>
       </div>
       <div class="label">uslovi korišćenja</div>
@@ -91,10 +92,18 @@
       <div class="label">prijava na newsletter</div>
     </div>
     <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; info ? getOfferId() : null">
+      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''; info ? getOfferId() : null">
         <i class="fas fa-check"></i>
       </div>
-      <div class="label">informacije za ugovarača osiguranja</div>
+      <div class="label" (click)="downloadInfoPdf()">informacije za ugovarača osiguranja</div>
+    </div>
+    <div class="form-item">
+      <span class="text-danger">{{ formError }}</span>
     </div>
   </div>
+</div>
+<div [innerHTML]="paymentForm"></div>
+
+<div class="loader-overlay" *ngIf="loader">
+  <div class="loader"></div>
 </div>
