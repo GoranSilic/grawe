@@ -1,19 +1,23 @@
 <footer>
   <nav>
-    <div>&copy; {{currentYear}} grawe osiguranje -</div>
+    <div class="desktop">&copy; {{currentYear}} grawe osiguranje -</div>
     <div class="link" [routerLink]="['/home']">web shop</div>
     <a class="link" target="_blank" href="webshop.grawe.rs/api/files/uslovi/uslovikoriscenja.pdf" download>uslovi
       korišćenja webshopa</a>
     <div class="link contact" (click)="contactModal = true">kontakt</div>
   </nav>
 
-  <a href="https://www.raiffeisenbank.rs/" target="_blank" class="raiffeisen"></a>
-  <a href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html" target="_blank"
-     class="verified-visa"></a>
-  <a
-    href="https://www.mastercard.rs/sr-rs/consumers/find-card-products/credit-cards.html?cmp=psc.mastercard.google_sea.srb.alwayson.b2c.....gg_text.."
-    target="_blank" class="secure-code"></a>
-  <div class="cards"></div>
+  <div class="mobile">&copy; {{currentYear}} grawe osiguranje</div>
+
+  <div class="bank-cards">
+    <a href="https://www.raiffeisenbank.rs/" target="_blank" class="raiffeisen"></a>
+    <a href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html" target="_blank"
+       class="verified-visa"></a>
+    <a
+      href="https://www.mastercard.rs/sr-rs/consumers/find-card-products/credit-cards.html?cmp=psc.mastercard.google_sea.srb.alwayson.b2c.....gg_text.."
+      target="_blank" class="secure-code"></a>
+    <div class="cards"></div>
+  </div>
 </footer>
 
 <div class="modal-overlay" *ngIf="contactModal">

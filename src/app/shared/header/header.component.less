@@ -9,6 +9,7 @@ header {
   padding: 0 100px;
   background-color: #fff;
   box-shadow: 0 20px 50px rgba(0, 0, 0, .21);
+  z-index: 1;
 
   .logo {
     width: 186px;
@@ -46,8 +47,10 @@ header {
     box-shadow: 0 5px 25px rgba(0, 0, 0, .21);
 
     .logo {
-      background-size: 60%;
-      background-position: center left;
+      width: 93px;
+      height: 25px;
+      margin-top: -10px;
+      background-size: contain;
     }
 
     .phone {
@@ -57,5 +60,11 @@ header {
         font-size: 16px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  header {
+    padding: 0 5%;
   }
 }
