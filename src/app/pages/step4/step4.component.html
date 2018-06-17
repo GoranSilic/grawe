@@ -14,25 +14,11 @@
     </p>
   </div>
 
-  <div class="step-num"><span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span></div>
-
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
-    <div class="line" [ngClass]="{'active': type == 'family'}"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-  </div>
-
-  <button (click)="proceedToPayment()">plaćanje</button>
-
   <div class="details-wrapper">
     <div class="details-box">
       <!--<button routerLink="/edit">-->
-        <!--izmeni-->
-        <!--<i class="fas fa-pencil-alt"></i>-->
+      <!--izmeni-->
+      <!--<i class="fas fa-pencil-alt"></i>-->
       <!--</button>-->
 
       <h3>
@@ -103,6 +89,23 @@
       <span class="text-danger">{{ formError }}</span>
     </div>
   </div>
+
+  <div class="step-num"><span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span></div>
+
+  <div class="img-mobile"></div>
+  <button class="mobile" (click)="proceedToPayment()">plaćanje</button>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
+    <div class="line" [ngClass]="{'active': type == 'family'}"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+  </div>
+
+  <button class="desktop" (click)="proceedToPayment()">plaćanje</button>
 </div>
 <div [innerHTML]="paymentForm"></div>
 

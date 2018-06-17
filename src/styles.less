@@ -347,11 +347,13 @@ button {
     top: 50%;
     left: 50%;
     width: 410px;
+    max-height: 75%;
     padding: 45px;
     font-size: 14px;
     color: #000;
     transform: translate(-50%, -50%);
     background-color: #fff;
+    overflow-y: auto;
 
     i {
       position: absolute;
@@ -427,6 +429,15 @@ button {
   }
 
   .form-item {
+    margin-bottom: 15px;
+
+    .custom-input {
+      height: 45px;
+      padding: 0 25px;
+      box-shadow: 0 2px 40px rgba(0, 0, 0, 0.15);
+      font-size: 12px;
+    }
+
     .custom-select {
       .selected-value {
         height: 45px;

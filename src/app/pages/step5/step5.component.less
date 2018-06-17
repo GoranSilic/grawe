@@ -139,10 +139,10 @@
 
 @media screen and (max-width: 1600px) {
   .step5-wrapper {
-    height: ~"calc(100vh - 120px)";
+    width: ~"calc(100% - 100px)";
 
     .info {
-      width: 33%;
+      width: 26%;
 
       h1 {
         font-size: 30px;
@@ -154,7 +154,114 @@
     }
 
     .step-num {
-      font-size: 260px;
+      font-size: 200px;
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .step5-wrapper {
+    .info {
+      width: 24%;
+    }
+
+    .success-wrapper {
+      width: 40%;
+
+      .img {
+        width: 251px;
+        height: 206px;
+        background-size: contain;
+      }
+
+      .info-item {
+        width: 100% !important;
+        letter-spacing: 2px;
+        line-height: 20px;
+        font-size: 13px;
+      }
+    }
+
+    .declined-wrapper {
+      width: 40%;
+
+      .img {
+        width: 154px;
+        height: 153px;
+        background-size: contain;
+      }
+
+      .info-item {
+        width: 100% !important;
+        letter-spacing: 2px;
+        line-height: 20px;
+        font-size: 13px;
+      }
+    }
+
+    .step-num {
+      font-size: 150px;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .step5-wrapper {
+    position: relative;
+    display: table;
+    width: 90%;
+    height: auto;
+    margin: 100px auto 0;
+    background: none;
+
+    .info {
+      width: 100%;
+      margin-bottom: 70px;
+
+      h1 {
+        width: 70%;
+      }
+    }
+
+    .success-wrapper,
+    .declined-wrapper {
+      position: static;
+      width: 100%;
+      margin: 0 auto 70px;
+      transform: none;
+    }
+
+    .step-num {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      font-size: 150px;
+      z-index: -1;
+    }
+
+    .steps {
+      width: fit-content;
+      margin: 0 auto 70px;
+      clear: both;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .step5-wrapper {
+    .info {
+      h1 {
+        width: 100%;
+
+        &.light {
+          width: 70%;
+        }
+      }
+    }
+
+    .step-num {
+      top: 0;
+      font-size: 100px;
     }
   }
 }

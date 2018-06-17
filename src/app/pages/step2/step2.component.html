@@ -10,20 +10,6 @@
     </p>
   </div>
 
-  <div class="step-num">.02</div>
-
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-  </div>
-
-  <button type="button" (click)="submitStep2()">sledeći korak</button>
-
   <div class="coverage-wrapper">
     <div class="coverage-box" [ngClass]="{'active': travel}">
       <div class="info" (click)="travelModal = true">
@@ -118,6 +104,23 @@
       <span class="text-danger">{{ errorMessage }}</span>
     </div>
   </div>
+
+  <div class="step-num">.02</div>
+
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitStep2()">sledeći korak</button>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+  </div>
+
+  <button class="desktop" type="button" (click)="submitStep2()">sledeći korak</button>
 </div>
 
 <div class="modal-overlay" *ngIf="travelModal">
