@@ -1,13 +1,33 @@
 <footer>
   <nav>
-    <div>&copy; {{currentYear}} grawe osiguranje -</div>
-    <div class="link">web shop</div>
-    <div class="link">uslovi korišćenja webshopa</div>
-    <div class="link">kontakt</div>
+    <div class="desktop">&copy; {{currentYear}} grawe osiguranje -</div>
+    <div class="link" [routerLink]="['/home']">web shop</div>
+    <a class="link" target="_blank" href="webshop.grawe.rs/api/files/uslovi/uslovikoriscenja.pdf" download>uslovi
+      korišćenja webshopa</a>
+    <div class="link contact" (click)="contactModal = true">kontakt</div>
   </nav>
 
-  <a href="https://www.raiffeisenbank.rs/" target="_blank" class="raiffeisen"></a>
-  <a href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html" target="_blank" class="verified-visa"></a>
-  <a href="https://www.mastercard.rs/sr-rs/consumers/find-card-products/credit-cards.html?cmp=psc.mastercard.google_sea.srb.alwayson.b2c.....gg_text.." target="_blank" class="secure-code"></a>
-  <div class="cards"></div>
+  <div class="mobile">&copy; {{currentYear}} grawe osiguranje</div>
+
+  <div class="bank-cards">
+    <a href="https://www.raiffeisenbank.rs/" target="_blank" class="raiffeisen"></a>
+    <a href="http://www.visa.ca/verified/infopane/index.html" target="_blank"
+       class="verified-visa"></a>
+    <a href="http://www.mastercardbusiness.com/mcbiz/index.jsp?template=securecodepopup" target="_blank" class="secure-code"></a>
+    <div class="cards"></div>
+  </div>
 </footer>
+
+<div class="modal-overlay" *ngIf="contactModal">
+  <div class="modal">
+    <i class="fas fa-times" (click)="contactModal = false"></i>
+    <h2>Kontakt</h2>
+
+    <div class="contact-item">GRAWE osiguranje a.d.o.</div>
+    <div class="contact-item">Bulevar Mihajla Pupina 115D</div>
+    <div class="contact-item">11070 Novi Beograd</div>
+    <div class="contact-item">Tel: +381 (0)11 2092 600</div>
+    <div class="contact-item">Fax: +381 (0)11 2092 661</div>
+    <div class="contact-item">E-mail: office.beograd@grawe.rs</div>
+  </div>
+</div>

@@ -10,20 +10,6 @@
     </p>
   </div>
 
-  <div class="step-num">.02</div>
-
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-  </div>
-
-  <button type="button" (click)="submitStep2()">sledeći korak</button>
-
   <div class="coverage-wrapper">
     <div class="coverage-box" [ngClass]="{'active': travel}">
       <div class="info" (click)="travelModal = true">
@@ -84,7 +70,7 @@
           <i class="fas fa-check"></i>
         </div>
         <div class="label strong">Otkaz Putovanja</div>
-        <div class="info-mark">
+        <div class="info-mark" (click)="cancellationModal = true">
           <i class="fas fa-info"></i>
         </div>
       </div>
@@ -118,6 +104,23 @@
       <span class="text-danger">{{ errorMessage }}</span>
     </div>
   </div>
+
+  <div class="step-num">.02</div>
+
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitStep2()">sledeći korak</button>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+  </div>
+
+  <button class="desktop" type="button" (click)="submitStep2()">sledeći korak</button>
 </div>
 
 <div class="modal-overlay" *ngIf="travelModal">
@@ -127,18 +130,18 @@
 
     <ul>
       <li>
-        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do 32 000 EUR
       </li>
       <li>
-        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do 1 500 EUR
       </li>
       <li>
         Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koja su
-        neočekivano postala akutna
+        neočekivano postala akutna. Do 1 500 EUR
       </li>
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
-        održavanja sahrane
+        održavanja sahrane. Do 5 000 EUR
       </li>
     </ul>
   </div>
@@ -151,36 +154,69 @@
 
     <ul>
       <li>
-        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do 120 000 EUR
       </li>
       <li>
-        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do 15 000 EUR
       </li>
       <li>
         Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koje su
-        neočekivano postale akutne
+        neočekivano postale akutne. Do 50 000 EUR
       </li>
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
-        održavanja sahrane
+        održavanja sahrane. Do 50 000 EUR
       </li>
       <li>
-        Troškovi spašavanja i medicinski nužnog prevoza
+        Troškovi spašavanja i medicinski nužnog prevoza. Do 22 000 EUR
       </li>
       <li>
-        Troškovi gubitka, oštećenja ili uništenja prtljaga
+        Troškovi gubitka, oštećenja ili uništenja prtljaga. Do 600 EUR
       </li>
       <li>
-        Naknada za slučaj smrt usled nezgode po osiguraniku
+        Naknada za slučaj smrt usled nezgode po osiguraniku. Do 5 000 EUR
       </li>
       <li>
-        Naknada za trajnu invalidnost usled nezgode po osiguraniku
+        Naknada za trajnu invalidnost usled nezgode po osiguraniku. Do 20 000 EUR
       </li>
       <li>
-        Troškovi zakasnelog dolaska na domaći aerodrom ili železničku stanicu pri povratki sa putovanja
+        Troškovi zakasnelog dolaska na domaći aerodrom ili železničku stanicu pri povratki sa putovanja. Do 100 %
       </li>
       <li>
-        Ostalo u skladu sa Uslovima
+        Ostalo u skladu sa Uslovima. Do 100 %
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="cancellationModal">
+  <div class="modal">
+    <i class="fas fa-times" (click)="cancellationModal = false"></i>
+    <h2>travel star pokriće</h2>
+
+    <ul>
+      <li> Ako je ugovoreno osiguranje otkaza putovanja, osiguravajuće pokriće odnosi se na:</li>
+      <li>
+        Troškove otkaza putovanja koje je osiguranik dužan da plati organizatoru putovanja, odnosno zakupodavcu u
+        slučaju otkaza putovanja do trenutka početka putovanja, a na osnovu odredbi opštih uslova putovanja
+        organizatora putovanja koji čine sastavni deo ugovora o putovanju;
+      </li>
+      <li>
+        Troškove cene neiskorišćenog dela putovanja zbog prekida putovanja ako je prekid nastao u razdoblju od
+        početka putovanja do isteka polovine (50%) ugovorenog trajanja putovanja.
+      </li>
+      <li>
+        Ugovor o osiguranju mora biti sklopljen najkasnije 14 (četrnaest) dana nakon sklapanja ugovora o putovanju,
+        a u svakom slučaju 30 (trideset) dana pre početka putovanja. Ako je do početka putovanja preostalo manje od
+        30 (trideset) dana, ugovor o osiguranju mora biti sklopljen prilikom sklapanja ugovora o putovanju.
+      </li>
+      <li>
+        Osiguravajuće pokriće počinje u 24:00 časa, onog dana koji sledi nakon dana kada je polisa izdata, a
+        prestaje danom početka putovanja.
+      </li>
+      <li>
+        Kod osiguranja zaključenih na godinu dana osiguranjem su pokrivena sva putovanja osiguranika u osiguravajućoj
+        godini, ali najviše u neprekidnom trajanju do 45 dana po pojedinačnom putovanju.
       </li>
     </ul>
   </div>

@@ -8,24 +8,9 @@
     <h2>četvrti korak</h2>
     <h1>Detalji Polise</h1>
     <p>
-      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
-      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+      U naznačena polja upišite tražene podatke i kliknite na dugme Dodaj osiguranika.
     </p>
   </div>
-
-  <div class="step-num">.04</div>
-
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-  </div>
-
-  <button type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 
   <div class="details-wrapper">
     <form [formGroup]="insuredForm">
@@ -84,4 +69,21 @@
       </div>
     </div>
   </div>
+
+  <div class="step-num">.04</div>
+
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+  </div>
+
+  <button class="desktop" type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 </div>

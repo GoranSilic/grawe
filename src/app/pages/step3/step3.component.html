@@ -6,24 +6,10 @@
     <h2>treći korak</h2>
     <h1>Podaci o ugovaraču osiguranja</h1>
     <p>
-      Odio ut enim blandit volutpat maecenas volutpat blandit. At varius vel pharetra vel turpis nunc.
-      Leo integer malesuada nunc vel risus commodo viverra maecenas.
+      U naznačena polja upišite tražene podatke i potvrdite email adresu radi verifikacije tačnog unosa.
+      Ugovarač mora biti punoletan.
     </p>
   </div>
-
-  <div class="step-num">.03</div>
-
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-  </div>
-
-  <button type="submit" (click)="submitStep3($event)">sledeći korak</button>
 
   <form [formGroup]="userForm">
     <div class="form-item">
@@ -93,4 +79,21 @@
       <span class="text-danger" *ngIf="userForm.controls['passportNumber'].hasError('maxlength') && (userForm.controls['passportNumber'].dirty || userForm.controls['passportNumber'].touched)">Maksimalno 20 karaktera.</span>
     </div>
   </form>
+
+  <div class="step-num">.03</div>
+
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitStep3($event)">sledeći korak</button>
+
+  <div class="steps">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line active"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+    <div *ngIf="type == 'family'" class="line"></div>
+  </div>
+
+  <button class="desktop" type="submit" (click)="submitStep3($event)">sledeći korak</button>
 </div>

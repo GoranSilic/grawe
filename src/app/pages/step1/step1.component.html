@@ -80,6 +80,9 @@
 
   <div class="step-num">.01</div>
 
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitFirstStep()">sledeći korak</button>
+
   <div class="steps">
     <div class="line active"></div>
     <div class="line"></div>
@@ -90,7 +93,7 @@
     <div *ngIf="type == 'family'" class="line"></div>
   </div>
 
-  <button type="button" (click)="submitFirstStep()">sledeći korak</button>
+  <button class="desktop" type="button" (click)="submitFirstStep()">sledeći korak</button>
 </div>
 
 <div class="loader-overlay" *ngIf="loader">

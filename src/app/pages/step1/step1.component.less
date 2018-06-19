@@ -61,10 +61,18 @@
     align-self: flex-end;
   }
 
+  .img-mobile {
+    display: none;
+  }
+
   button {
     order: 2;
     align-self: flex-end;
     border-top-left-radius: 0;
+
+    &.mobile {
+      display: none;
+    }
   }
 
   form {
@@ -102,6 +110,86 @@
 @media screen and (max-width: 1300px) {
   .step1-wrapper {
     width: ~"calc(100% - 100px)";
+
+    .step-num {
+      font-size: 200px;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .step1-wrapper {
+    position: relative;
+    display: table;
+    width: 90%;
+    height: auto;
+    margin: 100px auto 0;
     background: none;
+
+    .info {
+      width: 100%;
+      margin-bottom: 70px;
+    }
+
+    form {
+      position: static;
+      margin: 0 auto 70px;
+      transform: none;
+    }
+
+    .step-num {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      font-size: 150px;
+    }
+
+    .steps {
+      width: fit-content;
+      margin: 0 auto 70px;
+      clear: both;
+    }
+
+    .img-mobile {
+      position: absolute;
+      left: -95px;
+      display: block;
+      width: 169px;
+      height: 152px;
+      margin-top: -55px;
+      background: url("../../../assets/images/suitcase.png") 0 0 no-repeat;
+      background-size: contain;
+    }
+
+    button {
+      &.desktop {
+        display: none;
+      }
+
+      &.mobile {
+        display: block;
+        float: right;
+        margin-bottom: 70px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .step1-wrapper {
+    .info {
+      .light {
+        width: 70%;
+      }
+
+      p {
+        width: 100%;
+      }
+    }
+
+    .step-num {
+      top: 0;
+      font-size: 100px;
+    }
   }
 }

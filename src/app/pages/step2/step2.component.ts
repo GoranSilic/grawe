@@ -34,6 +34,7 @@ export class Step2Component implements OnInit {
   cancellation = false;
   travelModal = false;
   travelStarModal = false;
+  cancellationModal = false;
   showCancellation = false;
   errorMessage = '';
 
