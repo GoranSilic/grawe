@@ -75,7 +75,7 @@ export class AuthGuardStep4 implements CanActivate {
 
   getDataForStep4() {
     const offerModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
-    return offerModel && offerModel.tariff && offerModel.customer.emailAddress ? offerModel.customer : null;
+    return offerModel && offerModel.tariff && offerModel.customer.jmbg ? offerModel.customer : null;
   }
 }
 

@@ -67,12 +67,7 @@ export class Step4Component implements OnInit {
   }
 
   validateForm(): boolean {
-    if (!this.policyRequestModel.vkto) {
-      this.formError = 'Morate uneti šifru zastupnika preporuke.';
-      return false;
-    }
-
-    if (!this.terms) {
+     if (!this.terms) {
       this.formError = 'Morate prihvatiti uslove korišćenja.';
       return false;
     }
