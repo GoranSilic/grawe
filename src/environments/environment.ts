@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:2255/api/',
-  graweApiUrl: 'https://secure.grawe.at/r3servicersfntest/api/v1/'
+  fileUrl: 'https://webshop.grawe.rs/api/files/'
 };

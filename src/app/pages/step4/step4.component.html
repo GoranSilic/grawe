@@ -83,7 +83,7 @@
       <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms; formError = ''">
         <i class="fas fa-check"></i>
       </div>
-      <div class="label">uslovi korišćenja</div>
+      <div class="label" (click)="getTermsOfCondition()">uslovi korišćenja</div>
     </div>
     <div class="checkbox-item">
       <div class="custom-checkbox" [ngClass]="{'selected': newsletter}" (click)="newsletter = !newsletter">
@@ -92,7 +92,7 @@
       <div class="label">prijava na newsletter</div>
     </div>
     <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''; info ? getOfferId() : null">
+      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''">
         <i class="fas fa-check"></i>
       </div>
       <div class="label" (click)="downloadInfoPdf()">informacije za ugovarača osiguranja</div>

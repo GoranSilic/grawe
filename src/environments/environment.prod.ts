@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: false,
+  apiUrl: 'https://webshop.grawe.rs/api/api/',
+  fileUrl: 'https://webshop.grawe.rs/api/files/'
 };

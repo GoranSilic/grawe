@@ -12,6 +12,7 @@ export class WebShopApiService {
   private calculateTravelStarPremiumUrl = environment.apiUrl + 'WebShop/CalculateTravelStarPremium';
   private offerRequestUrl = environment.apiUrl + 'WebShop/OfferRequest';
   private proceedToPaymentUrl = environment.apiUrl + 'WebShop/ProceedToPayment';
+  private downloadFileUrl = environment.apiUrl + 'WebShop/DownloadFile';
 
   constructor(private http: HttpRequestService) {
   }
@@ -30,6 +31,10 @@ export class WebShopApiService {
 
   proceedToPayment(model: PaymentRequestModel) {
     return this.http.post(this.proceedToPaymentUrl, model, false);
+  }
+
+  downloadFile(offerId: string, fileType: number) {
+    return this.http.get(this.downloadFileUrl + '?offerId=' + offerId + '&fileType=' + fileType, false);
   }
 
 }

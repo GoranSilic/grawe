@@ -9,6 +9,7 @@ import {PolicyRequestModel} from '../../models/policy-request.model';
 import {PaymentRequestModel} from '../../models/payment-request.model';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpRequestService} from '../../services/http-request.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-step4',
@@ -42,6 +43,7 @@ export class Step4Component implements OnInit {
     if (!this.offerRequestModel) {
       this.router.navigate(['home']);
     }
+    this.getOfferId();
 
     if (this.type === 'individual') {
       this.step = 4;
@@ -95,21 +97,55 @@ export class Step4Component implements OnInit {
       );
   }
 
+  getTermsOfCondition() {
+    const fileName: string = this.offerRequestModel.tariff.productVariant === 1 ? 'Travel.pdf' : 'TravelStar.pdf';
+    const fileUrl = environment.fileUrl + 'Uslovi/' + fileName;
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.setAttribute('style', 'display: none');
+    a.setAttribute('target', '_blank');
+    a.href = fileUrl;
+    a.click();
+    a.remove();
+  }
+
   downloadInfoPdf() {
-    if (this.offerResponseModel.offerId) {
-      this.http.downloadPdf(this.offerResponseModel.offerId, '2');
-    } else {
-      this.webShopApiService.offerRequest(this.offerRequestModel)
-        .subscribe(
-          (response) => {
-            this.offerResponseModel = response;
-            this.http.downloadPdf(this.offerResponseModel.offerId, '2');
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-    }
+    this.loader = true;
+    this.webShopApiService.downloadFile(this.offerResponseModel.offerId, 2)
+      .subscribe(
+        (response) => {
+          const fileUrl = environment.fileUrl + this.offerResponseModel.offerId + '/Informacija_za_ugovaraca.pdf';
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('style', 'display: none');
+          a.setAttribute('target', '_blank');
+          a.href = fileUrl;
+          a.click();
+          a.remove();
+          this.loader = false;
+        },
+        (error) => {
+          this.loader = false;
+        }
+      );
+
+
+
+
+    // if (this.offerResponseModel.offerId) {
+    //   this.http.downloadPdf(this.offerResponseModel.offerId, '2');
+    // } else {
+    //   this.webShopApiService.offerRequest(this.offerRequestModel)
+    //     .subscribe(
+    //       (response) => {
+    //         this.offerResponseModel = response;
+    //         this.http.downloadPdf(this.offerResponseModel.offerId, '2');
+    //       },
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //     );
+    // }
   }
 
   proceedToPayment() {
