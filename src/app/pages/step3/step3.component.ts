@@ -109,6 +109,10 @@ export class Step3Component implements OnInit {
     if (this.userForm.valid && this.userForm.controls['email'].value === this.userForm.controls['confirmedEmail'].value &&
     this.userForm.controls['uid'].value.toString().length === 13 && this.isJmbgValid()) {
 
+      this.customer.firstName = JmbgHelper.convertTextToCapital(this.customer.firstName);
+      this.customer.lastName = JmbgHelper.convertTextToCapital(this.customer.lastName);
+      this.customer.address.street = JmbgHelper.convertTextToCapital(this.customer.address.street);
+      this.customer.address.town = JmbgHelper.convertTextToCapital(this.customer.address.town);
       this.customer.salutatoryAddress = JmbgHelper.getSalutatoryAddress(this.customer.jmbg);
       this.customer.address.nation = 'SRB';
 

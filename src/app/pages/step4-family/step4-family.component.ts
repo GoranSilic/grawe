@@ -144,6 +144,8 @@ export class Step4FamilyComponent implements OnInit {
       this.isJmbgValid() && this.validateMaxPersons()) {
       this.insuredPersonsError = '';
 
+      this.insuredPerson.firstName = JmbgHelper.convertTextToCapital(this.insuredPerson.firstName);
+      this.insuredPerson.lastName = JmbgHelper.convertTextToCapital(this.insuredPerson.lastName);
       this.insuredPerson.salutatoryAddress = JmbgHelper.getSalutatoryAddress(this.insuredPerson.jmbg);
       this.offerRequestModel.insuredPersons.push(this.insuredPerson);
 
@@ -170,8 +172,8 @@ export class Step4FamilyComponent implements OnInit {
       this.isJmbgValid()) {
       this.editMode = false;
       const insuredPersonFromArray: InsuredPerson = this.offerRequestModel.insuredPersons[this.currentIndexEditPerson];
-      insuredPersonFromArray.firstName = this.insuredPerson.firstName;
-      insuredPersonFromArray.lastName = this.insuredPerson.lastName;
+      insuredPersonFromArray.firstName = JmbgHelper.convertTextToCapital(this.insuredPerson.firstName);
+      insuredPersonFromArray.lastName = JmbgHelper.convertTextToCapital(this.insuredPerson.lastName);
       insuredPersonFromArray.jmbg = this.insuredPerson.jmbg;
       insuredPersonFromArray.dateOfBirth = this.insuredPerson.dateOfBirth;
       insuredPersonFromArray.passportNumber = this.insuredPerson.passportNumber;

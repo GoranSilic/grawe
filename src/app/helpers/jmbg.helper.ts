@@ -83,4 +83,9 @@ export class JmbgHelper {
 
     return Math.abs(age_dt.getUTCFullYear() - 1970);
   }
+
+  static convertTextToCapital(text: string) {
+    const newWord = text.charAt(0).toUpperCase() + text.substring(1).toLowerCase();
+    return newWord;
+  }
 }
