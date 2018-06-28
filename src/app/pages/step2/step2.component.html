@@ -130,18 +130,26 @@
 
     <ul>
       <li>
-        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do 32 000 EUR
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do
+        <ng-container *ngIf="type == 'individual'"> 32 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 62 000 EUR</ng-container>
       </li>
       <li>
-        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do 1 500 EUR
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do
+        <ng-container *ngIf="type == 'individual'"> 1 500 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 3 000 EUR</ng-container>
       </li>
       <li>
         Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koja su
-        neočekivano postala akutna. Do 1 500 EUR
+        neočekivano postala akutna. Do
+        <ng-container *ngIf="type == 'individual'"> 1 500 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 3 000 EUR</ng-container>
       </li>
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
-        održavanja sahrane. Do 5 000 EUR
+        održavanja sahrane. Do
+        <ng-container *ngIf="type == 'individual'"> 5 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 7 500 EUR</ng-container>
       </li>
     </ul>
   </div>
