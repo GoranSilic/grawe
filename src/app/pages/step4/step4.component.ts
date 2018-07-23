@@ -68,12 +68,12 @@ export class Step4Component implements OnInit {
 
   validateForm(): boolean {
      if (!this.terms) {
-      this.formError = 'Morate prihvatiti uslove korišćenja.';
+      this.formError = 'Da biste nastavili sa kupovinom, potrebno je da prihvatite uslove osiguranja.';
       return false;
     }
 
     if (!this.info) {
-      this.formError = 'Morate štiklirati informacije za ugovarača osiguranja.';
+      this.formError = 'Da biste nastavili sa kupovinom, potrebno je da prihvatite informacije za ugovarača osiguranja.';
       return false;
     }
 

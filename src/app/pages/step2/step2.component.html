@@ -131,8 +131,8 @@
     <ul>
       <li>
         Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do
-        <ng-container *ngIf="type == 'individual'"> 32 000 EUR</ng-container>
-        <ng-container *ngIf="type == 'family'"> 62 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'individual'"> 12 000/32 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 24 000/62 000 EUR</ng-container>
       </li>
       <li>
         Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do
@@ -148,8 +148,8 @@
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
         održavanja sahrane. Do
-        <ng-container *ngIf="type == 'individual'"> 5 000 EUR</ng-container>
-        <ng-container *ngIf="type == 'family'"> 7 500 EUR</ng-container>
+        <ng-container *ngIf="type == 'individual'"> 2 500/5 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 5 000/7 500 EUR</ng-container>
       </li>
     </ul>
   </div>
@@ -162,30 +162,46 @@
 
     <ul>
       <li>
-        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do 120 000 EUR
+        Troškovi ambulantnog i stacionarnog lečenja sa medicinskom repatrijacijom. Do
+        <ng-container *ngIf="type == 'individual'"> 120 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 120 000 EUR</ng-container>
       </li>
       <li>
-        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do 15 000 EUR
+        Troškovi lečenja za hronične bolesti, koje su neočekivano postale akutne. Do
+        <ng-container *ngIf="type == 'individual'"> 15 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 15 000 EUR</ng-container>
       </li>
       <li>
         Troškovi repatrijacije u zemlju prebivališta nakon završenog lečenja kod hroničnih bolesti koje su
-        neočekivano postale akutne. Do 50 000 EUR
+        neočekivano postale akutne. Do
+        <ng-container *ngIf="type == 'individual'"> 50 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 50 000 EUR</ng-container>
       </li>
       <li>
         Troškovi organizovanja sahrane u inostranstvu ili troškovi repatrijacije posmrtnih ostataka do mesta
-        održavanja sahrane. Do 50 000 EUR
+        održavanja sahrane. Do
+        <ng-container *ngIf="type == 'individual'"> 22 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 44 000 EUR</ng-container>
       </li>
       <li>
-        Troškovi spašavanja i medicinski nužnog prevoza. Do 22 000 EUR
+        Troškovi spašavanja i medicinski nužnog prevoza. Do
+        <ng-container *ngIf="type == 'individual'"> 11 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 22 000 EUR</ng-container>
       </li>
       <li>
-        Troškovi gubitka, oštećenja ili uništenja prtljaga. Do 600 EUR
+        Troškovi gubitka, oštećenja ili uništenja prtljaga. Do
+        <ng-container *ngIf="type == 'individual'"> 300 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 600 EUR</ng-container>
       </li>
       <li>
-        Naknada za slučaj smrt usled nezgode po osiguraniku. Do 5 000 EUR
+        Naknada za slučaj smrt usled nezgode po osiguraniku. Do
+        <ng-container *ngIf="type == 'individual'"> 5 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 5 000 EUR</ng-container>
       </li>
       <li>
-        Naknada za trajnu invalidnost usled nezgode po osiguraniku. Do 20 000 EUR
+        Naknada za trajnu invalidnost usled nezgode po osiguraniku. Do
+        <ng-container *ngIf="type == 'individual'"> 20 000 EUR</ng-container>
+        <ng-container *ngIf="type == 'family'"> 20 000 EUR</ng-container>
       </li>
       <li>
         Troškovi zakasnelog dolaska na domaći aerodrom ili železničku stanicu pri povratki sa putovanja. Do 100 %

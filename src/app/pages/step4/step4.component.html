@@ -8,8 +8,7 @@
     <h2 *ngIf="step == 5">peti korak</h2>
     <h1>Detalji polise</h1>
     <p>
-      Molimo Vas za proveru unetih podataka i potvrdu da ste upoznati sa uslovima osiguranja i informacijama za
-      ugovarača osiguranja. Ako Vas je na stranice web shop-a uputio zastupnik našeg osiguravajućeg društa, u
+      Prihvatanjem Uslova za osiguranje pomoći na putovanju, Opštih uslova za korišćenje web stranice i kupovine preko interneta i  Informacija za ugovarača osiguranja, potvrđujete da ste upoznati i saglasani sa njihovom sadržinom. Ako Vas je na stranice web shop-a uputio zastupnik našeg osiguravajućeg društa, u
       naznačeno polje unesite broj šifre.
     </p>
   </div>
@@ -67,23 +66,27 @@
       <div class="label">šifra zastupnika preporuke</div>
       <input class="custom-input" type="number" [(ngModel)]="policyRequestModel.vkto" (click)="formError = ''">
     </div>
+
+
     <div class="checkbox-item link">
       <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms; formError = ''">
         <i class="fas fa-check"></i>
       </div>
-      <div class="label" (click)="getTermsOfCondition()">uslovi korišćenja</div>
+      <div class="label" (click)="getTermsOfCondition()">Uslovi osiguranja i Opšti uslovi korišćenja</div>
     </div>
-    <div class="checkbox-item">
-      <div class="custom-checkbox" [ngClass]="{'selected': newsletter}" (click)="newsletter = !newsletter">
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="label">prijava na newsletter</div>
-    </div>
+
     <div class="checkbox-item link">
       <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''">
         <i class="fas fa-check"></i>
       </div>
-      <div class="label" (click)="downloadInfoPdf()">informacije za ugovarača osiguranja</div>
+      <div class="label" (click)="downloadInfoPdf()">Informacije za ugovarača osiguranja</div>
+    </div>
+
+    <div class="checkbox-item">
+      <div class="custom-checkbox" [ngClass]="{'selected': newsletter}" (click)="newsletter = !newsletter">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">Prijava na newsletter</div>
     </div>
     <div class="form-item">
       <span class="text-danger">{{ formError }}</span>
