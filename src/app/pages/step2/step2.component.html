@@ -106,21 +106,23 @@
   </div>
 
   <div class="step-num">.02</div>
-
   <div class="img-mobile"></div>
   <button class="mobile" type="button" (click)="submitStep2()">sledeći korak</button>
+  <button class="mobile back" type="button" [routerLink]="['/step1']">prethodni korak</button>
 
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
+  <div class="actions">
+    <div class="steps">
+      <div class="line"></div>
+      <div class="line active"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+    </div>
+    <button class="desktop back" type="button" [routerLink]="['/step1']">prethodni korak</button>
+    <button class="desktop" type="button" (click)="submitStep2()">sledeći korak</button>
   </div>
-
-  <button class="desktop" type="button" (click)="submitStep2()">sledeći korak</button>
 </div>
 
 <div class="modal-overlay" *ngIf="travelModal">
@@ -229,3 +231,5 @@
     </ul>
   </div>
 </div>
+
+

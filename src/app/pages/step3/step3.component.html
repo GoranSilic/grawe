@@ -1,4 +1,4 @@
-<div class="step3-wrapper">
+<!--<div class="step3-wrapper">
   <div class="info">
     <h1 class="light"><span *ngIf="type === 'individual'">Individualno</span><span
       *ngIf="type === 'family'">Porodično</span> Putno Osiguranje</h1>
@@ -24,11 +24,11 @@
       <span class="text-danger" *ngIf="userForm.controls['lastName'].hasError('required') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Prezime je obavezno.</span>
       <span class="text-danger" *ngIf="userForm.controls['lastName'].hasError('maxlength') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span></div>
     <div class="form-item">
-      <!--<div class="label">jmbg / pib</div>-->
+      &lt;!&ndash;<div class="label">jmbg / pib</div>&ndash;&gt;
       <div class="label">jmbg</div>
       <input type="text" maxlength="13" id="jmbg-input" (keyup)="showErrorsJmbg()" class="custom-input" formControlName="uid" [(ngModel)]="customer.jmbg">
       <span class="text-danger" *ngIf="userForm.controls['uid'].hasError('required') && (userForm.controls['uid'].dirty || userForm.controls['uid'].touched)">JMBG je obavezan.</span>
-      <!--<span class="text-danger" *ngIf="!userForm.controls['uid'].hasError('required') && userForm.controls['uid'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>-->
+      &lt;!&ndash;<span class="text-danger" *ngIf="!userForm.controls['uid'].hasError('required') && userForm.controls['uid'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>&ndash;&gt;
       <span class="text-danger">{{ jmbgError }}</span>
     </div>
     <div class="form-item">
@@ -96,4 +96,130 @@
   </div>
 
   <button class="desktop" type="submit" (click)="submitStep3($event)">sledeći korak</button>
+</div>-->
+
+<div class="step3-wrapper">
+  <div class="info">
+    <h1 class="light"><span *ngIf="type === 'individual'">Individualno</span><span
+      *ngIf="type === 'family'">Porodično</span> Putno Osiguranje</h1>
+    <br>
+    <h2>treći korak</h2>
+    <h1>Podaci o ugovaraču osiguranja</h1>
+    <p>
+      U naznačena polja upišite tražene podatke i potvrdite email adresu radi verifikacije tačnog unosa.
+      Ugovarač mora biti punoletan.
+    </p>
+  </div>
+
+  <form [formGroup]="userForm">
+    <div class="form-item">
+      <div class="label">ime</div>
+      <input class="custom-input" type="text" formControlName="firstName" [(ngModel)]="customer.firstName">
+      <span class="text-danger"
+            *ngIf="userForm.controls['firstName'].hasError('required') && (userForm.controls['firstName'].dirty || userForm.controls['firstName'].touched)">Ime je obavezno.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['firstName'].hasError('maxlength') && (userForm.controls['firstName'].dirty || userForm.controls['firstName'].touched)">Maksimalno 50 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <div class="label">prezime</div>
+      <input class="custom-input" type="text" formControlName="lastName" [(ngModel)]="customer.lastName">
+      <span class="text-danger"
+            *ngIf="userForm.controls['lastName'].hasError('required') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Prezime je obavezno.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['lastName'].hasError('maxlength') && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <!--<div class="label">jmbg / pib</div>-->
+      <div class="label">jmbg</div>
+      <input type="text" maxlength="13" id="jmbg-input" (keyup)="showErrorsJmbg()" class="custom-input"
+             formControlName="uid" [(ngModel)]="customer.jmbg">
+      <span class="text-danger"
+            *ngIf="userForm.controls['uid'].hasError('required') && (userForm.controls['uid'].dirty || userForm.controls['uid'].touched)">JMBG je obavezan.</span>
+      <!--<span class="text-danger" *ngIf="!userForm.controls['uid'].hasError('required') && userForm.controls['uid'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>-->
+      <span class="text-danger">{{ jmbgError }}</span>
+    </div>
+    <div class="form-item">
+      <div class="label">adresa stanovanja</div>
+      <input class="custom-input" type="text" formControlName="address" [(ngModel)]="customer.address.street">
+      <span class="text-danger"
+            *ngIf="userForm.controls['address'].hasError('required') && (userForm.controls['address'].dirty || userForm.controls['address'].touched)">Adresa stanovanja je obavezna.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['address'].hasError('maxlength') && (userForm.controls['address'].dirty || userForm.controls['address'].touched)">Maksimalno 50 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <div class="label">poštanski broj</div>
+      <input type="number" class="custom-input" formControlName="postalCode" [(ngModel)]="customer.address.zipCode">
+      <span class="text-danger"
+            *ngIf="userForm.controls['postalCode'].hasError('required') && (userForm.controls['postalCode'].dirty || userForm.controls['postalCode'].touched)">Poštanski broj je obavezan.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['postalCode'].hasError('maxlength') && (userForm.controls['postalCode'].dirty || userForm.controls['postalCode'].touched)">Maksimalno 20 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <div class="label">mesto stanovanja</div>
+      <input class="custom-input" type="text" formControlName="city" [(ngModel)]="customer.address.town">
+      <span class="text-danger"
+            *ngIf="userForm.controls['city'].hasError('required') && (userForm.controls['city'].dirty || userForm.controls['city'].touched)">Mesto je obavezno.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['city'].hasError('maxlength') && (userForm.controls['city'].dirty || userForm.controls['city'].touched)">Maksimalno 20 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <div class="label">broj telefona</div>
+      <input class="custom-input" type="text" formControlName="phoneNumber" [(ngModel)]="customer.phoneNumber">
+      <span class="text-danger"
+            *ngIf="userForm.controls['phoneNumber'].hasError('required') && (userForm.controls['phoneNumber'].dirty || userForm.controls['phoneNumber'].touched)">Broj telefona je obavezan.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['phoneNumber'].hasError('maxlength') && (userForm.controls['phoneNumber'].dirty || userForm.controls['phoneNumber'].touched)">Maksimalno 20 karaktera.</span>
+    </div>
+    <div class="form-item">
+      <div class="label">email adresa</div>
+      <input type="email" class="custom-input" formControlName="email" [(ngModel)]="customer.emailAddress">
+      <span class="text-danger"
+            *ngIf="userForm.controls['email'].hasError('required') && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">Email je obavezan.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['email'].hasError('maxlength') && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">Maksimalno 50 karaktera.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['email'].hasError('email') && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">Email nije validan.</span>
+    </div>
+    <div class="form-item long">
+      <div class="label">potvrdi email adresu</div>
+      <input type="email" class="custom-input" formControlName="confirmedEmail">
+      <span class="text-danger"
+            *ngIf="userForm.controls['confirmedEmail'].hasError('required') && (userForm.controls['confirmedEmail'].dirty || userForm.controls['confirmedEmail'].touched)">Potrebno je potvrditi email adresu.</span>
+      <span class="text-danger"
+            *ngIf="!userForm.controls['confirmedEmail'].hasError('required') && userForm.controls['confirmedEmail'].value != userForm.controls['email'].value">Email adrese nisu iste.</span>
+    </div>
+    <div class="checkbox-item">
+      <div class="custom-checkbox" [ngClass]="{'selected': insured}" (click)="togglePassportNumber()">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label">ugovarač je osigurano lice</div>
+    </div>
+    <div class="form-item long" *ngIf="insured">
+      <div class="label">unesite broj pasoša</div>
+      <input type="number" class="custom-input" formControlName="passportNumber">
+      <span class="text-danger"
+            *ngIf="userForm.controls['passportNumber'].hasError('required') && (userForm.controls['passportNumber'].dirty || userForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>
+      <span class="text-danger"
+            *ngIf="userForm.controls['passportNumber'].hasError('maxlength') && (userForm.controls['passportNumber'].dirty || userForm.controls['passportNumber'].touched)">Maksimalno 20 karaktera.</span>
+    </div>
+  </form>
+
+  <div class="step-num">.03</div>
+  <div class="img-mobile"></div>
+  <button class="mobile" type="button" (click)="submitStep3($event)">sledeći korak</button>
+  <button class="mobile back" type="button" [routerLink]="['/step2']">prethodni korak</button>
+
+  <div class="actions">
+    <div class="steps">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line active"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+    </div>
+    <button class="desktop back" type="button" [routerLink]="['/step2']">prethodni korak</button>
+    <button class="desktop" type="submit" (click)="submitStep3($event)">sledeći korak</button>
+  </div>
 </div>

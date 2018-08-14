@@ -1,3 +1,4 @@
+/*
 .step3-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -276,6 +277,312 @@
     .step-num {
       top: 0;
       font-size: 100px;
+    }
+  }
+}
+*/
+
+.step3-wrapper {
+  /*display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;*/
+  position: relative;
+  width: 80%;
+  min-height: ~"calc(85vh - 131px)";
+  //height: 70vh;
+  margin: 15vh auto 30px;
+  background: url("../../../assets/images/suitcase.png") 0 60% no-repeat;
+  background-size: 20%;
+
+  .info {
+    width: 36%;
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      //font-family: 'Gotham-Black', sans-serif;
+      font-weight: 800;
+      color: #fff;
+
+      &.light {
+        //font-family: 'Gotham-Light', sans-serif;
+        font-weight: 300;
+        opacity: .2;
+      }
+    }
+
+    h2 {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 18px;
+      //font-family: 'Gotham-Light', sans-serif;
+      font-weight: 300;
+      color: #fff;
+    }
+
+    p {
+      width: 70%;
+      line-height: 24px;
+    }
+  }
+
+  .step-num {
+    position: absolute;
+    top: -10%;
+    right: -3%;
+    font-size: 327px;
+    //font-family: 'Gotham-Thin', sans-serif;
+    font-weight: 100;
+    color: #2c9946;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+
+    .steps {
+      align-self: flex-end;
+      margin-right: auto;
+    }
+
+    button {
+      border-top-left-radius: 0;
+
+      &.back {
+        margin-right: 20px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+
+  .mobile,
+  .img-mobile {
+    display: none;
+
+    &.back {
+      margin-right: 20px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      border-top-right-radius: 0;
+    }
+  }
+
+  form {
+    /*position: fixed;
+    top: 50%;
+    left: 50%;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 617px;
+    margin: 0 auto 50px;
+    /*transform: translate(-50%, -50%);
+    z-index: 1;*/
+
+    .form-item {
+      width: 300px;
+
+      .custom-input {
+        width: 238px;
+      }
+
+      &.long {
+        flex: 0 1 100%;
+
+        .custom-input {
+          width: 555px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .step3-wrapper {
+    min-height: ~"calc(85vh - 91px)";
+    background-position: 0 70%;
+
+    .info {
+      width: 33%;
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    .step-num {
+      font-size: 260px;
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .step3-wrapper {
+    width: ~"calc(100% - 100px)";
+
+    .step-num {
+      font-size: 200px;
+    }
+
+    form {
+      width: 530px;
+
+      .form-item {
+        width: 250px;
+        margin-bottom: 8px;
+
+        .label {
+          margin-bottom: 3px;
+          font-size: 10px;
+        }
+
+        .custom-input {
+          width: 197px;
+          height: 40px;
+        }
+
+        &.long {
+          .custom-input {
+            width: 478px;
+          }
+        }
+      }
+
+      .checkbox-item {
+        .label {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .step3-wrapper {
+    .info {
+      width: 100%;
+      margin-bottom: 70px;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .step3-wrapper {
+    width: 90%;
+    margin: 100px auto 0;
+    background: none;
+
+    form {
+      position: static;
+      flex-direction: column;
+      align-items: center;
+      width: auto;
+      max-width: none;
+      margin: 0 auto 70px;
+      transform: none;
+
+      .form-item {
+        width: 300px;
+        margin-bottom: 15px;
+
+        .label {
+          margin-bottom: 7px;
+          font-size: 12px;
+        }
+
+        .custom-input {
+          width: 248px;
+          height: 45px;
+        }
+
+        &.long {
+          .custom-input {
+            width: 248px;
+          }
+        }
+      }
+
+      .checkbox-item {
+        width: 300px;
+      }
+    }
+
+    .step-num {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      font-size: 150px;
+    }
+
+    .img-mobile {
+      position: absolute;
+      left: -95px;
+      display: block;
+      width: 169px;
+      height: 152px;
+      margin-top: -55px;
+      background: url("../../../assets/images/suitcase.png") 0 0 no-repeat;
+      background-size: contain;
+    }
+
+    button {
+      &.desktop {
+        display: none;
+      }
+
+      &.mobile {
+        display: block;
+        float: right;
+        margin-bottom: 70px;
+      }
+    }
+
+    .actions {
+      clear: both;
+
+      .steps {
+        width: fit-content;
+        margin: 0 auto 70px;
+        clear: both;
+      }
+
+      .desktop {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .step3-wrapper {
+    .info {
+      .light {
+        width: 70%;
+      }
+
+      p {
+        width: 100%;
+      }
+    }
+
+    .step-num {
+      top: 0;
+      font-size: 100px;
+    }
+
+    .img-mobile {
+      display: none;
     }
   }
 }

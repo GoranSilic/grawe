@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   width: 80%;
-  height: 64vh;
+  //height: 64vh;
+  min-height: ~"calc(80vh - 101px)";
   margin: 20vh auto 0;
   background: url("../../../assets/images/landing-bck.png") top center no-repeat;
   background-size: contain;
@@ -62,7 +63,8 @@
 @media screen and (max-width: 1600px) {
   .home-wrapper {
     width: ~"calc(100% - 100px)";
-    height: ~"calc(80vh - 120px)";
+    //height: ~"calc(80vh - 120px)";
+    min-height: ~"calc(80vh - 61px)";
 
     h1 {
       font-size: 30px;

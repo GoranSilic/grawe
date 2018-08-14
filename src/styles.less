@@ -412,7 +412,8 @@ button {
     width: 92px;
     height: 100px;
     transform: translate(-50%, -50%);
-    background: url("assets/images/loader.png") 0 0 no-repeat;
+    background: url("assets/images/loader.gif") 0 0 no-repeat;
+    //background: url("assets/images/loader.png") 0 0 no-repeat;
   }
 }
 
@@ -424,7 +425,7 @@ button {
   button {
     width: 154px;
     height: 45px;
-    border-radius: 4px;
+    border-radius: 4px !important;
     letter-spacing: 1px;
     font-size: 12px;
   }
@@ -491,6 +492,14 @@ button {
     .modal {
       width: 80%;
       padding: 30px 5%;
+    }
+  }
+
+  button {
+    width: 130px;
+
+    &.back {
+      float: left !important;
     }
   }
 }
