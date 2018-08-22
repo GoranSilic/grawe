@@ -2,7 +2,9 @@
   <div class="info">
     <h1 class="light">
       <ng-container *ngIf="type == 'family'">Porodično</ng-container>
-      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>  Putno Osiguranje</h1>
+      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>
+      Putno Osiguranje
+    </h1>
     <br>
     <h2 *ngIf="step == 4">četvrti korak</h2>
     <h2 *ngIf="step == 5">peti korak</h2>
@@ -55,10 +57,13 @@
       <br>
 
       <h3>Ugovarač osiguranja</h3>
-      <div class="info-item"><span>{{ offerRequestModel.customer.firstName }} {{ offerRequestModel.customer.lastName }}</span></div>
+      <div class="info-item">
+        <span>{{ offerRequestModel.customer.firstName }} {{ offerRequestModel.customer.lastName }}</span></div>
       <div class="info-item">{{ offerRequestModel.customer.jmbg }}</div>
       <div class="info-item">{{ offerRequestModel.customer.address.street }}</div>
-      <div class="info-item">{{ offerRequestModel.customer.address.zipCode }} {{ offerRequestModel.customer.address.town }}</div>
+      <div class="info-item">{{ offerRequestModel.customer.address.zipCode }} {{ offerRequestModel.customer.address.town
+        }}
+      </div>
       <div class="info-item">{{ offerRequestModel.customer.phoneNumber }}</div>
       <div class="info-item email">{{ offerRequestModel.customer.emailAddress }}</div>
     </div>
@@ -91,21 +96,23 @@
   </div>
 
   <div class="step-num"><span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span></div>
-
   <div class="img-mobile"></div>
   <button class="mobile" (click)="proceedToPayment()">plaćanje</button>
+  <button class="mobile back" type="button" [routerLink]="['/step3']">prethodni korak</button>
 
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
-    <div class="line" [ngClass]="{'active': type == 'family'}"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
+  <div class="actions">
+    <div class="steps">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
+      <div class="line" [ngClass]="{'active': type == 'family'}"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+    </div>
+    <button class="desktop back" type="button" [routerLink]="['/step3']">prethodni korak</button>
+    <button class="desktop" (click)="proceedToPayment()">plaćanje</button>
   </div>
-
-  <button class="desktop" (click)="proceedToPayment()">plaćanje</button>
 </div>
 <div [innerHTML]="paymentForm"></div>
 

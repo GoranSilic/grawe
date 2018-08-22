@@ -79,6 +79,22 @@ button {
   }
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #000;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 .form-item {
   margin-bottom: 20px;
 
@@ -102,7 +118,7 @@ button {
     border: 1px solid rgba(255, 255, 255, .3);
     cursor: pointer;
     box-shadow: 0 2px 50px rgba(0, 0, 0, 0.15);
-    font-size: 14px;
+    font-size: 16px !important;
     //font-family: 'Gotham-Bold', sans-serif;
     font-weight: 700;
     color: #fff;
@@ -437,7 +453,6 @@ button {
       height: 45px;
       padding: 0 25px;
       box-shadow: 0 2px 40px rgba(0, 0, 0, 0.15);
-      font-size: 12px;
     }
 
     .custom-select {

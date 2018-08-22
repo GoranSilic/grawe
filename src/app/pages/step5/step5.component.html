@@ -1,9 +1,10 @@
 <div class="step5-wrapper">
   <div class="info">
     <h1 class="light">
-      <ng-container *ngIf="type == 'individual'">Individualno </ng-container>
-      <ng-container *ngIf="type == 'family'">Porodično </ng-container>
-      Putno Osiguranje</h1>
+      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>
+      <ng-container *ngIf="type == 'family'">Porodično</ng-container>
+      Putno Osiguranje
+    </h1>
     <br>
     <h2 *ngIf="type == 'individual'">peti korak</h2>
     <h2 *ngIf="type == 'family'">sedmi korak</h2>
@@ -38,14 +39,16 @@
 
   <div class="step-num"><span *ngIf="type === 'individual'">.05</span><span *ngIf="type === 'family'">.07</span></div>
 
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line" [ngClass]="{'active': type == 'family'}"></div>
+  <div class="actions">
+    <div class="steps">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+      <div *ngIf="type == 'family'" class="line" [ngClass]="{'active': type == 'family'}"></div>
+    </div>
   </div>
 </div>
 <div class="loader-overlay" *ngIf="loader">

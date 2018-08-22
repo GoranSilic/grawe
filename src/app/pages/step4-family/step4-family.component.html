@@ -2,7 +2,8 @@
   <div class="info">
     <h1 class="light">
       <ng-container *ngIf="type == 'family'">Porodično</ng-container>
-      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>  Putno Osiguranje
+      <ng-container *ngIf="type == 'individual'">Individualno</ng-container>
+      Putno Osiguranje
     </h1>
     <br>
     <h2>četvrti korak</h2>
@@ -14,44 +15,61 @@
 
   <div class="details-wrapper">
     <form [formGroup]="insuredForm">
-      <div class="form-item">
+      <!--<div class="form-item">
         <span class="text-danger">{{ insuredPersonsError }}</span>
       </div>
-      <button *ngIf="showAddButton() && !editMode"   (click)="addInsuredPerson()">+ dodaj osiguranika</button>
-      <button *ngIf="editMode"   (click)="editInsuredPerson()">izmeni osiguranika</button>
+      <button *ngIf="showAddButton() && !editMode" (click)="addInsuredPerson()">+ dodaj osiguranika</button>
+      <button *ngIf="editMode" (click)="editInsuredPerson()">izmeni osiguranika</button>
       <div class="info-label" *ngIf="type == 'family'">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
-      <div class="info-label" *ngIf="type == 'individual'">Podaci za maksimalno 1 punoletno lice</div>
+      <div class="info-label" *ngIf="type == 'individual'">Podaci za maksimalno 1 punoletno lice</div>-->
 
       <div class="form-item">
         <div class="label">ime</div>
         <input class="custom-input" formControlName="firstName" [(ngModel)]="insuredPerson.firstName">
-        <span class="text-danger" *ngIf="insuredForm.controls['firstName'].hasError('required') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Ime je obavezno.</span>
-        <span class="text-danger" *ngIf="insuredForm.controls['firstName'].hasError('maxlength') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Maksimalno 50 karaktera.</span>
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['firstName'].hasError('required') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Ime je obavezno.</span>
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['firstName'].hasError('maxlength') && (insuredForm.controls['firstName'].dirty || insuredForm.controls['firstName'].touched)">Maksimalno 50 karaktera.</span>
       </div>
       <div class="form-item">
         <div class="label">prezime</div>
         <input class="custom-input" formControlName="lastName" [(ngModel)]="insuredPerson.lastName">
-        <span class="text-danger" *ngIf="insuredForm.controls['lastName'].hasError('required') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Prezime je obavezno.</span>
-        <span class="text-danger" *ngIf="insuredForm.controls['lastName'].hasError('maxlength') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span>
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['lastName'].hasError('required') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Prezime je obavezno.</span>
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['lastName'].hasError('maxlength') && (insuredForm.controls['lastName'].dirty || insuredForm.controls['lastName'].touched)">Maksimalno 50 karaktera.</span>
       </div>
       <div class="form-item">
         <!--<div class="label">jmbg / pib</div>-->
         <div class="label">jmbg</div>
-        <input type="text" maxlength="13" class="custom-input" formControlName="jmbg" (keyup)="showDateOfBirth()" [(ngModel)]="insuredPerson.jmbg">
-        <span class="text-danger" *ngIf="insuredForm.controls['jmbg'].hasError('required') && (insuredForm.controls['jmbg'].dirty || insuredForm.controls['jmbg'].touched)">JMBG je obavezan.</span>
+        <input type="text" maxlength="13" class="custom-input" formControlName="jmbg" (keyup)="showDateOfBirth()"
+               [(ngModel)]="insuredPerson.jmbg">
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['jmbg'].hasError('required') && (insuredForm.controls['jmbg'].dirty || insuredForm.controls['jmbg'].touched)">JMBG je obavezan.</span>
         <!--<span class="text-danger" *ngIf="!insuredForm.controls['jmbg'].hasError('required') && insuredForm.controls['jmbg'].value.toString().length != 13">JMBG mora da sadrži 13 karaktera.</span>-->
         <span class="text-danger">{{ jmbgError }}</span>
       </div>
       <div class="form-item">
         <div class="label">unesite broj pasoša</div>
-        <input type="number" class="custom-input" formControlName="passportNumber" [(ngModel)]="insuredPerson.passportNumber">
-        <span class="text-danger" *ngIf="insuredForm.controls['passportNumber'].hasError('required') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>
-        <span class="text-danger" *ngIf="insuredForm.controls['passportNumber'].hasError('maxlength') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Maksimalno 20 karaktera.</span>
+        <input type="number" class="custom-input" formControlName="passportNumber"
+               [(ngModel)]="insuredPerson.passportNumber">
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['passportNumber'].hasError('required') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>
+        <span class="text-danger"
+              *ngIf="insuredForm.controls['passportNumber'].hasError('maxlength') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Maksimalno 20 karaktera.</span>
       </div>
       <div class="form-item">
         <div class="label">datum rođenja</div>
         <div class="item-value">{{ insuredPerson.dateOfBirth }}</div>
       </div>
+
+      <div class="form-item">
+        <span class="text-danger">{{ insuredPersonsError }}</span>
+      </div>
+      <button *ngIf="showAddButton() && !editMode" (click)="addInsuredPerson()">+ dodaj osiguranika</button>
+      <button *ngIf="editMode" (click)="editInsuredPerson()">izmeni osiguranika</button>
+      <div class="info-label" *ngIf="type == 'family'">Podaci za maksimalno 2 punoletna lica i 5 maloletnih lica</div>
+      <div class="info-label" *ngIf="type == 'individual'">Podaci za maksimalno 1 punoletno lice</div>
     </form>
 
     <div class="insured-people">
@@ -71,19 +89,21 @@
   </div>
 
   <div class="step-num">.04</div>
-
   <div class="img-mobile"></div>
   <button class="mobile" type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
+  <button class="mobile back" type="button" [routerLink]="['/step3']">prethodni korak</button>
 
-  <div class="steps">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line active"></div>
-    <div class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
-    <div *ngIf="type == 'family'" class="line"></div>
+  <div class="actions">
+    <div class="steps">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line active"></div>
+      <div class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+      <div *ngIf="type == 'family'" class="line"></div>
+    </div>
+    <button class="desktop back" type="button" [routerLink]="['/step3']">prethodni korak</button>
+    <button class="desktop" type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
   </div>
-
-  <button class="desktop" type="button" (click)="submitStep4InsuredPersons()">sledeći korak</button>
 </div>
