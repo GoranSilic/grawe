@@ -1,20 +1,10 @@
 .step4Family-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: space-between;
-  align-items: flex-start;
+  position: relative;
   width: 80%;
-  height: 70vh;
-  margin: 15vh auto 0;
-  background: url("../../../assets/images/suitcase.png") 0 70% no-repeat;
+  min-height: ~"calc(85vh - 131px)";
+  margin: 15vh auto 30px;
+  background: url("../../../assets/images/suitcase.png") 0 60% no-repeat;
   background-size: 20%;
-
-  &::before {
-    content: '';
-    order: 1;
-    flex-basis: 100%;
-  }
 
   .info {
     width: 36%;
@@ -50,40 +40,60 @@
   }
 
   .step-num {
+    position: absolute;
+    top: -10%;
+    right: -3%;
     font-size: 327px;
     //font-family: 'Gotham-Thin', sans-serif;
     font-weight: 100;
     color: #2c9946;
   }
 
-  .steps {
-    order: 2;
-    align-self: flex-end;
+  .actions {
+    display: flex;
+    justify-content: space-between;
+
+    .steps {
+      align-self: flex-end;
+      margin-right: auto;
+    }
+
+    button {
+      border-top-left-radius: 0;
+
+      &.back {
+        margin-right: 20px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        border-top-right-radius: 0;
+      }
+    }
   }
 
+  .mobile,
   .img-mobile {
     display: none;
-  }
 
-  button {
-    order: 2;
-    align-self: flex-end;
-    border-top-left-radius: 0;
-
-    &.mobile {
-      display: none;
+    &.back {
+      margin-right: 20px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      border-top-right-radius: 0;
     }
   }
 
   .details-wrapper {
-    position: fixed;
+    /*position: fixed;
     top: 50%;
-    left: 50%;
+    left: 50%;*/
     display: flex;
     justify-content: space-between;
     width: 632px;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    margin: 0 auto 50px;
+    /*transform: translate(-50%, -50%);
+    z-index: 1;*/
 
     form {
       display: flex;
@@ -119,9 +129,9 @@
     }
 
     .insured-people {
-      width: 230px;
-      margin-top: 111px;
-      padding: 10px 35px;
+      width: 250px;
+      margin-top: 22px;
+      padding: 10px 15px 10px 35px;
       border-radius: 5px;
       background-color: #fff;
 
@@ -143,6 +153,7 @@
           flex-wrap: wrap;
           justify-content: space-between;
           margin-bottom: 10px;
+          padding-right: 20px;
           border-bottom: 1px solid #f6f6f6;
           font-size: 14px;
           color: #000;
@@ -176,14 +187,13 @@
   }
 }
 
-@media screen and (max-width: 1700px) {
+@media screen and (max-width: 1600px) {
   .step4Family-wrapper {
-    width: ~"calc(100% - 100px)";
-    background-position: 0 90%;
-    background-size: 13%;
+    min-height: ~"calc(85vh - 91px)";
+    background-position: 0 70%;
 
     .info {
-      width: 25%;
+      width: 33%;
 
       h1 {
         font-size: 30px;
@@ -194,46 +204,34 @@
       }
     }
 
+    .details-wrapper {
+      form {
+        button {
+          width: ~"calc(100% - 12px)";
+        }
+      }
+    }
+
     .step-num {
-      font-size: 200px;
+      font-size: 260px;
     }
   }
 }
 
 @media screen and (max-width: 1300px) {
   .step4Family-wrapper {
-    .info {
-      width: 29%;
-    }
+    width: ~"calc(100% - 100px)";
+    background: none;
 
-    .details-wrapper {
-      right: 50px;
-      left: auto;
-      top: 15vh;
-      transform: none;
-
-      .form-item {
-        margin-bottom: 8px;
-
-        .label {
-          margin-bottom: 3px;
-          font-size: 10px;
-        }
-
-        .custom-input {
-          height: 40px;
-        }
-      }
+    .step-num {
+      font-size: 200px;
     }
   }
 }
 
 @media screen and (max-width: 1000px) {
   .step4Family-wrapper {
-    position: relative;
-    display: table;
     width: 90%;
-    height: auto;
     margin: 100px auto 0;
     background: none;
 
@@ -276,13 +274,6 @@
       top: 30px;
       right: 0;
       font-size: 150px;
-      z-index: -1;
-    }
-
-    .steps {
-      width: fit-content;
-      margin: 0 auto 70px;
-      clear: both;
     }
 
     .img-mobile {
@@ -297,14 +288,24 @@
     }
 
     button {
-      &.desktop {
-        display: none;
-      }
-
       &.mobile {
         display: block;
         float: right;
         margin-bottom: 70px;
+      }
+    }
+
+    .actions {
+      clear: both;
+
+      .steps {
+        width: fit-content;
+        margin: 0 auto 70px;
+        clear: both;
+      }
+
+      .desktop {
+        display: none;
       }
     }
   }
@@ -325,6 +326,10 @@
     .step-num {
       top: 0;
       font-size: 100px;
+    }
+
+    .img-mobile {
+      display: none;
     }
   }
 }
