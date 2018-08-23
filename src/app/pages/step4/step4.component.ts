@@ -175,4 +175,8 @@ export class Step4Component implements OnInit {
       }
     }
   }
+
+  goToPreviousRoute() {
+    window.history.back();
+  }
 }

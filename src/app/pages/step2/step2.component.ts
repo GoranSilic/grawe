@@ -3,7 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {CalculationResponseModel} from '../../models/calculation-response.model';
 import {WebShopApiService} from '../../services/web-shop-api.service';
-import {CalculationRequestModel} from '../../models/calculation-request.model';
+import {CalculationRequestModel, Tariff} from '../../models/calculation-request.model';
 import {StorageHelperService} from '../../services/storage-helper.service';
 import {OfferRequestModel} from '../../models/offer-request.model';
 
@@ -49,10 +49,11 @@ export class Step2Component implements OnInit {
   travelStarOption: CalculationResponseModel = new CalculationResponseModel();
 
   constructor(private route: ActivatedRoute, private webShopApiService: WebShopApiService, private router: Router) {
-    StorageHelperService.PullData('OfferRequestModel');
   }
 
   ngOnInit() {
+    const offerRequestModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
+
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
@@ -90,6 +91,28 @@ export class Step2Component implements OnInit {
     this.travelStarOption = this.calculateResponseModel.find(x => x.productVariant === 2);
 
     this.initializeDates();
+    this.initFormOnBack(offerRequestModel);
+  }
+
+  initFormOnBack(offerRequestModel: OfferRequestModel) {
+    if (offerRequestModel && offerRequestModel.tariff) {
+      this.travel = offerRequestModel.tariff.productVariant === 1;
+      this.travelStar = offerRequestModel.tariff.productVariant === 2;
+
+      if (this.travel) {
+        this.insuredFirstSum = offerRequestModel.tariff.amountInsured === 12000 || offerRequestModel.tariff.amountInsured === 24000;
+        this.insuredSecondSum = offerRequestModel.tariff.amountInsured === 32000 || offerRequestModel.tariff.amountInsured === 62000;
+      }
+
+      this.cancellation = offerRequestModel.tariff.cancellationInsurance;
+      if (this.cancellation) {
+        this.insuranceDay = new Date(offerRequestModel.tariff.bookingDate).getDate();
+        this.insuranceMonth = new Date(offerRequestModel.tariff.bookingDate).getMonth() + 1;
+        this.insuranceYear = new Date(offerRequestModel.tariff.bookingDate).getFullYear();
+        this.getPremiumForTravelStar();
+      }
+
+    }
   }
 
   // <editor-fold desc="DATEPICKER">
@@ -339,8 +362,12 @@ export class Step2Component implements OnInit {
       return;
     }
 
-    StorageHelperService.PullData('OfferRequestModel');
-    const offerModel: OfferRequestModel = new OfferRequestModel();
+
+    let offerModel: OfferRequestModel = StorageHelperService.PullData('OfferRequestModel');
+    if (!offerModel) {
+      offerModel = new OfferRequestModel();
+    }
+    offerModel.tariff = new Tariff();
     offerModel.tariff.insuranceCoverage = this.calculationRequestModel.tariff.insuranceCoverage;
     offerModel.tariff.insuranceBeginDate = this.calculationRequestModel.tariff.insuranceBeginDate;
     offerModel.tariff.insuranceEndDate = this.calculationRequestModel.tariff.insuranceEndDate;
@@ -370,6 +397,10 @@ export class Step2Component implements OnInit {
     StorageHelperService.PushData('OfferRequestModel', offerModel);
 
     this.router.navigate(['step3'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
+  }
+
+  goToPreviousRoute() {
+    window.history.back();
   }
 
 }
