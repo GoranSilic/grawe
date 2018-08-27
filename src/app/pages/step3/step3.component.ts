@@ -13,6 +13,7 @@ import {JmbgHelper} from '../../helpers/jmbg.helper';
   styleUrls: ['./step3.component.less']
 })
 export class Step3Component implements OnInit {
+  loader = false;
   insured = false;
   type: string;
   jmbgError = '';
@@ -136,6 +137,11 @@ export class Step3Component implements OnInit {
       const route: string = this.type === 'individual' && this.insured ? 'step-details' : 'step-insured-persons';
       this.router.navigate([route], { queryParams: { type: this.type}, queryParamsHandling: 'merge' });
     }
+  }
+
+  goToPreviousRoute() {
+    this.loader = true;
+    window.history.back();
   }
 
 }

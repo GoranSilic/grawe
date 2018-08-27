@@ -214,4 +214,8 @@ export class Step4FamilyComponent implements OnInit {
     StorageHelperService.PushData('OfferRequestModel', this.offerRequestModel);
     this.router.navigate(['step-details'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
   }
+
+  goToPreviousRoute() {
+    window.history.back();
+  }
 }

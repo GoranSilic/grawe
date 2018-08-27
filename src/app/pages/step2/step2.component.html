@@ -108,7 +108,7 @@
   <div class="step-num">.02</div>
   <div class="img-mobile"></div>
   <button class="mobile" type="button" (click)="submitStep2()">sledeći korak</button>
-  <button class="mobile back" type="button" [routerLink]="['/step1']">prethodni korak</button>
+  <button class="mobile back" type="button" (click)="goToPreviousRoute()">prethodni korak</button>
 
   <div class="actions">
     <div class="steps">
@@ -120,7 +120,7 @@
       <div *ngIf="type == 'family'" class="line"></div>
       <div *ngIf="type == 'family'" class="line"></div>
     </div>
-    <button class="desktop back" type="button" [routerLink]="['/step1']">prethodni korak</button>
+    <button class="desktop back" type="button" (click)="goToPreviousRoute()">prethodni korak</button>
     <button class="desktop" type="button" (click)="submitStep2()">sledeći korak</button>
   </div>
 </div>
