@@ -27,7 +27,7 @@ export class Step3Component implements OnInit {
       'firstName': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
       'lastName': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
       'uid': [null, Validators.compose([Validators.required])],
-      'address': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
+      'address': [null, Validators.compose([Validators.required, Validators.maxLength(27)])],
       'postalCode': [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
       'city': [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
       'phoneNumber': [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
@@ -112,8 +112,8 @@ export class Step3Component implements OnInit {
 
       this.customer.firstName = JmbgHelper.convertTextToCapital(this.customer.firstName);
       this.customer.lastName = JmbgHelper.convertTextToCapital(this.customer.lastName);
-      this.customer.address.street = JmbgHelper.convertTextToCapital(this.customer.address.street);
-      this.customer.address.town = JmbgHelper.convertTextToCapital(this.customer.address.town);
+      this.customer.address.street = this.customer.address.street;
+      this.customer.address.town = this.customer.address.town;
       this.customer.salutatoryAddress = JmbgHelper.getSalutatoryAddress(this.customer.jmbg);
       this.customer.address.nation = 'SRB';
 

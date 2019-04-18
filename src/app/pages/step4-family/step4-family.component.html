@@ -51,7 +51,7 @@
       </div>
       <div class="form-item">
         <div class="label">unesite broj pasoša</div>
-        <input type="number" class="custom-input" formControlName="passportNumber"
+        <input type="text" class="custom-input" formControlName="passportNumber"
                [(ngModel)]="insuredPerson.passportNumber">
         <span class="text-danger"
               *ngIf="insuredForm.controls['passportNumber'].hasError('required') && (insuredForm.controls['passportNumber'].dirty || insuredForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>

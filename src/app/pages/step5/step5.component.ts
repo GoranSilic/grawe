@@ -48,6 +48,7 @@ export class Step5Component implements OnInit {
           a.setAttribute('style', 'display: none');
           a.setAttribute('target', '_blank');
           a.href = fileUrl;
+          a.download = '';
           a.click();
           a.remove();
           this.loader = false;

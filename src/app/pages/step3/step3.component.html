@@ -44,7 +44,7 @@
       <span class="text-danger"
             *ngIf="userForm.controls['address'].hasError('required') && (userForm.controls['address'].dirty || userForm.controls['address'].touched)">Adresa stanovanja je obavezna.</span>
       <span class="text-danger"
-            *ngIf="userForm.controls['address'].hasError('maxlength') && (userForm.controls['address'].dirty || userForm.controls['address'].touched)">Maksimalno 50 karaktera.</span>
+            *ngIf="userForm.controls['address'].hasError('maxlength') && (userForm.controls['address'].dirty || userForm.controls['address'].touched)">Maksimalno 27 karaktera.</span>
     </div>
     <div class="form-item">
       <div class="label">poštanski broj</div>
@@ -96,7 +96,7 @@
     </div>
     <div class="form-item long" *ngIf="insured">
       <div class="label">unesite broj pasoša</div>
-      <input type="number" class="custom-input" formControlName="passportNumber">
+      <input type="text" class="custom-input" formControlName="passportNumber">
       <span class="text-danger"
             *ngIf="userForm.controls['passportNumber'].hasError('required') && (userForm.controls['passportNumber'].dirty || userForm.controls['passportNumber'].touched)">Broj pasoša je obavezan.</span>
       <span class="text-danger"

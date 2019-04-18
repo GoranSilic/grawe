@@ -327,6 +327,7 @@ export class Step1Component implements OnInit {
       return notification + '' + endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + '.';
     }
 
+
     return null;
   }
 

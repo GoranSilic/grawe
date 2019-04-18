@@ -11,6 +11,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpRequestService} from '../../services/http-request.service';
 import {environment} from '../../../environments/environment';
 
+
 @Component({
   selector: 'app-step4',
   templateUrl: './step4.component.html',
@@ -87,6 +88,7 @@ export class Step4Component implements OnInit {
           this.offerResponseModel = response;
         },
         (error) => {
+
           console.log(error);
         }
       );
@@ -100,6 +102,7 @@ export class Step4Component implements OnInit {
     a.setAttribute('style', 'display: none');
     a.setAttribute('target', '_blank');
     a.href = fileUrl;
+    a.download = '';
     a.click();
     a.remove();
   }
@@ -115,6 +118,7 @@ export class Step4Component implements OnInit {
           a.setAttribute('style', 'display: none');
           a.setAttribute('target', '_blank');
           a.href = fileUrl;
+          a.download = '';
           a.click();
           a.remove();
           this.loader = false;
