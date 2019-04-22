@@ -6,6 +6,7 @@
       Osiguranik može biti lice do navršenih 75 godina.
     </p>
     <button [routerLink]="['/step1']" [queryParams]="{ type: 'individual'}" queryParamsHandling="merge">kupi online</button>
+    <button [routerLink]="['/omv-step']" [queryParams]="{ type: 'individual'}" queryParamsHandling="merge" class="omv"></button>
   </div>
 
   <div class="family">
@@ -16,5 +17,6 @@
       i najviše pet maloletnih osoba koje takođe ne moraju biti u krvnom srodstvu.
     </p>
     <button [routerLink]="['/step1']" [queryParams]="{ type: 'family'}" queryParamsHandling="merge">kupi online</button>
+    <button [routerLink]="['/omv-step']" [queryParams]="{ type: 'family'}" queryParamsHandling="merge" class="omv"></button>
   </div>
 </div>

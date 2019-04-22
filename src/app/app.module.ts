@@ -25,14 +25,16 @@ import localeSrb from '@angular/common/locales/sr-Latn';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StorageHelperService} from './services/storage-helper.service';
 import {AuthGuardStep3, AuthGuardStep4, AuthGuardSuccess} from './services/auth.guard';
-import { RedirectPageComponent } from './pages/redirect-page/redirect-page.component';
+import {RedirectPageComponent} from './pages/redirect-page/redirect-page.component';
 import {SharedService} from './services/shared.service';
 import {HttpModule} from '@angular/http';
+import {OmvStepComponent} from './pages/omv-step/omv-step.component';
 
 registerLocaleData(localeSrb, 'sr-Latn');
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
+  {path: 'omv-step', component: OmvStepComponent},
   {path: 'step1', component: Step1Component},
   {
     path: 'step2/:insuranceBeginDate/:insuranceEndDate/:fullYear/:travelReason', component: Step2Component,
@@ -63,7 +65,8 @@ const appRoutes: Routes = [
     Step5Component,
     EditComponent,
     Step4FamilyComponent,
-    RedirectPageComponent
+    RedirectPageComponent,
+    OmvStepComponent
   ],
   imports: [
     BrowserModule,

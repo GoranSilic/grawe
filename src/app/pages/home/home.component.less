@@ -9,21 +9,33 @@
   background-size: contain;
 
   .individual {
-    width: 36%;
+    width: 40%;
 
     button {
+      float: left;
+      margin-right: 30px;
       border-top-left-radius: 0;
+
+      &.omv {
+        border-radius: 8px 0 8px 8px;
+        background: #fff url("../../../assets/images/omv-button.png") center no-repeat;
+      }
     }
   }
 
   .family {
-    width: 36%;
+    width: 40%;
     text-align: right;
 
     button {
       float: right;
-      margin-bottom: 30px;
+      margin-left: 30px;
       border-top-right-radius: 0;
+
+      &.omv {
+        border-radius: 0 8px 8px 8px;
+        background: #fff url("../../../assets/images/omv-button.png") center no-repeat;
+      }
     }
 
     .info {
@@ -77,6 +89,22 @@
     .individual,
     .family {
       width: 30%;
+
+      button {
+        margin-bottom: 15px;
+      }
+    }
+
+    .individual {
+      button {
+        margin-right: 15px;
+      }
+    }
+
+    .family {
+      button {
+        margin-left: 15px;
+      }
     }
   }
 }
@@ -108,6 +136,10 @@
       p {
         width: 70%;
       }
+
+      button {
+        clear: both;
+      }
     }
 
     .family {
@@ -123,7 +155,7 @@
       }
 
       button {
-        margin-bottom: 0;
+        clear: both;
       }
     }
   }
