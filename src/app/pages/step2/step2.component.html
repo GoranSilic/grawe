@@ -11,7 +11,7 @@
   </div>
 
   <div class="coverage-wrapper">
-    <div class="coverage-box" [ngClass]="{'active': travel}">
+    <div class="coverage-box" [ngClass]="{'active': travel, 'omv': true}">
       <div class="info" (click)="travelModal = true">
         <i class="fas fa-question"></i>
       </div>
@@ -47,7 +47,7 @@
         <div class="item-value">{{ secondTravelOption?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</div>
       </div>
     </div>
-    <div class="coverage-box" [ngClass]="{'active': travelStar, 'wider': cancellation}">
+    <div class="coverage-box" [ngClass]="{'active': travelStar, 'wider': cancellation, 'omv': true}">
       <div class="info" (click)="travelStarModal = true">
         <i class="fas fa-question"></i>
       </div>
