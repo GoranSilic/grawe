@@ -1,20 +1,36 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpRequestService} from './http-request.service';
-import {CalculationRequestModel} from '../models/calculation-request.model';
-import {OfferRequestModel} from '../models/offer-request.model';
-import {PaymentRequestModel} from '../models/payment-request.model';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpRequestService } from './http-request.service';
+import { CalculationRequestModel } from '../models/calculation-request.model';
+import { OfferRequestModel } from '../models/offer-request.model';
+import { PaymentRequestModel } from '../models/payment-request.model';
+import { StorageHelperService } from './storage-helper.service';
 
 @Injectable()
 export class WebShopApiService {
-
-  private calculatePremiumsUrl = environment.apiUrl + 'WebShop/CalculatePremiums';
-  private calculateTravelStarPremiumUrl = environment.apiUrl + 'WebShop/CalculateTravelStarPremium';
+  private authOmvUserUrl = environment.apiUrl + 'Omvcards';
+  private calculatePremiumsUrl =
+    environment.apiUrl + 'WebShop/CalculatePremiums';
+  private calculateTravelStarPremiumUrl =
+    environment.apiUrl + 'WebShop/CalculateTravelStarPremium';
   private offerRequestUrl = environment.apiUrl + 'WebShop/OfferRequest';
   private proceedToPaymentUrl = environment.apiUrl + 'WebShop/ProceedToPayment';
   private downloadFileUrl = environment.apiUrl + 'WebShop/DownloadFile';
 
-  constructor(private http: HttpRequestService) {
+  constructor(private http: HttpRequestService) {}
+
+  isOmvUser() {
+    const omvAuth = StorageHelperService.GetData('OmvAuth');
+    return omvAuth && omvAuth.id && omvAuth.cardId;
+  }
+
+  authOmvUser(id: string) {
+    return this.http
+      .get(`${this.authOmvUserUrl}/${id}`, false)
+      .map(response => {
+        StorageHelperService.PushData('OmvAuth', response);
+        return response;
+      });
   }
 
   calculatePremiums(model: CalculationRequestModel) {
@@ -34,7 +50,9 @@ export class WebShopApiService {
   }
 
   downloadFile(offerId: string, fileType: number) {
-    return this.http.get(this.downloadFileUrl + '?offerId=' + offerId + '&fileType=' + fileType, false);
+    return this.http.get(
+      this.downloadFileUrl + '?offerId=' + offerId + '&fileType=' + fileType,
+      false
+    );
   }
-
 }

@@ -1,31 +1,48 @@
 <div class="omv-wrapper">
   <div class="info">
-    <h1 class="light"><span *ngIf="type == 'individual'">Individualno</span><span
-      *ngIf="type == 'family'">Porodično</span> Putno Osiguranje</h1>
-    <br>
+    <h1 class="light">
+      <span *ngIf="type == 'individual'">Individualno</span
+      ><span *ngIf="type == 'family'">Porodično</span> Putno Osiguranje
+    </h1>
+    <br />
     <h2>prvi korak</h2>
     <h1>ID Kartice</h1>
     <p>
-      Na poleđini Vaše kartice nalazi se ID broj koji je potrebno uneti u polje ID Broj i klikom na dugme sledeći korak
-      obračunava se popust i umanjuje vrednost iznosa za 15% od ukupne vrednosti polise.
+      Na poleđini Vaše kartice nalazi se ID broj koji je potrebno uneti u polje
+      ID Broj i klikom na dugme sledeći korak obračunava se popust i umanjuje
+      vrednost iznosa za 15% od ukupne vrednosti polise.
     </p>
   </div>
 
-  <form action="">
+  <form [formGroup]="cardForm">
     <div class="barcode"></div>
     <div class="small-label">
-      Na poleđini Vaše kartice ispod barcode nalazi se broj koji trebate da unesete za nastavak dalje.
+      Na poleđini Vaše kartice ispod barcode nalazi se broj koji trebate da
+      unesete za nastavak dalje.
     </div>
     <div class="form-item">
       <div class="label">id broj</div>
-      <input type="text" class="custom-input">
+      <input type="text" class="custom-input" name="id" formControlName="id" />
+      <span
+        class="text-danger"
+        *ngIf="
+          cardForm.controls['id'].hasError('required') &&
+          (cardForm.controls['id'].dirty || cardForm.controls['id'].touched)
+        "
+      >
+        ID kartice je obavezan.
+      </span>
     </div>
   </form>
 
   <div class="step-num">.01</div>
   <div class="img-mobile"></div>
-  <button class="mobile" type="button" (click)="submitFirstStep()">sledeći korak</button>
-  <button class="mobile back" type="button" [routerLink]="['/home']">prethodni korak</button>
+  <button class="mobile" type="button" (click)="submitCodeForm($event)">
+    sledeći korak
+  </button>
+  <button class="mobile back" type="button" [routerLink]="['/home']">
+    prethodni korak
+  </button>
 
   <div class="actions">
     <div class="steps">
@@ -37,15 +54,15 @@
       <div *ngIf="type == 'family'" class="line"></div>
       <div *ngIf="type == 'family'" class="line"></div>
     </div>
-    <button class="desktop back" type="button" [routerLink]="['/home']">prethodni korak</button>
-    <button class="desktop" type="button" (click)="submitFirstStep()">sledeći korak</button>
+    <button class="desktop back" type="button" [routerLink]="['/home']">
+      prethodni korak
+    </button>
+    <button class="desktop" type="button" (click)="submitCodeForm($event)">
+      sledeći korak
+    </button>
   </div>
 </div>
 
 <div class="loader-overlay" *ngIf="loader">
   <div class="loader"></div>
 </div>
-
-
-
-

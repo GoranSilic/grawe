@@ -1,11 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import {CalculationResponseModel} from '../../models/calculation-response.model';
-import {WebShopApiService} from '../../services/web-shop-api.service';
-import {CalculationRequestModel, Tariff} from '../../models/calculation-request.model';
-import {StorageHelperService} from '../../services/storage-helper.service';
-import {OfferRequestModel} from '../../models/offer-request.model';
+import { CalculationResponseModel } from '../../models/calculation-response.model';
+import { WebShopApiService } from '../../services/web-shop-api.service';
+import {
+  CalculationRequestModel,
+  Tariff
+} from '../../models/calculation-request.model';
+import { StorageHelperService } from '../../services/storage-helper.service';
+import { OfferRequestModel } from '../../models/offer-request.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-step2',
@@ -48,47 +52,68 @@ export class Step2Component implements OnInit {
   secondTravelOption: CalculationResponseModel = new CalculationResponseModel();
   travelStarOption: CalculationResponseModel = new CalculationResponseModel();
 
-  constructor(private route: ActivatedRoute, private webShopApiService: WebShopApiService, private router: Router) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private webShopApiService: WebShopApiService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    const offerRequestModel: OfferRequestModel = StorageHelperService.GetData('OfferRequestModel');
+    const offerRequestModel: OfferRequestModel = StorageHelperService.GetData(
+      'OfferRequestModel'
+    );
 
     this.route.queryParams
       .filter(params => params.type)
       .subscribe(params => {
         this.type = params.type;
-        this.calculationRequestModel.tariff.insuranceCoverage = this.type === 'individual' ? 1 : 2;
+        this.calculationRequestModel.tariff.insuranceCoverage =
+          this.type === 'individual' ? 1 : 2;
       });
 
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.calculationRequestModel.tariff.insuranceBeginDate = params['insuranceBeginDate'];
-        this.calculationRequestModel.tariff.insuranceEndDate = params['insuranceEndDate'];
-        this.calculationRequestModel.tariff.fullYear = params['fullYear'];
-        this.calculationRequestModel.tariff.travelReason = params['travelReason'];
+    this.route.params.subscribe((params: Params) => {
+      this.calculationRequestModel.tariff.insuranceBeginDate =
+        params['insuranceBeginDate'];
+      this.calculationRequestModel.tariff.insuranceEndDate =
+        params['insuranceEndDate'];
+      this.calculationRequestModel.tariff.fullYear = params['fullYear'];
+      this.calculationRequestModel.tariff.travelReason = params['travelReason'];
 
-        const beginDate: string = params['insuranceBeginDate'];
-        if (beginDate) {
-          const dateOfTravel: Date = new Date(new Date(beginDate).toDateString());
-          const currentDate: Date = new Date(new Date().toDateString());
-          if (Math.ceil((dateOfTravel.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)) >= 30) {
-            this.showCancellation = true;
-          }
+      const beginDate: string = params['insuranceBeginDate'];
+      if (beginDate) {
+        const dateOfTravel: Date = new Date(new Date(beginDate).toDateString());
+        const currentDate: Date = new Date(new Date().toDateString());
+        if (
+          Math.ceil(
+            (dateOfTravel.getTime() - currentDate.getTime()) /
+              (1000 * 3600 * 24)
+          ) >= 30
+        ) {
+          this.showCancellation = true;
         }
       }
-    );
+    });
 
     this.calculateResponseModel = this.route.snapshot.data.calculationResponseModel;
 
     if (this.type === 'individual') {
-      this.firstTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 12000);
-      this.secondTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 32000);
+      this.firstTravelOption = this.calculateResponseModel.find(
+        x => x.productVariant === 1 && x.amountInsured === 12000
+      );
+      this.secondTravelOption = this.calculateResponseModel.find(
+        x => x.productVariant === 1 && x.amountInsured === 32000
+      );
     } else {
-      this.firstTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 24000);
-      this.secondTravelOption = this.calculateResponseModel.find(x => x.productVariant === 1 && x.amountInsured === 62000);
+      this.firstTravelOption = this.calculateResponseModel.find(
+        x => x.productVariant === 1 && x.amountInsured === 24000
+      );
+      this.secondTravelOption = this.calculateResponseModel.find(
+        x => x.productVariant === 1 && x.amountInsured === 62000
+      );
     }
-    this.travelStarOption = this.calculateResponseModel.find(x => x.productVariant === 2);
+    this.travelStarOption = this.calculateResponseModel.find(
+      x => x.productVariant === 2
+    );
 
     this.initializeDates();
     this.initFormOnBack(offerRequestModel);
@@ -100,29 +125,45 @@ export class Step2Component implements OnInit {
       this.travelStar = offerRequestModel.tariff.productVariant === 2;
 
       if (this.travel) {
-        this.insuredFirstSum = offerRequestModel.tariff.amountInsured === 12000 || offerRequestModel.tariff.amountInsured === 24000;
-        this.insuredSecondSum = offerRequestModel.tariff.amountInsured === 32000 || offerRequestModel.tariff.amountInsured === 62000;
+        this.insuredFirstSum =
+          offerRequestModel.tariff.amountInsured === 12000 ||
+          offerRequestModel.tariff.amountInsured === 24000;
+        this.insuredSecondSum =
+          offerRequestModel.tariff.amountInsured === 32000 ||
+          offerRequestModel.tariff.amountInsured === 62000;
       }
 
       this.cancellation = offerRequestModel.tariff.cancellationInsurance;
       if (this.cancellation) {
-        this.insuranceDay = new Date(offerRequestModel.tariff.bookingDate).getDate();
-        this.insuranceMonth = new Date(offerRequestModel.tariff.bookingDate).getMonth() + 1;
-        this.insuranceYear = new Date(offerRequestModel.tariff.bookingDate).getFullYear();
+        this.insuranceDay = new Date(
+          offerRequestModel.tariff.bookingDate
+        ).getDate();
+        this.insuranceMonth =
+          new Date(offerRequestModel.tariff.bookingDate).getMonth() + 1;
+        this.insuranceYear = new Date(
+          offerRequestModel.tariff.bookingDate
+        ).getFullYear();
         this.getPremiumForTravelStar();
       }
-
     }
   }
 
   // <editor-fold desc="DATEPICKER">
 
   initializeDates() {
-    const currentDate: Date = new Date(new Date().getTime() - 13 * 24 * 60 * 60 * 1000);
-    const maxValidDate: Date = new Date(currentDate.getTime() + 13 * 24 * 60 * 60 * 1000);
+    const currentDate: Date = new Date(
+      new Date().getTime() - 13 * 24 * 60 * 60 * 1000
+    );
+    const maxValidDate: Date = new Date(
+      currentDate.getTime() + 13 * 24 * 60 * 60 * 1000
+    );
 
     // init days
-    let daysOfMonth: number = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    let daysOfMonth: number = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    ).getDate();
     if (currentDate.getMonth() === maxValidDate.getMonth()) {
       daysOfMonth = maxValidDate.getDate();
     }
@@ -154,7 +195,9 @@ export class Step2Component implements OnInit {
   }
 
   refreshDatePicker() {
-    const minDate: number = new Date(new Date().getTime() - 13 * 24 * 60 * 60 * 1000).getTime();
+    const minDate: number = new Date(
+      new Date().getTime() - 13 * 24 * 60 * 60 * 1000
+    ).getTime();
     const maxDate: Date = new Date(minDate + 13 * 24 * 60 * 60 * 1000);
 
     // get minimum values of year, month and day
@@ -163,7 +206,10 @@ export class Step2Component implements OnInit {
     const minDay: number = new Date(minDate).getDate();
 
     // set months and days
-    if (minYear !== maxDate.getFullYear() && this.insuranceYear === maxDate.getFullYear()) {
+    if (
+      minYear !== maxDate.getFullYear() &&
+      this.insuranceYear === maxDate.getFullYear()
+    ) {
       this.monthsArray = [];
       this.daysArray = [];
       this.monthsArray.push(1);
@@ -171,8 +217,12 @@ export class Step2Component implements OnInit {
       for (let i = 1; i <= maxDate.getDate(); i++) {
         this.daysArray.push(i);
       }
-      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
-    } else if (minYear !== maxDate.getFullYear() && this.insuranceYear === minYear) {
+      this.insuranceDay =
+        this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
+    } else if (
+      minYear !== maxDate.getFullYear() &&
+      this.insuranceYear === minYear
+    ) {
       this.monthsArray = [];
       this.daysArray = [];
       this.monthsArray.push(12);
@@ -180,21 +230,38 @@ export class Step2Component implements OnInit {
       for (let i = minDay; i <= 31; i++) {
         this.daysArray.push(i);
       }
-      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : minDay;
+      this.insuranceDay =
+        this.daysArray.indexOf(this.insuranceDay) > -1
+          ? this.insuranceDay
+          : minDay;
     }
 
-    if (minMonth !== maxDate.getMonth() + 1 && this.insuranceMonth === maxDate.getMonth() + 1) {
+    if (
+      minMonth !== maxDate.getMonth() + 1 &&
+      this.insuranceMonth === maxDate.getMonth() + 1
+    ) {
       this.daysArray = [];
       for (let i = 1; i <= maxDate.getDate(); i++) {
         this.daysArray.push(i);
       }
-      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
-    } else if (minMonth !== maxDate.getMonth() + 1 && this.insuranceMonth === minMonth) {
+      this.insuranceDay =
+        this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : 1;
+    } else if (
+      minMonth !== maxDate.getMonth() + 1 &&
+      this.insuranceMonth === minMonth
+    ) {
       this.daysArray = [];
-      for (let i = minDay; i <= new Date(this.insuranceYear, this.insuranceMonth, 0).getDate(); i++) {
+      for (
+        let i = minDay;
+        i <= new Date(this.insuranceYear, this.insuranceMonth, 0).getDate();
+        i++
+      ) {
         this.daysArray.push(i);
       }
-      this.insuranceDay = this.daysArray.indexOf(this.insuranceDay) > -1 ? this.insuranceDay : minDay;
+      this.insuranceDay =
+        this.daysArray.indexOf(this.insuranceDay) > -1
+          ? this.insuranceDay
+          : minDay;
     }
   }
 
@@ -257,18 +324,25 @@ export class Step2Component implements OnInit {
     model.tariff.productVariant = 2;
     model.tariff.amountInsured = 120000;
     model.tariff.cancellationInsurance = this.cancellation;
-    model.tariff.bookingDate = this.cancellation ?
-      new Date(this.insuranceYear, this.insuranceMonth - 1, this.insuranceDay).toDateString() : null;
+    model.tariff.bookingDate = this.cancellation
+      ? new Date(
+          this.insuranceYear,
+          this.insuranceMonth - 1,
+          this.insuranceDay
+        ).toDateString()
+      : null;
+    model.tariff.discount = this.webShopApiService.isOmvUser()
+      ? environment.omvDiscount
+      : null;
 
-    this.webShopApiService.calculateTravelStarPremium(model)
-      .subscribe(
-        (response) => {
-          this.travelStarOption = response;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    this.webShopApiService.calculateTravelStarPremium(model).subscribe(
+      response => {
+        this.travelStarOption = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   toggleTravel() {
@@ -362,8 +436,9 @@ export class Step2Component implements OnInit {
       return;
     }
 
-
-    let offerModel: OfferRequestModel = StorageHelperService.PullData('OfferRequestModel');
+    let offerModel: OfferRequestModel = StorageHelperService.PullData(
+      'OfferRequestModel'
+    );
     if (!offerModel) {
       offerModel = new OfferRequestModel();
     }
@@ -375,8 +450,16 @@ export class Step2Component implements OnInit {
     offerModel.tariff.travelReason = this.calculationRequestModel.tariff.travelReason;
     offerModel.tariff.productVariant = this.travel ? 1 : 2;
     offerModel.tariff.cancellationInsurance = this.cancellation;
-    offerModel.tariff.bookingDate = this.cancellation ?
-      new Date(this.insuranceYear, this.insuranceMonth - 1, this.insuranceDay).toDateString() : null;
+    offerModel.tariff.bookingDate = this.cancellation
+      ? new Date(
+          this.insuranceYear,
+          this.insuranceMonth - 1,
+          this.insuranceDay
+        ).toDateString()
+      : null;
+    offerModel.tariff.discount = this.webShopApiService.isOmvUser()
+      ? environment.omvDiscount
+      : 0;
 
     if (this.travel) {
       if (this.insuredFirstSum) {
@@ -396,11 +479,13 @@ export class Step2Component implements OnInit {
 
     StorageHelperService.PushData('OfferRequestModel', offerModel);
 
-    this.router.navigate(['step3'], {queryParams: {type: this.type}, queryParamsHandling: 'merge'});
+    this.router.navigate(['step3'], {
+      queryParams: { type: this.type },
+      queryParamsHandling: 'merge'
+    });
   }
 
   goToPreviousRoute() {
     window.history.back();
   }
-
 }

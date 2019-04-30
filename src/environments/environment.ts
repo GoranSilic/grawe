@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:2255/api/',
-  fileUrl: 'https://webshop.grawe.rs/api/files/'
+  fileUrl: 'https://webshop.grawe.rs/api/files/',
+  omvDiscount: 15
 };
