@@ -5,18 +5,20 @@
       <ng-container *ngIf="type == 'individual'">Individualno</ng-container>
       Putno Osiguranje
     </h1>
-    <br>
+    <br />
     <h2 *ngIf="step == 4">četvrti korak</h2>
     <h2 *ngIf="step == 5">peti korak</h2>
     <h1>Detalji polise</h1>
     <p>
-      Prihvatanjem Uslova za osiguranje pomoći na putovanju, Opštih uslova za korišćenje web stranice i kupovine preko interneta i  Informacija za ugovarača osiguranja, potvrđujete da ste upoznati i saglasani sa njihovom sadržinom. Ako Vas je na stranice web shop-a uputio zastupnik našeg osiguravajućeg društa, u
-      naznačeno polje unesite broj šifre.
+      Prihvatanjem Uslova za osiguranje pomoći na putovanju, Opštih uslova za
+      korišćenje web stranice i kupovine preko interneta i Informacija za
+      ugovarača osiguranja, potvrđujete da ste upoznati i saglasani sa njihovom
+      sadržinom. Ako Vas je na stranice web shop-a uputio zastupnik našeg
+      osiguravajućeg društa, u naznačeno polje unesite broj šifre.
     </p>
   </div>
 
   <div class="details-wrapper">
-
     <div class="details-box">
       <div class="customer-box">
         <!--<button routerLink="/edit">-->
@@ -27,52 +29,99 @@
         <h3>
           <ng-container *ngIf="type == 'individual'">individualno</ng-container>
           <ng-container *ngIf="type == 'family'">porodično</ng-container>
-          <br> putno osiguranje
+          <br />
+          putno osiguranje
         </h3>
         <div class="info-item">
-          Početak osiguranja: <span>{{ offerRequestModel?.tariff?.insuranceBeginDate | date: 'dd.MM.yyyy' }}</span>
+          Početak osiguranja:
+          <span>{{
+            offerRequestModel?.tariff?.insuranceBeginDate | date: 'dd.MM.yyyy'
+          }}</span>
         </div>
         <div class="info-item">
           Trajanje: <span>{{ duration }}</span>
         </div>
         <div class="info-item">
           Svrha putovanja:
-          <span *ngIf="offerRequestModel?.tariff?.travelReason == '1'">Turističko</span>
-          <span *ngIf="offerRequestModel?.tariff?.travelReason == '2'">Poslovno</span>
-          <span *ngIf="offerRequestModel?.tariff?.travelReason == '3'">Studijsko</span>
-          <span *ngIf="offerRequestModel?.tariff?.travelReason == '4'">Privremeni rad u inostranstvu</span>
+          <span *ngIf="offerRequestModel?.tariff?.travelReason == '1'"
+            >Turističko</span
+          >
+          <span *ngIf="offerRequestModel?.tariff?.travelReason == '2'"
+            >Poslovno</span
+          >
+          <span *ngIf="offerRequestModel?.tariff?.travelReason == '3'"
+            >Studijsko</span
+          >
+          <span *ngIf="offerRequestModel?.tariff?.travelReason == '4'"
+            >Privremeni rad u inostranstvu</span
+          >
         </div>
         <div class="info-item">
-          Istek osiguranja: <span>{{ offerRequestModel?.tariff?.insuranceEndDate | date: 'dd.MM.yyyy' }}</span>
+          Istek osiguranja:
+          <span>{{
+            offerRequestModel?.tariff?.insuranceEndDate | date: 'dd.MM.yyyy'
+          }}</span>
         </div>
-        <br>
+        <br />
         <div class="info-item">
-          Pokriće: <span>{{ offerRequestModel?.tariff?.productVariant == 1 ? 'Travel' : 'Travel Star' }}</span>
+          Pokriće:
+          <span>{{
+            offerRequestModel?.tariff?.productVariant == 1
+              ? 'Travel'
+              : 'Travel Star'
+          }}</span>
         </div>
         <div class="info-item">
-          Osigurana suma: <span>{{ offerRequestModel?.tariff?.amountInsured | number:'1.2-2':'sr-Latn' }} EUR</span>
+          Osigurana suma:
+          <span
+            >{{
+              offerRequestModel?.tariff?.amountInsured
+                | number: '1.2-2':'sr-Latn'
+            }}
+            EUR</span
+          >
         </div>
         <div class="info-item">
-          Premija: <span>{{ offerRequestModel?.tariff?.premiumRsd | number:'1.2-2':'sr-Latn' }} RSD</span>
+          Premija:
+          <span
+            >{{
+              offerRequestModel?.tariff?.premiumRsd | number: '1.2-2':'sr-Latn'
+            }}
+            RSD</span
+          >
         </div>
-        <br>
+        <br />
 
         <h3>Ugovarač osiguranja</h3>
         <div class="info-item">
-          <span>{{ offerRequestModel.customer.firstName }} {{ offerRequestModel.customer.lastName }}</span></div>
-        <div class="info-item">{{ offerRequestModel.customer.jmbg }}</div>
-        <div class="info-item">{{ offerRequestModel.customer.address.street }}</div>
-        <div class="info-item">{{ offerRequestModel.customer.address.zipCode }} {{ offerRequestModel.customer.address.town
-          }}
+          <span
+            >{{ offerRequestModel.customer.firstName }}
+            {{ offerRequestModel.customer.lastName }}</span
+          >
         </div>
-        <div class="info-item">{{ offerRequestModel.customer.phoneNumber }}</div>
-        <div class="info-item email">{{ offerRequestModel.customer.emailAddress }}</div>
+        <div class="info-item">{{ offerRequestModel.customer.jmbg }}</div>
+        <div class="info-item">
+          {{ offerRequestModel.customer.address.street }}
+        </div>
+        <div class="info-item">
+          {{ offerRequestModel.customer.address.zipCode }}
+          {{ offerRequestModel.customer.address.town }}
+        </div>
+        <div class="info-item">
+          {{ offerRequestModel.customer.phoneNumber }}
+        </div>
+        <div class="info-item email">
+          {{ offerRequestModel.customer.emailAddress }}
+        </div>
       </div>
 
       <div class="insured-persons-wrapper">
         <h3>Osiguranici</h3>
         <div class="insured-person-box">
-          <div *ngFor="let person of offerRequestModel.insuredPersons" class="person">
+          <div
+            *ngFor="let person of offerRequestModel.insuredPersons"
+            class="person"
+          >
             <div class="info-item">
               <span>{{ person.firstName }} {{ person.lastName }}</span>
             </div>
@@ -92,26 +141,47 @@
 
     <div class="form-item" style="margin-right: 10px;">
       <div class="label">šifra zastupnika preporuke</div>
-      <input class="custom-input" type="number" [(ngModel)]="policyRequestModel.vkto" (click)="formError = ''">
-    </div>
-
-
-    <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': terms}" (click)="terms = !terms; formError = ''">
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="label" (click)="getTermsOfCondition()">Uslovi osiguranja i Opšti uslovi korišćenja</div>
+      <input
+        class="custom-input"
+        type="number"
+        [(ngModel)]="policyRequestModel.vkto"
+        [disabled]="omvUser"
+        (click)="formError = ''"
+      />
     </div>
 
     <div class="checkbox-item link">
-      <div class="custom-checkbox" [ngClass]="{'selected': info}" (click)="info = !info; formError = ''">
+      <div
+        class="custom-checkbox"
+        [ngClass]="{ selected: terms }"
+        (click)="terms = !terms; formError = ''"
+      >
         <i class="fas fa-check"></i>
       </div>
-      <div class="label" (click)="downloadInfoPdf()">Informacije za ugovarača osiguranja</div>
+      <div class="label" (click)="getTermsOfCondition()">
+        Uslovi osiguranja i Opšti uslovi korišćenja
+      </div>
+    </div>
+
+    <div class="checkbox-item link">
+      <div
+        class="custom-checkbox"
+        [ngClass]="{ selected: info }"
+        (click)="info = !info; formError = ''"
+      >
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="label" (click)="downloadInfoPdf()">
+        Informacije za ugovarača osiguranja
+      </div>
     </div>
 
     <div class="checkbox-item">
-      <div class="custom-checkbox" [ngClass]="{'selected': newsletter}" (click)="newsletter = !newsletter">
+      <div
+        class="custom-checkbox"
+        [ngClass]="{ selected: newsletter }"
+        (click)="newsletter = !newsletter"
+      >
         <i class="fas fa-check"></i>
       </div>
       <div class="label">Prijava na newsletter</div>
@@ -121,22 +191,28 @@
     </div>
   </div>
 
-  <div class="step-num"><span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span></div>
+  <div class="step-num">
+    <span *ngIf="step == 4">.04</span><span *ngIf="step == 5">.05</span>
+  </div>
   <div class="img-mobile"></div>
   <button class="mobile" (click)="proceedToPayment()">plaćanje</button>
-  <button class="mobile back" type="button" (click)="goToPreviousRoute()">prethodni korak</button>
+  <button class="mobile back" type="button" (click)="goToPreviousRoute()">
+    prethodni korak
+  </button>
 
   <div class="actions">
     <div class="steps">
       <div class="line"></div>
       <div class="line"></div>
       <div class="line"></div>
-      <div class="line" [ngClass]="{'active': type == 'individual'}"></div>
-      <div class="line" [ngClass]="{'active': type == 'family'}"></div>
+      <div class="line" [ngClass]="{ active: type == 'individual' }"></div>
+      <div class="line" [ngClass]="{ active: type == 'family' }"></div>
       <div *ngIf="type == 'family'" class="line"></div>
       <div *ngIf="type == 'family'" class="line"></div>
     </div>
-    <button class="desktop back" type="button" (click)="goToPreviousRoute()">prethodni korak</button>
+    <button class="desktop back" type="button" (click)="goToPreviousRoute()">
+      prethodni korak
+    </button>
     <button class="desktop" (click)="proceedToPayment()">plaćanje</button>
   </div>
 </div>
